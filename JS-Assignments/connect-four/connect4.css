@@ -1,0 +1,63 @@
+body {
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-size: 40px;
+	text-transform: uppercase;
+	text-align: center;
+	background-color: white;
+	color: black;
+}
+
+/* game board */
+#board td {
+	width: 70px;
+	height: 70px;
+	border: solid 3px black;
+	background-color: lightgrey;
+	border-radius: 50px;
+}
+
+.coin {
+	margin: 5px;
+	height: 70px;
+	width: 70px;
+
+	/* creates circle tiles */
+	border-radius: 50%;
+	border: 5px solid black;
+}
+
+#red-coin {
+	background-color: rgba(215, 21, 21, 0.721);
+}
+
+#blue-coin {
+	background-color: rgba(48, 82, 193, 0.961);
+}
+
+/* column-top is table row of clickable areas for each column */
+
+#column-top td {
+	border: dashed 3px black;
+}
+
+#column-top td:hover {
+	background-color: rgba(201, 173, 10, 0.838);
+}
+
+/* reset button */
+#reset {
+	background-color: black;
+	border: none;
+	border-radius: 5px;
+	margin-top: 50px;
+
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 15px 25px;
+	cursor: pointer;
+}
+
+#reset:hover {
+	background-color: rgb(113, 118, 123);
+}
