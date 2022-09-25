@@ -16,13 +16,10 @@ let board = []; // array of rows, each row is an array of cells  (board[y][x])
 
 const reset = document.getElementById("#reset"); // reset button
 
-window.onload = function() {
-  makeBoard();
-}
-
 // this function creates a 2d matrix by creating new arrays using the constructor: Array, and allocates memory for HEIGHT and WIDTH
 
 function makeBoard() {
+  console.log("makeBoard()");
   // here we grab the elements of height and width and put it in constructor: Array
   board = new Array(HEIGHT); // create memory to contain size 6
   for (let h = 0; h < HEIGHT; h++) { // loop through the rows
@@ -39,6 +36,7 @@ function makeBoard() {
 // The makeHtmlBoard function dynamically creates the HTML table of rows and columns, with HEIGHT num of rows, WIDTH num of columns. For each iteration in HEIGHT, a new row is generated. For that row, we loop through width to create width num of cells(columns) and append it to the row(td). When the WIDTH loop finishes, the code appends the row with the newly created table data cells to the board.
 
 function makeHtmlBoard() {
+  console.log("makeHtmlBoard()");
   // sets board to htmlBoard
   const htmlBoard = document.getElementById("board");
 
@@ -82,48 +80,45 @@ function handleClick(evt) {
   // place coin in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
+  console.log(board);
 
   // if check for win, announce which player won
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
-
-  // switch players
-  // switch currPlayer 1 <-> 2
-  // if (currPlayer === player1) {
-  //   currPlayer = 2;
-  // } else {
-  //   currPlayer = 1;
-  // }
-  // currPlayer = (currPlayer === player1) ? 2 : 1;
-  // ternary operation to switch between players - if player1, else player2
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return;
+  // coins start at bottom row of board 
+  for (let r = HEIGHT -1; r >= 0; r--) { 
+    if (board[r][x] === null) {
+      return r;
+    }
+  } // end of loop
+  
+  return null;
 }
 
 /** placeInTable: update DOM to place coin into HTML table of board */
 function placeInTable(y, x) {
-  // coins start at bottom row of board 
-  for (let r = HEIGHT -1; r >= 0; r--) { 
-    if (board[r][x] === null) {
-      board[r][x] = currPlayer;
-      break; // breaks out of loop and prevents whole row from being filled at once
-    }
-  }
+  // set element at y, x location to current player(blue or red)
+  board[y][x] = currPlayer;
+
+  // alternate between players
   let coin = document.createElement("div");
-    if (currPlayer === player1) {
-      coin.classList.add("red-coin");
-      currPlayer = player2; // alternate between players
-    }
-    else {
-      coin.classList.add("blue-coin");
-      currPlayer = player1;
-    }
+  if (currPlayer === player1) {
+    // player1 just played, now switch to player2
+    coin.classList.add("red-coin");
+    currPlayer = player2; 
+  }
+  else {
+    // player 2 just played, now switch to player1
+    coin.classList.add("blue-coin");
+    currPlayer = player1;
+  }
+
   document.getElementById("board").append(coin);
 }
 
