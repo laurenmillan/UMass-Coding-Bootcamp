@@ -5,9 +5,7 @@
  * board fills (tie)
  */
 
-let player1 = "Red";
-let player2 = "Blue";
-let currPlayer = player1; // active player: 1 or 2
+let currPlayer = 1; // active player: player 1 plays first
 
 const WIDTH = 7; // x, columns
 const HEIGHT = 6; // y, rows
@@ -40,13 +38,13 @@ function makeHtmlBoard() {
   // sets board to htmlBoard
   const htmlBoard = document.getElementById("board");
 
-  let top = document.createElement("tr");
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top"); 
-  // when eventListener hears click, we call handleClick on top row
+  // when eventListener hears click, we call handleClick on top row of board
   top.addEventListener("click", handleClick); 
 
   for (let x = 0; x < WIDTH; x++) { // loop through indices of x-axis/columns
-    let headCell = document.createElement("td"); 
+    const headCell = document.createElement("td"); 
     headCell.setAttribute("id", x); 
     top.append(headCell);  
   }
@@ -66,9 +64,9 @@ function makeHtmlBoard() {
 
 /** handleClick: handle click of column top to play coin */
 
-//define handleClick function
+// define handleClick function
 function handleClick(evt) {
-  // this extracts the id of clicked target and outputs a string. The unary operation converts the string to a integers
+  // this extracts the id of clicked target and outputs a string. The unary operation converts the string to integers
   let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
@@ -78,14 +76,15 @@ function handleClick(evt) {
   }
 
   // place coin in board and add to HTML table
-  // TODO: add line to update in-memory board
   placeInTable(y, x);
-  console.log(board);
 
-  // if check for win, announce which player won
+  // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
-  }
+  } 
+  
+  // alternate players using ternary operation
+  currPlayer = currPlayer === 1 ? 2 : 1; // basically an if else statement
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
@@ -105,21 +104,16 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // set element at y, x location to current player(blue or red)
   board[y][x] = currPlayer;
+  // we created a div and set the class to the index of the coin
+  const coin = document.createElement("div");
 
-  // alternate between players
-  let coin = document.createElement("div");
-  if (currPlayer === player1) {
-    // player1 just played, now switch to player2
-    coin.classList.add("red-coin");
-    currPlayer = player2; 
-  }
-  else {
-    // player 2 just played, now switch to player1
-    coin.classList.add("blue-coin");
-    currPlayer = player1;
-  }
+  coin.setAttribute("class", 'coin p' + `${currPlayer}`);
 
-  document.getElementById("board").append(coin);
+  // search for the element  
+  const space = document.getElementById(`${y}-${x}`);
+
+  // append the coin to the HTML table
+  space.append(coin);
 }
 
 // check for tie
@@ -134,12 +128,11 @@ function tiedGame() {
   }
   alert("Game is a Tie!");
 }
-// board[y][x].every(makeHtmlBoard)
 
 // this function announces game end
 function endGame(msg) {
   alert(msg);
-} // do we really need this function? Either you win or there's a tie
+} 
 
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -160,7 +153,7 @@ function checkForWin() {
         board[y][x] === currPlayer
     );
   }
-
+  // four different ways to win, checks four different views on board
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
       // checks for match of 4 in x-axis of columns, creates an array inside an array
@@ -172,7 +165,7 @@ function checkForWin() {
       // checks for a match of 4 in the left diagonal
       let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
-      // if there is a win in horiz, or vert, or diagDR, or diagDL, return true;
+      // locate the winner (only if there is a win in horiz, or vert, or diagDR, or diagDL)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
@@ -181,7 +174,8 @@ function checkForWin() {
 }
 
 function resetGame() {
-  document.getElementById("reset").addEventListener("click");
+  document.querySelector("#reset").addEventListener("click");
+  
 }
 
 makeBoard();

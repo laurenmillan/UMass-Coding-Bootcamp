@@ -3,41 +3,47 @@ body {
 	font-size: 40px;
 	text-transform: uppercase;
 	text-align: center;
-	background-color: white;
-	color: black;
 }
 
 /* game board */
 #board td {
-	width: 70px;
-	height: 70px;
-	border: solid 3px black;
+	width: 80px;
+	height: 80px;
+	border: 7px solid navy;
 	background-color: lightgrey;
-	border-radius: 50px;
 }
 
 .coin {
+	margin: 0;
+	height: 90px;
+	width: 90px;
 	margin: 5px;
-	height: 70px;
-	width: 70px;
-
-	/* creates circle tiles */
-	border-radius: 50%;
-	border: 5px solid black;
+	border: 7px solid black;
 }
 
-#red-coin {
+.coin.p1 {
 	background-color: rgba(215, 21, 21, 0.721);
+	margin: 0;
+	width: 85%;
+	height: 85%;
+	align-items: flex;
+	/* creates circular coins */
+	border-radius: 50%;
 }
 
-#blue-coin {
+.coin.p2 {
 	background-color: rgba(48, 82, 193, 0.961);
+	margin: 0;
+	width: 85%;
+	height: 85%;
+	border-radius: 50%;
 }
 
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
-	border: dashed 3px black;
+	border: dashed 3px navy;
+	border-radius: 50%;
 }
 
 #column-top td:hover {
