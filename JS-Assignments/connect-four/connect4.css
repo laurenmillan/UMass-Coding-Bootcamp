@@ -1,12 +1,25 @@
-body {
+.letter {
+	transition: color 500ms;
+}
+
+h1 {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-	font-size: 40px;
+	font-size: 90px;
 	text-transform: uppercase;
 	text-align: center;
 }
 
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: black;
+}
+
 /* game board */
 #board td {
+	margin: 0 auto;
 	width: 80px;
 	height: 80px;
 	border: 7px solid navy;
@@ -14,19 +27,17 @@ body {
 }
 
 .coin {
-	margin: 0;
-	height: 90px;
 	width: 90px;
-	margin: 5px;
-	border: 7px solid black;
+	height: 90px;
+	border: 2px solid black;
 }
 
 .coin.p1 {
 	background-color: rgba(215, 21, 21, 0.721);
 	margin: 0;
-	width: 85%;
-	height: 85%;
-	align-items: flex;
+	width: 98%;
+	height: 98%;
+
 	/* creates circular coins */
 	border-radius: 50%;
 }
@@ -34,8 +45,8 @@ body {
 .coin.p2 {
 	background-color: rgba(48, 82, 193, 0.961);
 	margin: 0;
-	width: 85%;
-	height: 85%;
+	width: 98%;
+	height: 98%;
 	border-radius: 50%;
 }
 
@@ -47,23 +58,24 @@ body {
 }
 
 #column-top td:hover {
-	background-color: rgba(201, 173, 10, 0.838);
+	background-color: rgb(229, 184, 11);
 }
 
 /* reset button */
 #reset {
-	background-color: black;
+	background-color: white;
 	border: none;
 	border-radius: 5px;
-	margin-top: 50px;
+	margin-top: 40px;
 
-	color: white;
+	color: black;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 15px 25px;
+	padding: 15px 15px;
 	cursor: pointer;
 }
 
 #reset:hover {
-	background-color: rgb(113, 118, 123);
+	background-color: navy;
+	color: white;
 }
