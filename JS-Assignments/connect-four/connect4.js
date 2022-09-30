@@ -17,7 +17,7 @@ const reset = document.getElementById("#reset"); // reset button
 // this function creates a 2d matrix by creating new arrays using the constructor: Array, and allocates memory for HEIGHT and WIDTH
 
 function makeBoard() {
-  console.log("makeBoard()");
+  
   // here we grab the elements of height and width and put it in constructor: Array
   board = new Array(HEIGHT); // create memory to contain size 6
   for (let h = 0; h < HEIGHT; h++) { // loop through the rows
@@ -34,7 +34,7 @@ function makeBoard() {
 // The makeHtmlBoard function dynamically creates the HTML table of rows and columns, with HEIGHT num of rows, WIDTH num of columns. For each iteration in HEIGHT, a new row is generated. For that row, we loop through width to create width num of cells(columns) and append it to the row(td). When the WIDTH loop finishes, the code appends the row with the newly created table data cells to the board.
 
 function makeHtmlBoard() {
-  console.log("makeHtmlBoard()");
+  
   // sets board to htmlBoard
   const htmlBoard = document.getElementById("board");
 
@@ -49,7 +49,6 @@ function makeHtmlBoard() {
     top.append(headCell);  
   }
   htmlBoard.append(top); // creates and appends top row to board 
-
   
   for (let y = 0; y < HEIGHT; y++) {  // loops through y-axis of rows
     const row = document.createElement("tr"); 
@@ -109,7 +108,7 @@ function placeInTable(y, x) {
 
   coin.setAttribute("class", 'coin p' + `${currPlayer}`);
 
-  // search for the element  
+  // search for the element ${y}-${x}
   const space = document.getElementById(`${y}-${x}`);
 
   // append the coin to the HTML table
@@ -133,7 +132,6 @@ function tiedGame() {
 function endGame(msg) {
   alert(msg);
 } 
-
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
