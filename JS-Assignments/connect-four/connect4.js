@@ -21,7 +21,7 @@ function makeBoard() {
   // here we grab the elements of height and width and put it in constructor: Array
   board = new Array(HEIGHT); // create memory to contain size 6
   for (let h = 0; h < HEIGHT; h++) { // loop through the rows
-    board[h] = new Array(WIDTH); // create memory to contain size 7
+    board[h] = new Array(WIDTH); // allocates memory to contain size 7
   }
   // nested loops so we can access every single element
   for (let h = 0; h < HEIGHT; h++) { // this loop populates HEIGHT/rows
@@ -79,8 +79,13 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    endGame(`Player ${currPlayer} won!`);
+    return;
   } 
+  else if (tiedGame()) {
+    alert("Game is a Tie!");
+    return;
+  }
   
   // alternate players using ternary operation
   currPlayer = currPlayer === 1 ? 2 : 1; // basically an if else statement
@@ -120,15 +125,15 @@ function placeInTable(y, x) {
 function tiedGame() {
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      if (board[y][x] === null) {
-        return; // if a single null is found, the function exits 
-      }
+      if (board[y][x] === null) // null implies spot on board is still empty and can be filled {
+        return false; // if a single null is found, the function exits 
     }
   }
-  alert("Game is a Tie!");
+  return true;
 }
 
-// this function announces game end
+
+// this function announces game end;; it's a void function
 function endGame(msg) {
   alert(msg);
 } 
@@ -169,6 +174,7 @@ function checkForWin() {
       }
     }
   }
+  return false;
 }
 
 function resetGame() {
