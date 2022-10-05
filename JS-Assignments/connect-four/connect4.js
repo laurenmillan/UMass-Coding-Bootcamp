@@ -52,12 +52,12 @@ function makeHtmlBoard() {
   
   for (let y = 0; y < HEIGHT; y++) {  // loops through y-axis of rows
     const row = document.createElement("tr"); 
-    for (let x = 0; x < WIDTH; x++) { 
+    for (let x = 0; x < WIDTH; x++) { // nested loop to search all the cells
       const cell = document.createElement("td"); 
       cell.setAttribute("id", `${y}-${x}`);  
       row.append(cell);
     }
-    htmlBoard.append(row); // appends rows to board
+    htmlBoard.append(row);
   }
 }
 
