@@ -13,20 +13,22 @@ h1 {
 	font-size: 90px;
 	text-transform: uppercase;
 	text-align: center;
+	margin-bottom: 3vh;
 }
 
 body {
+	height: 110vh;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 	background-color: black;
 }
 
 /* game board */
 #board td {
-	width: 90px;
-	height: 90px;
+	width: 75px;
+	height: 75px;
 	background-color: lightgrey;
 
 	box-shadow: 0 0 15px 5px rgb(9, 9, 175);
@@ -46,7 +48,7 @@ body {
 	height: 100%;
 	/* creates circular coins */
 	border-radius: 50%;
-	box-shadow: 0 0 15px 5px rgba(207, 44, 44, 0.721);
+	box-shadow: 0 0 3px 3px rgba(207, 44, 44, 0.721);
 }
 
 .coin.p2 {
@@ -55,7 +57,7 @@ body {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	box-shadow: 0 0 15px 5px rgba(44, 72, 163, 0.961);
+	box-shadow: 0 0 3px 3px rgba(44, 72, 163, 0.961);
 }
 
 /* column-top is table row of clickable areas for each column */
@@ -70,11 +72,11 @@ body {
 }
 
 /* reset button */
-#reset {
+button {
 	background-color: white;
 	border: none;
 	border-radius: 5px;
-	margin-top: 40px;
+	margin-top: 12px;
 
 	color: black;
 	font-size: 16px;
@@ -82,9 +84,10 @@ body {
 	padding: 12px 12px;
 	cursor: pointer;
 	box-shadow: 0 0 15px 5px rgb(9, 9, 175);
+	margin-bottom: auto;
 }
 
-#reset:hover {
+button:hover {
 	background-color: navy;
 	color: white;
 }
