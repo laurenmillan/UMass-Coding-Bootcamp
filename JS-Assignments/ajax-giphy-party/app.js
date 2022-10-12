@@ -1,4 +1,4 @@
-console.log('this works');
+// console.log('this works');
 
 async function getRandomGiph() {
 	const res = await axios.get('https://api.giphy.com/v1/gifs/trending', {
