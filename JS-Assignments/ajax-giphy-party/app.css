@@ -1,0 +1,68 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: 70px;
+	text-transform: uppercase;
+	font-family: 'Courier New', Courier, monospace;
+	color: black;
+	text-align: center;
+	margin-bottom: 3vh;
+}
+
+.giphy {
+	height: 40vh;
+	margin-bottom: 2px;
+	margin-left: 10px;
+}
+
+#search {
+	display: center;
+	border-color: black;
+	height: 42px;
+	width: 30vh;
+	border-radius: 5px;
+	margin-top: 12px;
+	padding: 12px 12px;
+	margin-bottom: auto;
+	margin-left: 55vh;
+}
+
+#searchbutton {
+	background-color: rgb(104, 103, 103);
+	border: none;
+	border-radius: 5px;
+	margin-top: 12px;
+
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 12px 12px;
+	cursor: pointer;
+	margin-bottom: auto;
+}
+
+#searchbutton:hover {
+	color: black;
+}
+
+#remove {
+	background-color: rgba(245, 78, 17, 0.872);
+	border: none;
+	border-radius: 5px;
+	margin-top: 12px;
+
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 12px 12px;
+	cursor: pointer;
+	margin-bottom: auto;
+}
+
+#remove:hover {
+	color: black;
+}
