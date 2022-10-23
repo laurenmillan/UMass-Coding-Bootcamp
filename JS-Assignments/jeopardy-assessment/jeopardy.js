@@ -28,8 +28,11 @@ const NUM_QUESTIONS_PER_CAT = 5;
  */
 
 async function getCategoryIds() {
-	let res = await axios.get('https://jservice.io/api/categories?count=100');
-	console.log(res);
+	const response = await axios.get('https://jservice.io/api/categories?count=100');
+
+	const category_ids = response.data.map((category) => category.id);
+
+	return _.sampleSize(category_ids, NUM_CATEGORIES);
 }
 
 /** Return object with data about a category:
@@ -107,15 +110,3 @@ async function setupAndStart() {}
 // TODO
 
 /** On page load, add event handler for clicking clues */
-
-// let categories = {
-//     title: response.data.title,
-//     clues: []
-// };
-
-// categories.clues = response.data.clues.map((clue) => {
-//     return {
-//         question: clue.question,
-//         answer: clue.answer
-//     };
-// });
