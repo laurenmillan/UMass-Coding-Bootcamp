@@ -17,7 +17,7 @@
 //    },
 //    ...
 //  ]
-const game = document.getElementById('game');
+
 let categories = [];
 const NUM_CATEGORIES = 6;
 const NUM_QUESTIONS_PER_CAT = 5;
@@ -30,8 +30,10 @@ const NUM_QUESTIONS_PER_CAT = 5;
 async function getCategoryIds() {
 	const response = await axios.get('https://jservice.io/api/categories?count=100');
 
+	// creates new array of category ids
 	const category_ids = response.data.map((category) => category.id);
 
+	// returns array of random category ids using Lodash sampleSize method
 	return _.sampleSize(category_ids, NUM_CATEGORIES);
 }
 
@@ -55,13 +57,24 @@ async function getCategory(catId) {
 		clues: []
 	};
 
-	category.clues = response.data.clues.map((clue) => {
-		return {
+	// sampled five random clues from clues array from the response data
+	const random_clues = _.sampleSize(response.data.clues, NUM_QUESTIONS_PER_CAT);
+	// console.log(random_clues);
+
+	// loop through random_clues array, created new object in desired format
+	for (let clue of random_clues) {
+		// reformat random clue
+		const result = {
 			question: clue.question,
-			amswer: clue.answer,
+			answer: clue.answer,
 			showing: null
 		};
-	});
+		// push result onto category clues
+		category.clues.push(result);
+	}
+
+	// console.log(response.data);
+	// console.log(category);
 
 	return category;
 }
@@ -74,7 +87,41 @@ async function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable() {}
+async function fillTable(categories, thead) {
+	let topRow = document.createElement('tr');
+	for (let category of categories) {
+		const tdata = document.createElement('td');
+		tdata.innerText = category.title;
+		topRow.append(tdata);
+	}
+	thead.append(topRow);
+
+	// let html_board = document.getElementById('game');
+	// let thead = document.createElement('thead');
+
+	// for (let row = 0; row < NUM_CATEGORIES; row++) {
+	// 	let trow = document.createElement('tr');
+	// 	let tdata = document.createElement('td');
+
+	// 	trow.append(tdata);
+	// 	thead.append(trow);
+	// }
+
+	// html_board.append(thead);
+
+	// let tbody = document.createElement('tbody');
+	// for (let row = 0; row < NUM_CATEGORIES; row++) {
+	// 	for (let col = 0; col < NUM_QUESTIONS_PER_CAT; col++) {
+	// 		let tdata = document.createElement('td');
+	// 		let text = document.createTextNode('?');
+
+	// 		tdata.append(text);
+	// 		tbody.append(tdata);
+	// 	}
+	// }
+
+	// html_board.append(tbody);
+}
 
 /** Handle clicking on a clue: show the question or answer.
  *
@@ -103,10 +150,13 @@ function hideLoadingView() {}
  * - create HTML table
  * */
 
-async function setupAndStart() {}
+// async function setupAndStart() {
+// 	fillTable();
+// }
 
 /** On click of start / restart button, set up game. */
 
 // TODO
+// setupAndStart();
 
 /** On page load, add event handler for clicking clues */
