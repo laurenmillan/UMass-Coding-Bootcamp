@@ -21,6 +21,7 @@
 let categories = [];
 const NUM_CATEGORIES = 6;
 const NUM_QUESTIONS_PER_CAT = 5;
+const game = document.getElementById('game');
 
 /** Get NUM_CATEGORIES random category from API.
  *
@@ -73,8 +74,8 @@ async function getCategory(catId) {
 		category.clues.push(result);
 	}
 
-	// console.log(response.data);
-	// console.log(category);
+	console.log(response.data);
+	console.log(category);
 
 	return category;
 }
@@ -87,40 +88,11 @@ async function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable(categories, thead) {
-	let topRow = document.createElement('tr');
-	for (let category of categories) {
-		const tdata = document.createElement('td');
-		tdata.innerText = category.title;
-		topRow.append(tdata);
-	}
-	thead.append(topRow);
-
-	// let html_board = document.getElementById('game');
-	// let thead = document.createElement('thead');
-
-	// for (let row = 0; row < NUM_CATEGORIES; row++) {
-	// 	let trow = document.createElement('tr');
-	// 	let tdata = document.createElement('td');
-
-	// 	trow.append(tdata);
-	// 	thead.append(trow);
-	// }
-
-	// html_board.append(thead);
-
-	// let tbody = document.createElement('tbody');
-	// for (let row = 0; row < NUM_CATEGORIES; row++) {
-	// 	for (let col = 0; col < NUM_QUESTIONS_PER_CAT; col++) {
-	// 		let tdata = document.createElement('td');
-	// 		let text = document.createTextNode('?');
-
-	// 		tdata.append(text);
-	// 		tbody.append(tdata);
-	// 	}
-	// }
-
-	// html_board.append(tbody);
+async function fillTable() {
+	const table = document.createElement('table');
+	table.append(thead());
+	table.classList.add('game');
+	document.body.append(table);
 }
 
 /** Handle clicking on a clue: show the question or answer.
@@ -150,13 +122,29 @@ function hideLoadingView() {}
  * - create HTML table
  * */
 
-// async function setupAndStart() {
-// 	fillTable();
-// }
+async function setupAndStart() {
+	// get random category Ids
+	const random_category_ids = await getCategoryIds();
+	for (let id of random_category_ids) {
+		// get category for each id
+		const category = await getCategory(id);
+		// push category onto main data structure categories
+		categories.push(category);
+	}
+	// console.log(categories);
+
+	fillTable();
+}
 
 /** On click of start / restart button, set up game. */
+const reset = document.getElementById('reset');
+reset.addEventListener('click', () => {
+	categories = [];
+	setupAndStart();
+	console.log(categories);
+});
 
 // TODO
-// setupAndStart();
+setupAndStart();
 
 /** On page load, add event handler for clicking clues */
