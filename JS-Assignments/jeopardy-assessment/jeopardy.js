@@ -18,21 +18,22 @@
 //    ...
 //  ]
 
-let categories = [];
+let categories = []; // main data structure for game
 const NUM_CATEGORIES = 6;
 const NUM_QUESTIONS_PER_CAT = 5;
 const game = document.getElementById('game');
 
-/** Get NUM_CATEGORIES random category from API.
- *
- * Returns array of category ids
+/** Get NUM_CATEGORIES random category from API
  */
 
+// returns array of six random category ids
 async function getCategoryIds() {
 	const response = await axios.get('https://jservice.io/api/categories?count=100');
 
 	// creates new array of category ids
 	const category_ids = response.data.map((category) => category.id);
+
+	// console.log(_.sampleSize(category_ids, NUM_CATEGORIES));
 
 	// returns array of random category ids using Lodash sampleSize method
 	return _.sampleSize(category_ids, NUM_CATEGORIES);
@@ -50,6 +51,7 @@ async function getCategoryIds() {
  *   ]
  */
 
+// returns object with data about a category, then samples five random clues
 async function getCategory(catId) {
 	const response = await axios.get(`https://jservice.io/api/category?id=${catId}`);
 
@@ -74,8 +76,8 @@ async function getCategory(catId) {
 		category.clues.push(result);
 	}
 
-	console.log(response.data);
-	console.log(category);
+	// console.log(response.data);
+	// console.log(category);
 
 	return category;
 }
@@ -88,11 +90,41 @@ async function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
+// dynamically creates HTML game board
 async function fillTable() {
-	const table = document.createElement('table');
-	table.append(thead());
-	table.classList.add('game');
-	document.body.append(table);
+	const table = document.getElementById('game');
+	const top = document.createElement('thead');
+	const body = document.createElement('tbody');
+
+	top.setAttribute('id', 'column-top');
+
+	for (let x = 0; x < NUM_CATEGORIES; x++) {
+		const cells = document.createElement('td');
+		cells.setAttribute('id', `cell-${x}`);
+
+		let id = categories[x].title;
+
+		cells.innerHTML = categories[x].title;
+		top.append(cells);
+	}
+	for (y = 0; y < NUM_QUESTIONS_PER_CAT; y++) {
+		const row = document.createElement('tr');
+		row.setAttribute('id', `row-${y}`);
+		body.append(row);
+
+		for (let x = 0; x < NUM_CATEGORIES; x++) {
+			const questions = document.createElement('td');
+			questions.setAttribute('id', `question-${x}`);
+			let id = categories[x].title;
+
+			questions.innerHTML = categories[x]?.clues[y]?.question ?? '';
+			row.append(questions);
+			// console.log(categories);
+		}
+	}
+
+	table.append(top);
+	table.append(body);
 }
 
 /** Handle clicking on a clue: show the question or answer.
@@ -103,7 +135,10 @@ async function fillTable() {
  * - if currently "answer", ignore click
  * */
 
-function handleClick(evt) {}
+function handleClick(evt) {
+	body.addEventListener('click', handleClick);
+	// console.log('clicked');
+}
 
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
@@ -140,8 +175,8 @@ async function setupAndStart() {
 const reset = document.getElementById('reset');
 reset.addEventListener('click', () => {
 	categories = [];
-	setupAndStart();
-	console.log(categories);
+	// setupAndStart();
+	console.log('clicked button');
 });
 
 // TODO
