@@ -34,8 +34,6 @@ async function getCategoryIds() {
 	// creates new array of category ids
 	const category_ids = response.data.map((category) => category.id);
 
-	// console.log(_.sampleSize(category_ids, NUM_CATEGORIES));
-
 	// returns array of random category ids using Lodash sampleSize method
 	return _.sampleSize(category_ids, NUM_CATEGORIES);
 }
@@ -76,10 +74,6 @@ async function getCategory(catId) {
 		// push result onto category clues
 		category.clues.push(result);
 	}
-
-	// console.log(response.data);
-	// console.log(category);
-
 	return category;
 }
 
@@ -136,12 +130,6 @@ async function fillTable() {
  * */
 
 function handleClick(evt) {
-	// console.log(evt);
-	// console.log('Category ', evt.target.cellIndex);
-	// console.log('Question ', +evt.target.id);
-	// evt.target.innerHTML = 'hi';
-	// console.log(evt.target.innerHTML);
-
 	const cat_id = evt.target.cellIndex;
 	const ques_id = +evt.target.id;
 	const clue = categories[cat_id].clues[ques_id];
@@ -158,16 +146,6 @@ function handleClick(evt) {
 	// textDisplay.innerHTML = this.getAttribute('question');
 	// this.append(textDisplay);
 }
-
-/** Wipe the current Jeopardy board, show the loading spinner,
- * and update the button used to fetch data.
- */
-
-function showLoadingView() {}
-
-/** Remove the loading spinner and update the button used to fetch data. */
-
-function hideLoadingView() {}
 
 /** Start game:
  *
@@ -193,50 +171,26 @@ async function setupAndStart() {
 /** On click of start / restart button, set up game. */
 const reset = document.getElementById('reset');
 reset.addEventListener('click', () => {
+	// console.log('clicked button');
+	// categories = [];
+	// let table = document.getElementById('game');
+	// console.log(table);
+	// let head = document.getElementById('column-top');
+	// console.log('td');
+	// table.deleteRow('td');
+	// let table = document.querySelector('table');
+	// console.log(table);
+	// let head = document.querySelector('thead');
+	// console.log(head);
+	// // let body = document.querySelector('tbody');
+	// table.remove(head);
+	// // table.remove(body);
+	// console.log(document.querySelector('table'));
+	// setupAndStart();
 	// let rows = document.querySelector('td');
 	// let table = document.querySelector('table');
 	// table.remove(rows);
-	// categories = [];
-	// setupAndStart();
-	// fillTable();
-	console.log('clicked button');
 });
 
 // TODO
 setupAndStart();
-
-/** On page load, add event handler for clicking clues */
-
-// const table = document.getElementById('game');
-// const top = document.createElement('thead');
-// const body = document.createElement('tbody');
-
-// top.setAttribute('id', 'column-top');
-
-// for (let x = 0; x < NUM_CATEGORIES; x++) {
-// 	const cells = document.createElement('td');
-// 	cells.setAttribute('id', `cell-${x}`);
-
-// 	//let id = categories[x].title;
-
-// 	cells.innerHTML = categories[x].title;
-// 	top.append(cells);
-// }
-
-// for (y = 0; y < NUM_QUESTIONS_PER_CAT; y++) {
-// 	const row = document.createElement('tr');
-// 	row.setAttribute('id', `row-${y}`);
-// 	body.append(row);
-
-// 	row.addEventListener('click', handleClick);
-
-// 	for (let x = 0; x < NUM_CATEGORIES; x++) {
-// 		const questions = document.createElement('td');
-// 		questions.setAttribute('id', `question-${x}`);
-
-// 		// let id = categories[x].title;
-// 		//questions.innerHTML = categories[x]?.clues[y]?.question ?? '';
-
-// 		row.append(questions);
-// 	}
-// }

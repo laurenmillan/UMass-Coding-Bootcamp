@@ -34,10 +34,10 @@ body {
 	/* position: relative; */
 }
 
-/* #game td:hover {
+#game td:hover {
 	background-color: #115ff4;
 	cursor: pointer;
-} */
+}
 
 /* restart button */
 #reset {
