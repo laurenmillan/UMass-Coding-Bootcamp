@@ -73,6 +73,7 @@ async function getCategory(catId) {
 		// push result onto category clues
 		category.clues.push(result);
 	}
+
 	return category;
 }
 
@@ -90,13 +91,10 @@ async function fillTable() {
 	const top = document.createElement('thead');
 	const body = document.createElement('tbody');
 
-	top.setAttribute('id', 'column-top');
-
 	// Head
 	for (let x = 0; x < NUM_CATEGORIES; x++) {
 		const cell = document.createElement('td');
 		cell.setAttribute('id', `cell-${x}`);
-
 		cell.innerHTML = categories[x].title;
 		top.append(cell);
 	}
@@ -154,6 +152,11 @@ function handleClick(evt) {
  * */
 
 async function setupAndStart() {
+	await populateCategories();
+	fillTable();
+}
+
+async function populateCategories() {
 	// get random category Ids
 	const random_category_ids = await getCategoryIds();
 	for (let id of random_category_ids) {
@@ -162,17 +165,40 @@ async function setupAndStart() {
 		// push category onto main data structure categories
 		categories.push(category);
 	}
-	// console.log(categories);
+}
 
-	fillTable();
+async function updateGame() {
+	categories = [];
+	await populateCategories();
+	//console.log(categories);
+
+	let top = document.querySelector('thead');
+
+	let cell = top.firstChild;
+	for (let i = 0; i < NUM_CATEGORIES; i++) {
+		cell.innerHTML = categories[i].title;
+		cell = cell.nextSibling;
+	}
+
+	let body = document.querySelector('tbody');
+	console.log(body);
+
+	row = body.firstChild;
+	while (row) {
+		col = row.firstChild;
+		while (col) {
+			col.innerHTML = '?';
+			col = col.nextSibling;
+		}
+		row = row.nextSibling;
+	}
 }
 
 /** On click of start / restart button, set up game. */
 const reset = document.getElementById('reset');
 reset.addEventListener('click', () => {
-	const table = document.getElementById('game');
-	while (table.firstChild) table.removeChild(table.firstChild);
-	setupAndStart();
+	updateGame();
 });
 
+// On start up the categories are populated and the html table is dynamically createds
 setupAndStart();
