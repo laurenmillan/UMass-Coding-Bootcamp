@@ -173,24 +173,6 @@ reset.addEventListener('click', () => {
 	const table = document.getElementById('game');
 	while (table.firstChild) table.removeChild(table.firstChild);
 	setupAndStart();
-	categories = [];
-
-	// console.log('clicked button');
-
-	// let table = document.getElementById('game');
-	// console.log(table);
-	// let head = document.getElementById('column-top');
-	// console.log('td');
-	// table.deleteRow('td');
-	// let table = document.querySelector('table');
-	// console.log(table);
-	// let head = document.querySelector('thead');
-	// console.log(head);
-	// // let body = document.querySelector('tbody');
-	// table.remove(head);
-	// // table.remove(body);
-	// console.log(document.querySelector('table'));
-	// setupAndStart();
 });
 
 setupAndStart();
