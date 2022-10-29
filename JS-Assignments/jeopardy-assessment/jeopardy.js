@@ -23,8 +23,7 @@ const NUM_CATEGORIES = 6;
 const NUM_QUESTIONS_PER_CAT = 5;
 const game = document.getElementById('game');
 
-/** Get NUM_CATEGORIES random category from API
- */
+/** Get NUM_CATEGORIES random category from API*/
 
 // returns array of six random category ids
 async function getCategoryIds() {
@@ -127,9 +126,12 @@ async function fillTable() {
  * */
 
 function handleClick(evt) {
-	const cat_id = evt.target.cellIndex;
-	const ques_id = +evt.target.id;
-	const clue = categories[cat_id].clues[ques_id];
+	const cat_id = evt.target.cellIndex; // int
+	const ques_id = +evt.target.id; // int
+	const clue = categories[cat_id].clues[ques_id]; // object
+
+	/* initially the cells in td are null, user clicks, question appears, 
+	user clicks, answer appears **/
 
 	if (clue.showing === null) {
 		evt.target.innerHTML = clue.question;
@@ -138,10 +140,7 @@ function handleClick(evt) {
 		evt.target.innerHTML = clue.answer;
 		clue.showing = 'answer';
 	}
-
-	// const textDisplay = document.createElement('div');
-	// textDisplay.innerHTML = this.getAttribute('question');
-	// this.append(textDisplay);
+	// console.log(evt); // debug
 }
 
 /** Start game:
@@ -167,13 +166,13 @@ async function populateCategories() {
 	}
 }
 
+/* this function udpates thead and tbody after user clicks the Reset button, and 
+* randomizes the categories and sets tbody cells back to ('?') **/
 async function updateGame() {
 	categories = [];
 	await populateCategories();
-	//console.log(categories);
 
 	let top = document.querySelector('thead');
-
 	let cell = top.firstChild;
 	for (let i = 0; i < NUM_CATEGORIES; i++) {
 		cell.innerHTML = categories[i].title;
@@ -181,8 +180,6 @@ async function updateGame() {
 	}
 
 	let body = document.querySelector('tbody');
-	console.log(body);
-
 	row = body.firstChild;
 	while (row) {
 		col = row.firstChild;
@@ -200,5 +197,5 @@ reset.addEventListener('click', () => {
 	updateGame();
 });
 
-// On start up the categories are populated and the html table is dynamically createds
+// On start up, the categories are populated and the html table is dynamically created
 setupAndStart();
