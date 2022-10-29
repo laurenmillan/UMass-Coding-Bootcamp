@@ -5,7 +5,7 @@
 }
 
 h1 {
-	font-size: 4rem;
+	font-size: 100px;
 	-webkit-text-stroke: 2px #060ce9;
 	font-style: oblique;
 }
@@ -31,7 +31,6 @@ body {
 	border-spacing: 60px;
 	padding: 10px;
 	border: solid 2px white;
-	/* position: relative; */
 }
 
 #game td:hover {

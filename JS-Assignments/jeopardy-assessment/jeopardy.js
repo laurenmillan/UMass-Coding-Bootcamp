@@ -61,7 +61,6 @@ async function getCategory(catId) {
 
 	// sampled five random clues from clues array from the response data
 	const random_clues = _.sampleSize(response.data.clues, NUM_QUESTIONS_PER_CAT);
-	// console.log(random_clues);
 
 	// loop through random_clues array, created new object in desired format
 	for (let clue of random_clues) {
@@ -171,8 +170,13 @@ async function setupAndStart() {
 /** On click of start / restart button, set up game. */
 const reset = document.getElementById('reset');
 reset.addEventListener('click', () => {
+	const table = document.getElementById('game');
+	while (table.firstChild) table.removeChild(table.firstChild);
+	setupAndStart();
+	categories = [];
+
 	// console.log('clicked button');
-	// categories = [];
+
 	// let table = document.getElementById('game');
 	// console.log(table);
 	// let head = document.getElementById('column-top');
@@ -187,10 +191,6 @@ reset.addEventListener('click', () => {
 	// // table.remove(body);
 	// console.log(document.querySelector('table'));
 	// setupAndStart();
-	// let rows = document.querySelector('td');
-	// let table = document.querySelector('table');
-	// table.remove(rows);
 });
 
-// TODO
 setupAndStart();
