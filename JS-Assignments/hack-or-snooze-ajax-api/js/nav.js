@@ -25,7 +25,7 @@ function navLoginClick(evt) {
 
 $navLogin.on('click', navLoginClick);
 
-/** When a user first logins in, update the navbar to reflect that. */
+/** When a user first logs in, update the navbar to reflect that. */
 
 function updateNavOnLogin() {
 	console.debug('updateNavOnLogin');
@@ -34,3 +34,16 @@ function updateNavOnLogin() {
 	$navLogOut.show();
 	$navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** Submit function when user clicks "submit" button */
+function navSubmitClick(evt) {
+	console.debug('navSubmitStoryClick', evt);
+	hidePageComponents();
+	$allStoriesList.show();
+	$submitForm.show();
+}
+$navSubmitStory.on('click', navSubmitClick);
+
+/** Favorites function when user clicks "favorites" button */
+
+/** My Story function when user clicks "my story" button*/
