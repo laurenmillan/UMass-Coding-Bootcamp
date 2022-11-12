@@ -23,8 +23,7 @@ class Story {
 	/** Parses hostname out of URL and returns it. */
 
 	getHostName() {
-		// UNIMPLEMENTED: complete this function!
-		return 'hostname.com';
+		return new URL(this.url).host;
 	}
 }
 
@@ -61,6 +60,7 @@ class StoryList {
 			url: `${BASE_URL}/stories`,
 			method: 'GET'
 		});
+		// console.log(response.data.stories);
 
 		// turn plain old story objects from API into instances of Story class
 		const stories = response.data.stories.map((story) => new Story(story));
@@ -76,8 +76,18 @@ class StoryList {
    * Returns the new Story instance
    */
 
-	async addStory(/* user, newStory */) {
-		// UNIMPLEMENTED: complete this function!
+	async addStory(user, { title, author, url }) {
+		const token = user.loginToken;
+		const response = await axios({
+			method: 'POST',
+			url: `${BASE_URL}/stories`,
+			data: { token, story: { title, author, url } }
+		});
+		const story = new Story(response.data.story);
+		this.stories.unshift(story);
+		user.ownStories.unshift(story);
+
+		return story;
 	}
 }
 
