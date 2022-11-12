@@ -23,7 +23,8 @@ class Story {
 	/** Parses hostname out of URL and returns it. */
 
 	getHostName() {
-		return new URL(this.url).host;
+		// UNIMPLEMENTED: complete this function!
+		return 'hostname.com';
 	}
 }
 
@@ -52,7 +53,8 @@ class StoryList {
 		/** -- (defined by MDN Docs) the static method is a member of an object 
      * but is accessible directly from an API object's constructor, 
      * rather than from an object instance created via the constrcutor 
-     * and not the instance; it is used so we can call directly from the class */
+     * and not the instance; it is used so we can call 
+     * directly from the class */
 
 		// query the /stories endpoint (no auth required)
 		const response = await axios({
@@ -74,19 +76,8 @@ class StoryList {
    * Returns the new Story instance
    */
 
-	async addStory(user, { title, author, url }) {
-		const token = user.loginToken;
-		const response = await axios({
-			method: 'POST',
-			url: `${BASE_URL}/stories`,
-			data: { token, story: { title, author, url } }
-		});
-		// console.log(response.data);
-		const story = new Story(response.data.story);
-		this.stories.unshift(story);
-		user.ownStories.unshift(story);
-
-		return story;
+	async addStory(/* user, newStory */) {
+		// UNIMPLEMENTED: complete this function!
 	}
 }
 
