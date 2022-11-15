@@ -3,15 +3,14 @@ def print_upper_words():
 
     For example:
 
-        print_upper_words(["hello", "hey", "goodbye", "yo", "yes"],
-                   must_start_with={"h", "y"})
+        print_upper_words(["hello", "hey", "yo", "yes"]
 
     should print:
 
         "HELLO", "HEY", "YO", and "YES"
     """
 
-    string = 'to uppercase'
+    string = 'hello, hey, yo, yes'
     print(string.upper())
 
 print_upper_words()
