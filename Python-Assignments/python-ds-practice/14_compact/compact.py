@@ -4,8 +4,5 @@ def compact(lst):
         >>> compact([0, 1, 2, '', [], False, (), None, 'All done'])
         [1, 2, 'All done']
     """
-    lst_copy = []
-    for element in lst:
-        if bool(element) == True:
-            lst_copy.append(element)
-    return lst_copy
+    
+    return [val for val in lst if val]
