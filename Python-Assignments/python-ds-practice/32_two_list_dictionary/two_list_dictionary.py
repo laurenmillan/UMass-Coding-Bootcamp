@@ -14,4 +14,17 @@ def two_list_dictionary(keys, values):
 
         >>> two_list_dictionary(['a', 'b', 'c'], [1, 2, 3, 4])
         {'a': 1, 'b': 2, 'c': 3}
-   """
+    """
+
+    dict = {}
+
+    for key in keys:
+        idx = keys.index(key)
+
+        if idx < len(values):
+            dict[key] = values[idx]
+        
+        else:
+            dict[key] = None
+            
+    return dict
