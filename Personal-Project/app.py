@@ -8,7 +8,7 @@ debug = DebugToolbarExtension(app)
 
 
 @app.route('/')
-def homepage():
+def home_page():
     """Show homepage."""
 
     return render_template('base.html')
