@@ -4,6 +4,7 @@ from converter import Currency
 from decimal import *
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = "very_secret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
@@ -30,6 +31,7 @@ def results():
     except:
         alert = "Please enter a valid number for the amount."
         flash(alert)
+
         return redirect('/')
     
     try:
@@ -37,6 +39,7 @@ def results():
     except:
         alert = "Please enter a valid currency."
         flash(alert)
+
         return redirect('/')
     
     try:
@@ -44,6 +47,7 @@ def results():
     except:
         alert_2 = "Please enter a valid currency."
         flash(alert_2)
+
         return redirect('/')
 
     try:
@@ -53,6 +57,7 @@ def results():
     except:
         alert_3 = "Sorry! An error occurred. Please check your values to see if they are valid."
         flash(alert_3)
+
         return redirect('/')
     
     return render_template('results.html', conv=converted_val, sym=converted_sym)

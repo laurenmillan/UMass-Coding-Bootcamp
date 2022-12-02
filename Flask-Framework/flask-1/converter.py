@@ -20,13 +20,16 @@ class Currency():
 
         c2 = CurrencyCodes()
         c_name = c2.get_currency_name(init)
+        
         return c_name
+
 
     def currency_rate(self, init):
         """Calculates the latest rate for the currency at hand."""
 
         curr = CurrencyRates()
         curr_rate = curr.get_rates(init)
+
         return curr_rate
 
     
@@ -35,6 +38,7 @@ class Currency():
 
         curr = CurrencyRates()
         curr_conv_rate = curr.get_rate(init, new_currency)
+
         return curr_conv_rate
 
 
@@ -52,25 +56,17 @@ class Currency():
 
         c2 = CurrencyCodes()
         c_symbol = c2.get_symbol(init)
+
         return c_symbol
-
-    def check_currency_validity(self, init):
-        """Checks whether or not an entered currency is valid."""
-
-        currencies = open("supported_curr.txt", "r")
-        alert = "Not a valid currency. Please try again!"
-        
-        if init in currencies:
-            return init
-        else:
-            return alert
     
+
     def check_amount_validity(self, amount):
         """Checks whether or not an entered amount is valid."""
 
         alert = "Not a valid amount. Please try again!"
 
         if type(amount) == int or type(amount) == float:
+
             return amount
         else:
             return alert
