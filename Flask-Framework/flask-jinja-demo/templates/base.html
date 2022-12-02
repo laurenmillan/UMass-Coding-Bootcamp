@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}TITLE GOES HERE{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/pretty.css">
+  <script src="http://unpkg.com/jquery"></script>
+</head>
+<body>
+  <h1>Our Site</h1>
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/form">Greet V1</a>
+    <a href="/form-2">Greet V2</a>
+  </nav>
+  <main id="content"></main>
+    {% block content %}BODY CONTENT GOES HERE{% endblock %}
+</body>
+</html>

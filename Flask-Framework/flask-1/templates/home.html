@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Forex Converter{% endblock %}
+
+{% block content %}
+  
+  <div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 card bg-light border-primary m-2 d-flex justify-content-center">
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flashes">
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="card-body text-center">
+                <h4 class="card-header m-1"><i>FOREX CONVERTER</i></h5>
+                <form action="/results" method="POST">
+                    <div class="input-group m-3 d-flex justify-content-center">
+                        <label for="init" class=" m-2">Converting from: </label>
+                        <input id="init" name="init" placeholder="current currency" type="text">
+                    </div>
+                    
+                    <div class="input-group m-3 d-flex justify-content-center">
+                        <label for="final" class=" m-2">Converting to: </label>
+                        <input id="final" name="final" placeholder="desired currency" type="text">
+                    </div>
+
+                    <div class="input-group m-3 d-flex justify-content-center">
+                        <div class="input-group-prepend">
+                            <label for="amount" class=" m-1">Amount: </label>
+                        </div>
+                        <input type="text" name="amount" id="amount" placeholder="00.00"
+                        aria-label="Amount (to the nearest dollar)">
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+{% endblock %}
