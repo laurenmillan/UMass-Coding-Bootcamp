@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, session, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from converter import Currency
+#from converter import Currency
 from decimal import *
 
 app = Flask(__name__)
