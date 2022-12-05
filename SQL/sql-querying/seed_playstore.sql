@@ -1,5 +1,5 @@
 -- from the terminal run:
--- psql < seed.sql
+-- psql < seed_playstore.sql
 
 DROP DATABASE IF EXISTS playstore;
 
