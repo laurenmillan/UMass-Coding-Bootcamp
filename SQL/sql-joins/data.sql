@@ -1,5 +1,8 @@
 DROP DATABASE IF EXISTS joins_exercise;
 
+-- psql < data.sql
+-- psql joins_exercise
+
 CREATE DATABASE joins_exercise;
 
 \c joins_exercise
