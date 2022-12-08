@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Blogly{% endblock %}</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+        <a class="navbar-brand text-blue" href="#"><b>Blogly</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            </div>
+        </div>
+    </nav>
+    <hr>
+
+    <div class="mb-3">
+        <label for="first-name" class="form-label">First Name</label>
+        <input type="text" class="form-control" placeholder="Enter a first name">
+    </div>
+
+    <div class="mb-3">
+        <label for="last-name" class="form-label">Last Name</label>
+        <input type="text" class="form-control" placeholder="Enter a last name">
+    </div>
+
+    <div class="mb-3">
+        <label for="url" class="form-label">Image URL</label>
+        <input type="text" class="form-control" placeholder="Provide an image of this user">
+    </div>
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
