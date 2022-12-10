@@ -44,7 +44,7 @@ class User(db.Model):
                             nullable=False, 
                             unique=True)
 
-    image_url = db.Column(db.String(100), nullable=True)
+    image_url = db.Column(db.String, nullable=True)
 
     def greet(self):
         """Welcome back the User."""
