@@ -23,6 +23,7 @@ connect_db(app)
 def list_users():
     """Show list of all users in db."""
     users = User.query.all()
+
     return render_template('list.html', users=users)
 
 
@@ -42,6 +43,41 @@ def create_user():
 
 @app.route('/<int:user_id>')
 def show_user(user_id):
-    """Show details about a single user"""
+    """Show details about a single user."""
     user = User.query.get_or_404(user_id)
+    
     return render_template('details.html', user=user)
+
+
+@app.route('/<int:user_id>/edit')
+def edit_user(user_id):
+    """Show edit user form."""
+    user = User.query.get_or_404(user_id)
+
+    return render_template('/edit.html', user=user)
+
+
+@app.route('/<int:user_id>/edit', methods=["POST"])
+def update_user(user_id):
+    """Handle form submission for updating current user."""
+
+    user = User.query.get_or_404(user_id)
+    user.first_name = request.form["first_name"]
+    user.last_name = request.form["last_name"]
+    user.image_url = request.form["image_url"]
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect('/')
+
+
+@app.route('/<int:user_id>/delete', methods=["POST"])
+def delete_user(user_id):
+    """Handle form submission for deleting current user."""
+
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect('/')
