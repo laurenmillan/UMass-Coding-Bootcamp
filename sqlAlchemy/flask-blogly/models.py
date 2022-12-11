@@ -55,7 +55,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) # this is referencing the primary key from the users table
 
-    users = db.relationship('User', backref='users')
+    users = db.relationship('User', backref='posts')
 
     def __repr__(self):
         u = self
