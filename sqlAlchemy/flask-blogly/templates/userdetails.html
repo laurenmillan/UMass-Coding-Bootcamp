@@ -15,9 +15,22 @@
         <button formaction="/{{ user.id }}/edit" formmethod="GET" class="btn btn-primary">Edit</button>
         <button formaction="/{{ user.id }}/delete" formmethod="POST" class="btn btn-danger">Delete</button>
     </form>
+<p>
+<h2>{{user.first_name}}'s Posts</h2>
+    <ul>
+        {% for post in user.posts %}
+        <li>
+            <a href="/posts/{{post.id}}">{{post.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</p>
+    <form> 
+        <button formaction="/{{user.id}}/posts/new" formmethod="GET" class="btn btn-primary">Add Post</button>
+    </form>
 
-    <div>
-        <a href="/">Go Back</a>
-    </div>
+<p>
+    <a href="/">Go Back</a>
+</p>
     
 {% endblock %}

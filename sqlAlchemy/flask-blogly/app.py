@@ -24,7 +24,7 @@ def list_users():
     """Show list of all users in db."""
     users = User.query.all()
 
-    return render_template('list.html', users=users)
+    return render_template('listusers.html', users=users)
 
 
 @app.route('/', methods=["POST"])
@@ -46,7 +46,7 @@ def show_user(user_id):
     """Show details about a single user."""
     user = User.query.get_or_404(user_id)
     
-    return render_template('details.html', user=user)
+    return render_template('userdetails.html', user=user)
 
 
 @app.route('/<int:user_id>/edit')
@@ -54,7 +54,7 @@ def edit_user(user_id):
     """Show edit user form."""
     user = User.query.get_or_404(user_id)
 
-    return render_template('/edit.html', user=user)
+    return render_template('/edituser.html', user=user)
 
 
 @app.route('/<int:user_id>/edit', methods=["POST"])
@@ -82,8 +82,26 @@ def delete_user(user_id):
 
     return redirect('/')
 
+###Posts route
 
-@app.route('/userpost')
-def list_posts():
+
+@app.route('/<int:post_id>/posts')
+def list_posts(post_id):
+    """Show list of all current user's posts."""
+
     posts = Post.query.all()
-    return render_template('posts.html', posts=posts)
+
+    return render_template('userdetails.html', posts=posts)
+
+
+#new post with template
+
+#handle new form submission for post
+
+#show the post page with template
+
+#edit post with template
+
+#handle form submission for editing post
+
+#handle form submission for deleting post
