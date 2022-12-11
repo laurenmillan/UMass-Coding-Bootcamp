@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Blogly{% endblock %}
+{% block content %}
+
+
+<h1>Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li>{{posts.title}}</li>
+        {% if posts.title %}
+        {{posts.title}}
+        {% else %}
+        User Hasn't Posted
+        {% endif %}
+        {% endfor %}
+    </ul>
+    <form>
+        <button formaction="/" formmethod="GET" class="btn btn-primary">Add Post</button>
+    </form>
+
+    <div>
+        <a href="/">Go Back</a>
+    </div>
+
+{% endblock %}

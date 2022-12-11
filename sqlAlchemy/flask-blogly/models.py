@@ -32,20 +32,37 @@ class User(db.Model):
         u = self
         return f"<User id={u.id} first_name={u.first_name} last_name={u.last_name} image_url={u.image_url}>"
 
-    id = db.Column(db.Integer, 
-                            primary_key=True,
-                            autoincrement=True)
-
-    first_name = db.Column(db.String(15), 
-                            nullable=False, #first and last name cannot be Null
-                            unique=True)
-
-    last_name = db.Column(db.String(15), 
-                            nullable=False, 
-                            unique=True)
-
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String(15), nullable=False, unique=True) #first and last name cannot be Null
+    last_name = db.Column(db.String(15), nullable=False, unique=True)
     image_url = db.Column(db.String, nullable=True)
+
 
     def greet(self):
         """Welcome back the User."""
         return f"Welcome back, {self.first_name}"
+
+
+class Post(db.Model):
+    """Post."""
+
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text, nullable=False, unique=True)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id')) # this is referencing the primary key from the users table
+
+    users = db.relationship('User', backref='users')
+
+    def __repr__(self):
+        u = self
+        return f"<title={u.title} content={u.content} created_at={u.created_at}>"
+
+
+def get_posts():
+    all_posts = Post.query.all()
+
+    for p in all_posts:
+        print(p.title, p.content, p.created_at)

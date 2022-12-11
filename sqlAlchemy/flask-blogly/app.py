@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post, get_posts
 
 app = Flask(__name__)
 
@@ -81,3 +81,9 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect('/')
+
+
+@app.route('/userpost')
+def list_posts():
+    posts = Post.query.all()
+    return render_template('posts.html', posts=posts)
