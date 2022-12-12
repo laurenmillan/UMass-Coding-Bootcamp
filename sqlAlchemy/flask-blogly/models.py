@@ -64,8 +64,8 @@ class Post(db.Model):
         return f"<title={u.title} content={u.content} created_at={u.created_at}>"
 
 
-def get_posts():
-    all_posts = Post.query.all()
+# def get_posts():
+#     all_posts = Post.query.all()
 
-    for p in all_posts:
-        print(p.title, p.content, p.created_at)
+#     for p in all_posts:
+#         print(p.title, p.content, p.created_at)
