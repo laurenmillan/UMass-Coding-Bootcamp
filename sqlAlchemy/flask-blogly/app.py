@@ -87,11 +87,11 @@ def delete_user(user_id):
 
 @app.route('/<int:post_id>/posts')
 def list_posts(post_id):
-    """Show list of all current user's posts."""
+    """Show the current user's post details page."""
 
     posts = Post.query.all()
 
-    return render_template('userdetails.html', posts=posts)
+    return render_template('postdetails.html', posts=posts)
 
 
 # @app.route('/<int:post_id>/newpost', methods=["POST"])
