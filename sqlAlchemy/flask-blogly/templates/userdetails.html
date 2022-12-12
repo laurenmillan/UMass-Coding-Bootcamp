@@ -25,9 +25,8 @@
         {% endfor %}
     </ul>
 </p>
-    <form> 
-        <button formaction="/posts{{user.id}}" formmethod="GET" class="btn btn-primary">Add Post</button>
-    </form>
+    
+<p><a href="/{{user.id}}/posts/new" class="btn btn-primary">Add Post</a></p>
 
 <p>
     <a href="/">Go Back</a>

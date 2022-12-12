@@ -38,6 +38,8 @@ class User(db.Model):
     last_name = db.Column(db.String(15), nullable=False, unique=True)
     image_url = db.Column(db.String, nullable=True)
 
+    posts = db.relationship('Post', backref='user', cascade='all, delete-orphan')
+
 
     def greet(self):
         """Welcome back the User."""
@@ -55,7 +57,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) # this is referencing the primary key from the users table
 
-    users = db.relationship('User', backref='posts')
+    # users = db.relationship('User', backref='posts')
 
     def __repr__(self):
         u = self
