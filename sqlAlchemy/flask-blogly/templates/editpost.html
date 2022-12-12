@@ -2,8 +2,8 @@
 {% block title %}Blogly{% endblock %}
 {% block content %}
 
-<p>
 <h1>Edit Post</h1>
+<p>
     <form method="POST" action="/posts/{{post.id}}/edit">
         <p class="text-dark text">Title <input name="title" value="{{ post.title }}"></p>
         <p class="text-dark text">Post Content <input name="content" value="{{ post.content }}"></p>
