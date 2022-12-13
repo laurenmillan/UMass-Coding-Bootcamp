@@ -38,7 +38,7 @@ class User(db.Model):
     last_name = db.Column(db.String(15), nullable=False, unique=True)
     image_url = db.Column(db.String, nullable=True)
 
-    posts = db.relationship('Post', backref='user', cascade='all, delete-orphan')
+    posts = db.relationship('Post', backref='user', cascade='all, delete-orphan') # backref is defining the two-way relationship between User and Post models
 
 
     def greet(self):
@@ -69,3 +69,27 @@ class Post(db.Model):
 
 #     for p in all_posts:
 #         print(p.title, p.content, p.created_at)
+
+
+class PostTag(db.Model):
+    """Tag on a post."""
+
+    __tablename__ = 'posts_tags'
+
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
+
+class Tag(db.Model):
+    """Tag that can be added to posts."""
+
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+    posts = db.relationship(
+        'Post', 
+        secondary="posts_tags", 
+        # cascade="all,delete",
+        backref="tags")

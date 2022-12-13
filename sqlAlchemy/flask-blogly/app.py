@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post #get_posts
+from models import db, connect_db, User, Post, PostTag, Tag #get_posts
 
 app = Flask(__name__)
 
