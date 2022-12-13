@@ -90,6 +90,6 @@ class Tag(db.Model):
 
     posts = db.relationship(
         'Post', 
-        secondary="posts_tags", 
+        secondary="posts_tags", # secondary is referencing the table name, not the model
         # cascade="all,delete",
         backref="tags")
