@@ -8,7 +8,15 @@
 <p><h3>{{post.content}}</h3></p>
 <p>{{post.created_at}}</p>
 <p>By, <i>{{post.user.first_name}} {{post.user.last_name}}</i></p>
-<p>Tags: {{post.tags.name}}</p>
+
+{% if post.tags %}
+<p>
+    <b>Tags: </b> 
+    {% for tag in post.tags %} 
+    <a href="/tags/{{tag.id}}"><i class="badge badge-primary">{{tag.name}}</i></a>
+    {% endfor %}
+</p>
+{% endif %}
 
 <form>
     <button class="btn btn-outline-primary" formmethod="GET" formaction="/{{post.user_id}}">Cancel</button>
