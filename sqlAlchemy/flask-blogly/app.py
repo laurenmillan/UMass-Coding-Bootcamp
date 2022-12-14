@@ -146,10 +146,10 @@ def add_post(user_id):
 
 ###Tags route
 
-@app.route('/tags/<int:post_id>')
-def show_tags(tag_id):
-    """Show a page with details about the current user's post with tags."""
-    # tag = Tag.query.get_or_404(tag_id)
-    tag = Tag.query.all()
 
-    return render_template('postdetails.html', tags=tags)
+@app.route('/tags')
+def list_tags():
+    """Show a page with a list of all tags."""
+    tags = Tag.query.all()
+
+    return render_template('tags.html', tags=tags)
