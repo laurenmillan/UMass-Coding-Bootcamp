@@ -153,3 +153,65 @@ def list_tags():
     tags = Tag.query.all()
 
     return render_template('tags.html', tags=tags)
+
+
+@app.route('/tags/<int:tag_id>')   
+def show_tags(tag_id):
+    """Show details about a single tag."""
+    tag = Tag.query.get_or_404(tag_id)
+
+    return render_template('/tags.html', tag=tag)
+
+
+@app.route('/tags/new')
+def new_tag_form():
+    """Show form to create new tag."""
+    posts = Post.query.all()
+
+    return render_template('newtag.html', posts=posts)
+
+
+@app.route("/tags/new", methods=["POST"])
+def new_tag():
+    """Handle form submission for creating new tag."""
+    post_ids = [int(num) for num in request.form.getlist("posts")]
+    posts = Post.query.filter(Post.id.in_(post_ids)).all()
+    new_tag = Tag(name=request.form['name'], posts=posts)
+
+    db.session.add(new_tag)
+    db.session.commit()
+
+    return redirect("/tags")
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag(tag_id):
+    """Show edit tag form."""
+    tag = Tag.query.get_or_404(tag_id)
+    posts=Post.query.all()
+
+    return render_template('edittag.html', tag=tag, posts=posts)
+
+
+@app.route('/tags/<int:tag_id>/edit', methods=["POST"])
+def update_tag(tag_id):
+    """Handle form submission for editing tag."""
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = request.form["name"]
+    post_ids = [int(num) for num in request.form.getlist("posts")]
+    tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
+
+    db.session.add(tag)
+    db.session.commit()
+
+    return redirect('/tags')
+
+
+@app.route('/tags/<int:tag_id>/delete', methods=["POST"])
+def delete_tag(tag_id):
+    """Handle form submission for deleting current user's tag."""
+    tag = Tag.query.get_or_404(tag_id)
+
+    db.session.delete(tag)
+    db.session.commit()
+
+    return redirect('/tags')

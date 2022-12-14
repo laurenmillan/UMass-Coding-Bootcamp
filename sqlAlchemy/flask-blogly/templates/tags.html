@@ -10,6 +10,15 @@
     {% endfor %}
 </ul>
 
-<!-- <p><a class="btn btn-primary" href="/tags/new">Add Tag</a></p> -->
+<p><a class="btn btn-primary" href="/tags/new">Add Tag</a></p>
+
+<form>
+    <button class="btn btn-primary" formmethod="GET" formaction="/tags/{{tag.id}}/edit">Edit</button>
+    <button class="btn btn-danger" formmethod="POST" formaction="/tags/{{tag.id}}/delete">Delete</button>
+</form>
+
+<p>
+    <a href="/">Go Back</a>
+</p>
 
 {% endblock %}

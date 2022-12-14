@@ -79,9 +79,9 @@ class PostTag(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
 
-    def __repr__(self):
-        p = self
-        return f"<post_id={p.post_id} tag_id={p.tag_id}>"
+    # def __repr__(self):
+    #     p = self
+    #     return f"<post_id={p.post_id} tag_id={p.tag_id}>"
 
 
 class Tag(db.Model):
@@ -98,5 +98,5 @@ class Tag(db.Model):
         # cascade="all,delete",
         backref="tags")
 
-    def __repr__(self):
-        return f"<Tag={self.id} {self.name}>"
+    # def __repr__(self):
+    #     return f"<Tag={self.id} {self.name}>"
