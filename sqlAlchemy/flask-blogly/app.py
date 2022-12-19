@@ -181,7 +181,7 @@ def new_tag():
     db.session.add(new_tag)
     db.session.commit()
 
-    return redirect("/tags")
+    return redirect("/tags.html")
 
 @app.route('/tags/<int:tag_id>/edit')
 def edit_tag(tag_id):
@@ -203,7 +203,7 @@ def update_tag(tag_id):
     db.session.add(tag)
     db.session.commit()
 
-    return redirect('/tags')
+    return redirect('/tags.html')
 
 
 @app.route('/tags/<int:tag_id>/delete', methods=["POST"])
@@ -214,4 +214,4 @@ def delete_tag(tag_id):
     db.session.delete(tag)
     db.session.commit()
 
-    return redirect('/tags')
+    return redirect('/tags.html')
