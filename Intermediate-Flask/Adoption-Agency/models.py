@@ -2,23 +2,30 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-# initialize SQLAlchemy
+GENERIC_IMAGE = "https://mylostpetalert.com/wp-content/themes/mlpa-child/images/nophoto.gif"
+
+
 db = SQLAlchemy()
 
-# we put this in a function so we can call this logic to connect to a db from app.py -- best practice!
 def connect_db(app):
     db.app = app 
     db.init_app(app)
 
+
 class Pet(db.Model):
-    """Pet."""
+    """Pet Adoption."""
 
     __tablename__ = 'pets'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(Text, nullable=False) #first name cannot be Null
-    species = db.Column(Text, nullable=False)
-    photo_url = db.Column(Text, nullable=True)
+    name = db.Column(db.Text, nullable=False) #first name cannot be Null
+    species = db.Column(db.Text, nullable=False)
+    photo_url = db.Column(db.Text, nullable=True)
     age = db.Column(db.Integer, nullable=True)
-    notes = db.Column(Text, nullable=True)
-    available = db.Column(bool, nullable=False, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
+    available = db.Column(db.Boolean, nullable=False, default=True)
+
+    def image_url(self):
+        """Return image for pet."""
+
+        return self.photo_url or GENERIC_IMAGE
