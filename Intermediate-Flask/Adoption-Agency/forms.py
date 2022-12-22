@@ -10,4 +10,4 @@ class AddPetForm(FlaskForm):
     photo_url = StringField('Photo URL', validators=[Optional()])
     age = IntegerField('Age', validators=[InputRequired(message="Age cannot be blank.")])
     notes = TextAreaField('Notes', validators=[Optional()])
-    available = BooleanField('Available', validators=[InputRequired(message="Please add if this pet is available for adoption.")])
+    available = BooleanField('Available', validators=[Optional()])

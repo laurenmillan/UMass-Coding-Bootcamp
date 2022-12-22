@@ -2,17 +2,21 @@
 {% block title %} Edit Pet {% endblock %}
 {% block content %}
 
-<p>
-<h1>Edit a Pet</h1>
-    <form method="POST">
-        <p class="text-dark text">Photo URL: <input name="photo_url" value="{{ pet.photo_url }}" placeholder="Provide image of pet"></p>
-        <p class="text-dark text">Notes: <input name="notes" value="{{ pet.notes }}" placeholder="Enter notes"></p>
-    <div class="col-auto">
-        <a href="/" class="btn btn-outline-info">Cancel</a>
-        <button type="submit" class="btn btn-success">Save</button>
-    </div>
-    </form>
-</p>
+<h1>Edit Pet</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <p>
+        {{field.label}}
+        {{field}}
+    </p>
+    {% endfor %}
 
+    <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Save</button>
+</div>
+</form>
+
+<p><a href="/">Go Back</a></p>
 
 {% endblock %}

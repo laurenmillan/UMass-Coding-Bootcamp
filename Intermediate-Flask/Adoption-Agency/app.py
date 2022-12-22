@@ -49,26 +49,49 @@ def show_pet(pet_id):
     return render_template('petdetails.html', pet=pet)
 
 
-@app.route('/pets/<int:pet_id>/edit')
+@app.route('/pets/<int:pet_id>/edit', methods=['GET', 'POST'])
 def edit_pet(pet_id):
-    """Show edit pet form."""
+    """Edit pet details."""
     pet = Pet.query.get_or_404(pet_id)
 
-    return render_template('/editpet.html', pet=pet)
+    form = AddPetForm(obj=pet)
+    pet = db.session.query(Pet.name, Pet.species, Pet.photo_url, Pet.age, Pet.notes, Pet.available)
+    form.name.choices = pet
+
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.species = form.species.data
+        pet.photo_url = form.photo_url.data
+        pet.age = form.age.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
+
+        db.session.commit()
+        return redirect('/')
+    else:
+        return render_template('/editpet.html', form=form, pet=pet)
 
 
-@app.route('/pets/<int:pet_id>/edit', methods=['POST'])
-def update_pet(pet_id):
-    """Handle form submission for editing a pet."""
-    pet = Pet.query.get_or_404(pet_id)
+# @app.route('/pets/<int:pet_id>/edit')
+# def edit_pet(pet_id):
+#     """Show edit pet form."""
+#     pet = Pet.query.get_or_404(pet_id)
 
-    pet.photo_url = request.form["photo_url"]
-    pet.notes = request.form["notes"]
+#     return render_template('/editpet.html', pet=pet)
 
-    db.session.add(pet)
-    db.session.commit()
 
-    return redirect('/')
+# @app.route('/pets/<int:pet_id>/edit', methods=['POST'])
+# def update_pet(pet_id):
+#     """Handle form submission for editing a pet."""
+#     pet = Pet.query.get_or_404(pet_id)
+
+#     pet.photo_url = request.form["photo_url"]
+#     pet.notes = request.form["notes"]
+
+#     db.session.add(pet)
+#     db.session.commit()
+
+#     return redirect('/')
 
 
 @app.route('/pets/<int:pet_id>/delete', methods=["POST"])
