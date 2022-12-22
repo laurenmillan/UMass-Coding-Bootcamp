@@ -41,10 +41,15 @@ def add_pet():
         return render_template('add_pet_form.html', form=form)
 
 
-##TODO: show details page of pet
+@app.route('/pets/<int:pet_id>')
+def show_pet(pet_id):
+    """Show details about a single pet."""
+    pet = Pet.query.get_or_404(pet_id)
+    
+    return render_template('petdetails.html', pet=pet)
 
 
-@app.route('/<int:pet_id>/edit')
+@app.route('/pets/<int:pet_id>/edit')
 def edit_pet(pet_id):
     """Show edit pet form."""
     pet = Pet.query.get_or_404(pet_id)
@@ -52,20 +57,26 @@ def edit_pet(pet_id):
     return render_template('/editpet.html', pet=pet)
 
 
-@app.route('/<int:pet_id>/edit', methods=['POST'])
-def update_pet():
+@app.route('/pets/<int:pet_id>/edit', methods=['POST'])
+def update_pet(pet_id):
     """Handle form submission for editing a pet."""
     pet = Pet.query.get_or_404(pet_id)
 
-    pet.name = request.form["name"]
-    pet.species = request.form["species"]
     pet.photo_url = request.form["photo_url"]
-    pet.age = request.form["age"]
     pet.notes = request.form["notes"]
-    #pet.available = request.form["available"]
 
     db.session.add(pet)
     db.session.commit()
 
     return redirect('/')
 
+
+@app.route('/pets/<int:pet_id>/delete', methods=["POST"])
+def delete_pet(pet_id):
+    """Handle form submission for deleting a pet."""
+    pet = Pet.query.get_or_404(pet_id)
+
+    db.session.delete(pet)
+    db.session.commit()
+
+    return redirect('/')
