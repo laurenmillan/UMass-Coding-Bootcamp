@@ -5,11 +5,14 @@
 <h1>New Pet</h1>
 <form method="POST">
     {{ form.hidden_tag() }}
-    {% for field in form
-        if field.widget.input_type != 'hidden' %}
+    {% for field in form if field.widget.input_type != 'hidden' %}
     <p>
         {{field.label}}
         {{field}}
+
+        {% for error in field.errors %}
+        <small class="form-text text-danger">{{error}}</small>
+        {% endfor %}
     </p>
     {% endfor %}
 
