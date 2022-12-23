@@ -55,8 +55,8 @@ def edit_pet(pet_id):
     pet = Pet.query.get_or_404(pet_id)
 
     form = AddPetForm(obj=pet)
-    pet = db.session.query(Pet.name, Pet.species, Pet.photo_url, Pet.age, Pet.notes, Pet.available)
-    form.name.choices = pet
+    pets = db.session.query(Pet.name, Pet.species, Pet.photo_url, Pet.age, Pet.notes, Pet.available)
+    form.name.choices = pets
 
     if form.validate_on_submit():
         pet.name = form.name.data
@@ -65,11 +65,11 @@ def edit_pet(pet_id):
         pet.age = form.age.data
         pet.notes = form.notes.data
         pet.available = form.available.data
-
         db.session.commit()
+        
         return redirect('/')
     else:
-        return render_template('/editpet.html', form=form, pet=pet)
+        return render_template('/editpet.html', form=form)
 
 
 # @app.route('/pets/<int:pet_id>/edit')
