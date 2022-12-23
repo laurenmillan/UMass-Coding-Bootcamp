@@ -66,32 +66,10 @@ def edit_pet(pet_id):
         pet.notes = form.notes.data
         pet.available = form.available.data
         db.session.commit()
-        
+
         return redirect('/')
     else:
         return render_template('/editpet.html', form=form)
-
-
-# @app.route('/pets/<int:pet_id>/edit')
-# def edit_pet(pet_id):
-#     """Show edit pet form."""
-#     pet = Pet.query.get_or_404(pet_id)
-
-#     return render_template('/editpet.html', pet=pet)
-
-
-# @app.route('/pets/<int:pet_id>/edit', methods=['POST'])
-# def update_pet(pet_id):
-#     """Handle form submission for editing a pet."""
-#     pet = Pet.query.get_or_404(pet_id)
-
-#     pet.photo_url = request.form["photo_url"]
-#     pet.notes = request.form["notes"]
-
-#     db.session.add(pet)
-#     db.session.commit()
-
-#     return redirect('/')
 
 
 @app.route('/pets/<int:pet_id>/delete', methods=["POST"])
