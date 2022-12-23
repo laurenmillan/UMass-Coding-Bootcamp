@@ -2,7 +2,10 @@
 {% block title %} Add Pet {% endblock %}
 {% block content %}
 
-<h1>New Pet</h1>
+<div class="container">
+<h1 class="display-1 text-center">New Pet</h1>
+<div class="row justify-content-center">
+<div class="col-md-2">
 <form method="POST">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
@@ -11,7 +14,9 @@
         {{field}}
 
         {% for error in field.errors %}
-        <small class="form-text text-danger">{{error}}</small>
+        <small class="form-text text-danger">
+            {{error}}
+        </small>
         {% endfor %}
     </p>
     {% endfor %}
@@ -20,7 +25,10 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </div>
 </form>
-
-<p><a href="/">Go Back</a></p>
+<hr>
+<p><a href="/" class="btn btn-warning">Go Back</a></p>
+</div>
+</div>
+</div>
 
 {% endblock %}

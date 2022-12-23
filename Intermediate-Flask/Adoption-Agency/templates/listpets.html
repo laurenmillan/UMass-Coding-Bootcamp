@@ -2,12 +2,14 @@
 {% block title %} List Pets {% endblock %}
 {% block content %}
 
-
-<h1>Current Pets</h1>
+<div class="container">
+<h1 class="display-1 text-center">Current Pets</h1>
+<div class="row justify-content-center">
+    <div class="col-md-5">
 
 <div class="list-pets">
 {% for pet in pets %}
-    <div class="col-3">
+    <div class="col-12">
         <img class="img-thumbnail" src="{{ pet.image_url() }}">
         <a href="/pets/{{ pet.id }}">{{ pet.name }}</a>
         {% if pet.available %} <b> is available!</b> {% endif %}
@@ -17,8 +19,12 @@
 {% endfor %}
 </div>
 
-<div>
-    <a class="btn btn-primary" href="/add">Add a Pet</a>
+<p>
+    <div><a class="btn btn-primary" href="/add">Add a Pet</a></div>
+</p>
+
+</div>
+</div>
 </div>
 
 {% endblock %}
