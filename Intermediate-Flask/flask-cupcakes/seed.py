@@ -1,10 +1,13 @@
-from app import app
+"""Seed file to make sample data for cupcakes db, aka starter data."""
+
 from models import db, Cupcake
+from app import app
 
 
 db.drop_all()
 db.create_all()
 
+# Add cupcakes
 c1 = Cupcake(
     flavor="cherry",
     size="large",
