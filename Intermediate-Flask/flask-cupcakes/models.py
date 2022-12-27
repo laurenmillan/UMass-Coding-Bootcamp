@@ -10,8 +10,9 @@ def connect_db(app):
     db.app = app 
     db.init_app(app)
 
+
 class Cupcake(db.Model):
-    """Cupcake Table."""
+    """Cupcake Model."""
 
     __tablename__ = 'cupcakes'
 
@@ -20,6 +21,16 @@ class Cupcake(db.Model):
     size = db.Column(db.Text, nullable=False) #size cannot be Null
     rating = db.Column(db.Float, nullable=False) #rating cannot be Null
     image = db.Column(db.Text, nullable=True) #image can be null
+
+    # this returns a dictionary representation of a single Cupcake
+    def serialize(self):
+        return {
+            'id': self.id,
+            'flavor': self.flavor,
+            'size': self.size,
+            'rating': self.rating,
+            'image': self.image
+        }
 
     def image_url(self):
         """Return image for cupcake."""
