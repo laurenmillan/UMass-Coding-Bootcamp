@@ -15,9 +15,11 @@ debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
+#RESTful API following RESTful routing conventions using POST, PATCH, DELETE.
 
 @app.route('/api/cupcakes')
 def list_cupcakes():
+    """Gets all cupcakes in a json object."""
 
     # this makes a list of dictionaries
     all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
@@ -28,6 +30,7 @@ def list_cupcakes():
 
 @app.route('/api/cupcakes/<int:id>')
 def get_cupcake_info(id):
+    """Shows info about a single cupcake in a json object."""
 
     cupcake = Cupcake.query.get_or_404(id)
 
@@ -36,6 +39,7 @@ def get_cupcake_info(id):
 
 @app.route('/api/cupcakes', methods=['POST'])
 def create_cupcake():
+    """Create a new cupcake using a Post request."""
 
     new_cupcake = Cupcake(flavor=request.json['flavor'], size=request.json['size'], 
                         rating=request.json['rating'], image=request.json['image'])
@@ -45,3 +49,31 @@ def create_cupcake():
     response_json = jsonify(cupcake=new_cupcake.serialize())
     
     return (response_json, 201)
+
+
+@app.route('/api/cupcakes/<int:id>', methods=['PATCH'])
+def update_cupcake(id):
+    """Update a current cupcake with a single id using a Patch request."""
+
+    cupcake = Cupcake.query.get_or_404(id)
+
+    # db.session.query(Cupcake).filter_by(id=id.update(request.json))
+    cupcake.flavor = request.json.get('flavor', cupcake.flavor)
+    cupcake.size = request.json.get('size', cupcake.size)
+    cupcake.rating = request.json.get('rating', cupcake.rating)
+    cupcake.image = request.json.get('image', cupcake.image)
+    db.session.commit()
+
+    return jsonify(cupcake=cupcake.serialize())
+
+
+@app.route('/api/cupcakes/<int:id>', methods=['DELETE'])
+def delete_cupcake(id):
+    """Delete a cupcake with a single id using a Delete request."""
+
+    cupcake = Cupcake.query.get_or_404(id)
+
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    return jsonify(msg='deleted')
