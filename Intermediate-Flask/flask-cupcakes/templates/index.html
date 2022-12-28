@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %} List Cupcakes with Form {% endblock %}
+{% block content %}
+
+<div class="container">   
+<h1 class="display-1 text-center">Current Cupcakes</h1>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+
+<div class="list-cupcakes">
+{% for cupcake in cupcakes %}
+    <div class="col-12">
+        <img class="img-thumbnail" src="{{ cupcake.image_url() }}">
+        <li>{{ cupcake.flavor }} 
+            <button class="delete-cupcake" data-id="{{ cupcake.id }}">Delete</button>
+        </li>
+        
+{% endfor %}
+</div>
+
+<hr>
+
+<div class="container">
+<h1 class="display-1 text-center">Create a Cupcake</h1> 
+<div class="row justify-content-center">
+    <div class="col-md-5"> 
+<p>
+    <form action="/" method="POST">
+        <p class="text-dark text">Cupcake Flavor: <input name="flavor" placeholder="Enter a cupcake flavor"></p>
+        <p class="text-dark text">Cupcake Size: <input name="size" placeholder="Enter a cupcake size"></p>
+        <p class="text-dark text">Cupcake Rating: <input name="rating" placeholder="Enter a cupcake rating"></p>
+        <p class="text-dark text">Cupcake Image: <input name="image" placeholder="Provide image of cupcake"></p>
+    <div class="col-auto"><button type="submit" class="btn btn-primary">Add</button></div>
+    </form>
+</p>
+
+{% endblock %}

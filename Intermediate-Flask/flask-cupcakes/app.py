@@ -1,6 +1,6 @@
 """Flask app for Cupcakes"""
 
-from flask import Flask, request, render_template, redirect, flash, session, jsonify, request
+from flask import Flask, render_template, redirect, flash, session, jsonify, request
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Cupcake
 
@@ -11,9 +11,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'secret369'
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
+#Frontend
+@app.route('/')
+def home_page():
+    """Shows home page."""
+
+    cupcakes = Cupcake.query.all()
+
+    return render_template('index.html', cupcakes=cupcakes)
+    
 
 #RESTful API following RESTful routing conventions using POST, PATCH, DELETE.
 
