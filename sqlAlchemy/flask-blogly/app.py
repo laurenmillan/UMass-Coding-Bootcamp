@@ -183,6 +183,7 @@ def new_tag():
 
     return redirect("/tags.html")
 
+
 @app.route('/tags/<int:tag_id>/edit')
 def edit_tag(tag_id):
     """Show edit tag form."""
@@ -204,6 +205,7 @@ def update_tag(tag_id):
     db.session.commit()
 
     return redirect('/tags.html')
+
 
 
 @app.route('/tags/<int:tag_id>/delete', methods=["POST"])
