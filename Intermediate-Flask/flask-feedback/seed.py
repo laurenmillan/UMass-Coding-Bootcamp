@@ -7,10 +7,9 @@ db.drop_all()
 db.create_all()
 
 # Add users
-bob = User(username='bobby', password='dogluvr', email='bob1@gmail.com', first_name='Bob', last_name='Vance')
-jane = User(username='janeyjane', password='catsrule', email='jane@gmail.com',first_name='Jane', last_name='Doe')
-john = User(username='john', password='truckzzz', email='johnsmith@gmail.com',first_name='John', last_name='Smith')
+monkey = User(username='monkey1', password='$2b$12$4UpFr2KZ1PfyAw1YkAi8Pebzd1mEFCIpnSzKO/3njfhJybJ5gg6N6', email='monkeys@gmail.com', first_name='monkey', last_name='smith')
+joe = User(username='yoyo123', password='$2b$12$PvEcp1wUeejJZ1MjkybdceXAyLK8/Z8oHxs1jQWkVNyNeBYa9bRym', email='yoyoyo@gmail.com', first_name='Joe', last_name='Jack')
 
 # Add new objects to session so they will persist
-db.session.add_all([bob, jane, john])
+db.session.add_all([monkey, joe])
 db.session.commit()
