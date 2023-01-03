@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} Register User {% endblock %}
+{% block title %} Login User {% endblock %}
 {% block content %}
 
 <div class="container">   
-<h1 class="display-2">Sign Up</h1>
-<p class="lead">Register below to join!</p>
+<h1 class="display-2">Login</h1>
+<p class="lead">Login Below. If you don't have an account, <a href="/register">Register Here</a></p>
 
 <form method="POST">
 
@@ -18,11 +18,13 @@
 
         {% for error in field.errors %}
         <span class="form-text text-danger">{{ error }}</span>
+        
+        {% endfor %}
     </p>
     {% endfor %}
     
     <div class="col-auto">
-        <button type="submit" class="btn btn-success">Register</button>
+        <button type="submit" class="btn btn-success">Login</button>
     </div>
 </form>
 </div>

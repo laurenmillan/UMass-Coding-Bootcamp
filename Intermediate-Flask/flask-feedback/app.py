@@ -26,6 +26,7 @@ def home_page():
 
 @app.route('/secret')
 def show_secret():
+    """Show page with flash message informing the user has created an account."""
     return render_template('secret.html')
 
 
@@ -49,3 +50,24 @@ def register_user():
         return redirect('/secret')
 
     return render_template('register.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_user():
+    """Show login user page."""
+
+    form = AddUserForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        email = form.email.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+
+        user = User.authenticate(username, password, email, first_name, last_name)
+        if user:
+            return redirect('/secret')
+        else:
+            form.username.errors = ['Invalid username/password']
+
+    return render_template('login.html', form=form) 
