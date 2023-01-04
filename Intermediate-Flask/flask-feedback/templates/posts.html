@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} Secret {% endblock %}
+{% block content %}
+
+<div class="container">   
+    <h1 class="display-3 text-center">Posts</h1>
+</div>
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+    {% for field in form
+        if field.widget.input_type != 'hidden' %}
+    <p>
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+
+        {% for error in field.errors %}
+        <span class="form-text text-danger">{{ error }}</span>
+        {% endfor %}
+    </p>
+    {% endfor %}
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-success">Save Post!</button>
+    </div>
+
+</form>
+
+<div>
+    {% for feedback in feedbacks %}
+        <div class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title text-info"><b>{{ feedback.user.username }}</b></h5>
+                <p class="card-text">{{ feedback.title }}</p>
+                {% if session['username'] == feedback.user_id %}
+                <form style="display: inline;" action="/posts/{{ feedback.id }}" method="POST">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

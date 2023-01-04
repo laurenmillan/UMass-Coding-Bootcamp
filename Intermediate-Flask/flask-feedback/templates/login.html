@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Login User {% endblock %}
+{% block content %}
+
+<div class="container">   
+<h1 class="display-2">Login</h1>
+<p class="lead">Login Below. If you don't have an account, <a href="/register">Register Here</a></p>
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+    {% for field in form
+        if field.widget.input_type != 'hidden' %}
+    <p>
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+
+        {% for error in field.errors %}
+        <span class="form-text text-danger">{{ error }}</span>
+        
+        {% endfor %}
+    </p>
+    {% endfor %}
+    
+    <div class="col-auto">
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
+</form>
+</div>
+
+{% endblock %}
