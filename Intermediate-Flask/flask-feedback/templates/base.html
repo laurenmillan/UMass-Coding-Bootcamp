@@ -9,19 +9,25 @@
         <div class="container">
             <a class="navbar-brand text-white" href="/"><b><i>Flask Feedback</i></b></a>
                 <ul class="nav navbar-nav flex-row float-right">
+                    {% if session['user_id'] %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/logout">Logout</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white px-2" href="/register">Sign Up</a>
                     </li>
+                    {% endif %}
                 </ul>
         </div>
     </nav>
 
     <div class="container" style="margin-top: 2em;">
-        {% for msg in get_flashed_messages() %}
-        <div class="alert alert-success">{{ msg }}</div>
+        {% for category, msg in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ msg }}</div>
         {% endfor %}
 
         {% block content %}

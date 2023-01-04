@@ -13,6 +13,19 @@ def connect_db(app):
     db.init_app(app)
 
 
+class Feedback(db.Model):
+    """Feedback Model."""
+
+    __tablename__ = 'feedbacks'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    username = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship('User', backref='feedbacks')
+
+
 class User(db.Model):
     """User Model."""
 

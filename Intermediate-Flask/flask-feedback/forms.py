@@ -10,3 +10,10 @@ class AddUserForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(message="Email cannot be blank")])
     first_name = StringField('First Name', validators=[InputRequired(message="First Name cannot be blank")])
     last_name = StringField('Last Name', validators=[InputRequired(message="Last Name cannot be blank")])
+
+
+class AddPostForm(FlaskForm):
+    """Form for adding posts."""
+
+    title = StringField('Title', validators=[InputRequired(message="Title cannot be blank.")])
+    content = StringField('Content', validators=[InputRequired(message="Content cannot be blank.")])

@@ -2,8 +2,9 @@
 
 from flask import Flask, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
-from forms import AddUserForm
+from models import db, connect_db, User, Feedback
+from forms import AddUserForm, AddPostForm
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 
@@ -24,10 +25,45 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/secret')
-def show_secret():
-    """Show page with flash message informing the user has created an account."""
-    return render_template('secret.html')
+@app.route('/posts', methods=['GET', 'POST'])
+def show_posts():
+    """Show page with posts."""
+
+    if 'user_id' not in session:
+        flash('Please login to see content', 'danger')
+        return redirect('/')
+    form = AddPostForm()
+    all_posts = Feedback.query.all()
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+
+        new_post = Feedback(title=title, content=content, username=session['user_id'])
+        db.session.add(new_post)
+        db.session.commit()
+        flash('Post Created!', 'success')
+        return redirect('/posts')
+
+    return render_template('posts.html', form=form, feedbacks=all_posts)
+
+
+@app.route('/posts/<int:id>', methods=['POST'])
+def delete_post(id):
+    """Delete current user's post."""
+
+    if 'user_id' not in session:
+        flash('Please login first!', 'danger')
+        return redirect('/login')
+    post = Feedback.query.get_or_404(id)
+
+    if post.username == session['user_id']:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post Deleted!', 'info')
+        return redirect('/posts')
+    flash("You don't have permission to do this action!", "danger")
+
+    return redirect('/posts')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -45,9 +81,14 @@ def register_user():
         new_user = User.register(username, password, email, first_name, last_name)
 
         db.session.add(new_user)
-        db.session.commit()
-        flash('Welcome! Your account has been successfully created!')
-        return redirect('/secret')
+        try:
+            db.session.commit()
+        except IntegrityError:
+            form.username.errors.append('This username is taken. Please choose another username')
+            return render_template('/register.html', form=form)
+        session['user_id'] = new_user.id
+        flash('Welcome! Your account has been successfully created!', 'success')
+        return redirect('/posts')
 
     return render_template('register.html', form=form)
 
@@ -66,8 +107,19 @@ def login_user():
 
         user = User.authenticate(username, password, email, first_name, last_name)
         if user:
-            return redirect('/secret')
+            flash(f'Welcome Back, {user.username}!', 'primary')
+            session['user_id'] = user.id
+            return redirect('/posts')
         else:
             form.username.errors = ['Invalid username/password']
 
     return render_template('login.html', form=form) 
+
+
+@app.route('/logout')
+def logout_user():
+    """Logout user."""
+    session.pop('user_id')
+    flash('You successfully logged out', 'info')
+
+    return redirect('/')
