@@ -13,5 +13,8 @@
     <li><a href="/playlists/{{ playlist.id }}">{{ playlist.name }}</a></li>
     {% endfor %}
 </ul>
+{% else %}
+<div>This song has not been added to a playlist</div>
+{% endif %}
 
 {% endblock %}
