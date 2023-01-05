@@ -27,7 +27,7 @@ class Song(db.Model):
 
     __tablename__ = 'songs'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.Text, nullable=False)
     artist = db.Column(db.Text, nullable=False)
 
@@ -39,6 +39,6 @@ class PlaylistSong(db.Model):
 
     __tablename__ = 'playlist_songs'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     playlist_id = db.Column(db.Integer, db.ForeignKey('playlists.id'), nullable=False) # this is referencing the primary key from the playlists table
     song_id = db.Column(db.Integer, db.ForeignKey('songs.id'), nullable=False) # this is referencing the primary key from the songs table
