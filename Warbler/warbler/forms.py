@@ -33,5 +33,6 @@ class UserUpdateForm(FlaskForm):
     image_url = StringField('(Optional) Image URL')
     header_image_url = StringField('(Optional) Header Image URL')
     bio = TextAreaField('(Optional) Provide a short bio about yourself')
+    location = StringField('(Optional) Your location')
     password = PasswordField('Password', validators=[Length(min=6)])
 

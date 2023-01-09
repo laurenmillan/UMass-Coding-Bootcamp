@@ -226,11 +226,12 @@ def update_profile():
             user.image_url = form.image_url.data or "/static/images/default-pic.png"
             user.header_image_url = form.header_image_url.data or "/static/images/warbler-hero.jpg"
             user.bio = form.bio.data
+            user.location = form.location.data
 
             db.session.commit()
             return redirect(f"/users/{user.id}")
 
-        flash('Incorrect password or username', 'danger')
+        flash('Incorrect password', 'danger')
 
     return render_template('users/edit.html', form=form, user_id=user.id)
 
