@@ -152,7 +152,7 @@ def users_show(user_id):
                 .limit(100)
                 .all())
     likes = [message.id for message in user.likes]
-    
+
     return render_template('users/show.html', user=user, messages=messages, likes=likes)
 
 
@@ -238,8 +238,6 @@ def update_profile():
     return render_template('users/edit.html', form=form, user_id=user.id)
 
 
-
-
 @app.route('/users/delete', methods=["POST"])
 def delete_user():
     """Delete user."""
@@ -254,6 +252,22 @@ def delete_user():
     db.session.commit()
 
     return redirect("/signup")
+
+
+##############################################################################
+# Likes routes:
+
+@app.route('/users/<int:user_id>/likes', methods=["GET"])
+def show_likes(user_id):
+    """Show page with list of likes for a message."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template('users/likes.html', user=user, likes=user.likes)
 
 
 ##############################################################################
