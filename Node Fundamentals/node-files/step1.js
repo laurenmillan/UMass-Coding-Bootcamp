@@ -7,7 +7,7 @@ const process = require('process');
 function cat(path) {
 	fs.readFile(path, 'utf8', (err, data) => {
 		if (err) {
-			console.log('ERROR', err);
+			console.log(`ERROR FETCHING ${path}: ${err}`);
 			process.exit(1);
 		}
 		console.log(data);
