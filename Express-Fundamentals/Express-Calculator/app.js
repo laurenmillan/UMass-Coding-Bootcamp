@@ -3,9 +3,9 @@ const express = require('express');
 // ./expressError is looking for a file name
 const ExpressError = require('./expressError');
 
-// then execute Express as a function and store the return value in app
+// execute Express as a function and store the return value in app
 const app = express();
-const { mean, median, mode } = require('./operations');
+const { mean, median, mode, validateNum } = require('./operations');
 
 // this tells Express to parse request body for either form data or JSON
 app.use(express.json());
@@ -18,43 +18,73 @@ app.use((req, res, next) => {
 	next();
 });
 
-// every handler should have a calllback with two parameters: request & response
-app.get('/mean', (req, res) => {
-	try {
-		// if (req.body.name.toLowerCase === NaN) res.status(404).json({ msg: 'That is not a number' });
-		if (req.body === NaN) throw ExpressError('not a number', 404);
-		return next(err);
-	} catch (e) {
-		next(e);
+//** mean */
+// every handler should have a calllback with three parameters: request, response & next
+app.get('/mean', (req, res, next) => {
+	// console.log(req.query.nums);
+	if (!req.query.nums) {
+		throw new ExpressError('You must pass a list of numbers in', 400);
 	}
+	let passedNums = req.query.nums.split(', ');
+	let nums = validateNum(passedNums);
+	if (nums instanceof Error) {
+		throw new ExpressError(nums.message);
+	}
+	let result = {
+		operation: 'mean',
+		value: mean(passedNums)
+	};
+	return res.send(result);
 });
 
-// app.get('/mean', (req, res) => {
-// 	// console.log(req.query)
-// 	const { nums } = req.query;
-// 	return res.send(`Output: ${nums} `);
-// });
+//** median */
+app.get('/median', (req, res, next) => {
+	// console.log(req.query.nums);
+	if (!req.query.nums) {
+		throw new ExpressError('You must pass a list of numbers in', 400);
+	}
+	let passedNums = req.query.nums.split(', ');
+	let nums = validateNum(passedNums);
+	if (nums instanceof Error) {
+		throw new ExpressError(nums.message);
+	}
+	let result = {
+		operation: 'median',
+		value: median(passedNums)
+	};
+	return res.send(result);
+});
 
-// app.get('/median', (req, res) => {
-// 	console.log('/median');
-// });
-
-// app.get('/mode', (req, res) => {
-// 	console.log('/mode');
-// });
+//** mode */
+app.get('/mode', (req, res, next) => {
+	// console.log(req.query.nums);
+	if (!req.query.nums) {
+		throw new ExpressError('You must pass a list of numbers in', 400);
+	}
+	let passedNums = req.query.nums.split(', ');
+	let nums = validateNum(passedNums);
+	if (nums instanceof Error) {
+		throw new ExpressError(nums.message);
+	}
+	let result = {
+		operation: 'mode',
+		value: mode(passedNums)
+	};
+	return res.send(result);
+});
 
 // app.use runs for every single request
 //  this will run if there is no match - a page that doesn't exists
 app.use((req, res, next) => {
 	const e = new ExpressError('Page not found', 404);
-	next(e);
+	return next(e);
 });
 
 // error handler goes at end of app
-app.use((error, req, res, next) => {
-	// console.log(error.msg);
-	res.status(error.status).send(error.msg);
-});
+// app.use((error, req, res, next) => {
+// 	// console.log(error.msg);
+// 	res.status(error.status).send(error.msg);
+// });
 
 // responding with a JSON error for a JSON api
 app.use((err, req, res, next) => {

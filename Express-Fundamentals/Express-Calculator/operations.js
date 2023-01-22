@@ -1,12 +1,14 @@
 // const data = [ 9, 92, 6, 13, 7, 9 ];
 
 //** mean */
-const mean = (arr) => {
+const mean = (nums) => {
+	let numbers = validateNum(nums);
 	let sum = 0;
-	for (let i = 0; i < arr.length; i++) {
-		sum += arr[i];
+	for (let num of numbers) {
+		sum += num;
 	}
-	return sum / arr.length;
+	let average = sum / numbers.length;
+	return average;
 };
 // console.log(`${data}`);
 // console.log(`${mean(data)}`);
@@ -44,8 +46,15 @@ const mode = (arr) => {
 	}
 	return max;
 };
-
 // console.log(`${data}`);
 // console.log(`${mode(data)}`);
 
-module.exports = { mean, median, mode };
+function validateNum(nums) {
+	result = [];
+	for (let num of nums) {
+		result.push(Number(num));
+	}
+	return result;
+}
+
+module.exports = { mean, median, mode, validateNum };
