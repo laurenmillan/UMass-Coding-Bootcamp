@@ -5,6 +5,7 @@ const ExpressError = require('./expressError');
 
 // then execute Express as a function and store the return value in app
 const app = express();
+const { mean, median, mode } = require('./operations');
 
 // this tells Express to parse request body for either form data or JSON
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 	next();
 });
 
+// every handler should have a calllback with two parameters: request & response
 app.get('/mean', (req, res) => {
 	try {
 		// if (req.body.name.toLowerCase === NaN) res.status(404).json({ msg: 'That is not a number' });
@@ -26,6 +28,12 @@ app.get('/mean', (req, res) => {
 		next(e);
 	}
 });
+
+// app.get('/mean', (req, res) => {
+// 	// console.log(req.query)
+// 	const { nums } = req.query;
+// 	return res.send(`Output: ${nums} `);
+// });
 
 // app.get('/median', (req, res) => {
 // 	console.log('/median');

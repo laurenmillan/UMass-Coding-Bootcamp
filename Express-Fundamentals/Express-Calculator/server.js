@@ -30,21 +30,6 @@ app.get('/show-headers', (req, res) => {
 	res.send(req.headers);
 });
 
-// every handler should have a calllback with two parameters: request & response
-app.get('/mean', (req, res) => {
-	// console.log(req.query)
-	const { nums } = req.query;
-	return res.send(`Output: ${nums} `);
-});
-
-// app.get('/median', (req, res) => {
-// 	console.log('/median');
-// });
-
-// app.get('/mode', (req, res) => {
-// 	console.log('/mode');
-// });
-
 // START THE SERVER: call app.listen, which asks for a port as the
 //  first argument; 3000 is standard, then the callback function
 // this function goes at the bottom of the app
