@@ -25,7 +25,7 @@ app.get('/mean', (req, res, next) => {
 	if (!req.query.nums) {
 		throw new ExpressError('You must pass a list of numbers in', 400);
 	}
-	let passedNums = req.query.nums.split(', ');
+	let passedNums = req.query.nums.split(',');
 	let nums = validateNum(passedNums);
 	if (nums instanceof Error) {
 		throw new ExpressError(nums.message);
@@ -43,7 +43,7 @@ app.get('/median', (req, res, next) => {
 	if (!req.query.nums) {
 		throw new ExpressError('You must pass a list of numbers in', 400);
 	}
-	let passedNums = req.query.nums.split(', ');
+	let passedNums = req.query.nums.split(',');
 	let nums = validateNum(passedNums);
 	if (nums instanceof Error) {
 		throw new ExpressError(nums.message);
@@ -61,7 +61,7 @@ app.get('/mode', (req, res, next) => {
 	if (!req.query.nums) {
 		throw new ExpressError('You must pass a list of numbers in', 400);
 	}
-	let passedNums = req.query.nums.split(', ');
+	let passedNums = req.query.nums.split(',');
 	let nums = validateNum(passedNums);
 	if (nums instanceof Error) {
 		throw new ExpressError(nums.message);
