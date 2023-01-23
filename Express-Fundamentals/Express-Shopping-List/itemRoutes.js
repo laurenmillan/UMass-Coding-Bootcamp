@@ -16,10 +16,15 @@ router.get('/', (req, res) => {
 });
 
 // POST items request
-router.post('/', (req, res) => {
-	const newItem = { name: req.body.name, price: req.body.price };
-	items.push(newItem);
-	res.status(201).json({ item: newItem });
+router.post('/', (req, res, next) => {
+	try {
+		if (!req.body.name) throw new ExpressError('Name is required', 400);
+		const newItem = { name: req.body.name, price: req.body.price };
+		items.push(newItem);
+		return res.status(201).json({ item: newItem });
+	} catch (e) {
+		return next(e);
+	}
 });
 
 // GET name request
