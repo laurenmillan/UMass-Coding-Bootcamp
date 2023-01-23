@@ -1,38 +1,54 @@
+//**** /items routes ****/
+
 const express = require('express');
+const ExpressError = require('./expressError');
+const items = require('./fakeDb');
 
 // Express router allows us to separate our routes without cluttering app.js file
 //  const router: router is an object that we can define our routes on
 //  this is connecting this file to the app file
 const router = new express.Router();
 
-const ITEMS = [ { id: 1, name: 'popsicle', price: '1.45' }, { id: 2, name: 'cheerios', price: '3.40' } ];
-
 // GET items request
 router.get('/', (req, res) => {
-	res.json({ items: ITEMS });
-});
-
-// router.get('/:id', (req, res) => {
-// 	// +req.params.id returns a string so the plus sign is a unary operator which turns it into a number
-// 	const item = ITEMS.find((i) => i.id === +req.params.id);
-// 	res.json({ item });
-// });
-
-// GET name request
-router.get('/:name', (req, res) => {
-	const item = ITEMS.find((i) => i.name === req.params.name);
-	res.json({ item });
+	// this will send a json response with the items database - items array
+	res.json({ items });
 });
 
 // POST items request
-router.post('/', (req, res) => {});
+router.post('/', (req, res) => {
+	const newItem = { name: req.body.name };
+	items.push(newItem);
+	res.status(201).json({ item: newItem });
+});
+
+// GET name request
+router.get('/:name', (req, res) => {
+	const foundItem = items.find((item) => item.name === req.params.name);
+	if (foundItem === undefined) {
+		throw new ExpressError('Item not found', 404);
+	}
+	res.json({ item: foundItem });
+});
 
 // PATCH items request
-router.patch('/:name', (req, res) => {});
+router.patch('/:name', (req, res) => {
+	const foundItem = items.find((item) => item.name === req.params.name);
+	if (foundItem === undefined) {
+		throw new ExpressError('Item not found', 404);
+	}
+	foundItem.name = req.body.name;
+	res.json({ item: foundItem });
+});
 
 // DELETE request
 router.delete('/:name', (req, res) => {
-	// (`Your item ${ITEM} was deleted`)
+	const foundItem = items.findIndex((item) => item.name === req.params.name);
+	if (foundItem === -1) {
+		throw new ExpressError('Item not found', 404);
+	}
+	items.splice(foundItem, 1);
+	res.json({ message: 'Your item was deleted!' });
 });
 
 module.exports = router;

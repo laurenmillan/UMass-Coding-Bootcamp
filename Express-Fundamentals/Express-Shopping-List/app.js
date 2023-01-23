@@ -1,27 +1,31 @@
 // this looks for a package called express
 const express = require('express');
 
-// ./expressError is looking for a file name
-const ExpressError = require('./expressError');
-
-const middleware = require('./middleware');
+// execute Express as a function and store the return value in app
+const app = express();
 
 // ./itemsRoutes is looking for a file name
 const itemRoutes = require('./itemRoutes');
 
-// execute Express as a function and store the return value in app
-const app = express();
+// ./expressError is looking for a file name
+const ExpressError = require('./expressError');
 
 // Middleware: this tells Express to parse request body for either form data or JSON
 //  this runs before every route we define
 app.use(express.json());
 
-// this tells Express to use the logger function on every request
-//  it is placed above all routes
-app.use(middleware.logger);
-
 // apply a prefix to every route in itemRoutes
 app.use('/items', itemRoutes);
+
+const middleware = require('./middleware');
+const morgan = require('morgan');
+
+// Morgan is an external middleware instead of writing a logger function
+app.use(morgan('dev'));
+
+// this tells Express to use the logger function on every request
+//  it is placed above all routes
+// app.use(middleware.logger);
 
 // this route ignores favicon which is printed to terminal
 // a status of 204 means no content
@@ -39,15 +43,10 @@ app.use((req, res, next) => {
 // generic error handler
 app.use((err, req, res, next) => {
 	// the default status is 500 Internal Server Error
-	let status = err.status || 500;
-	let message = err.message;
+	res.status(err.status || 500);
 
-	// set status and alert user
-	return res.status(status).json({
-		error: {
-			message: err.message,
-			status: status
-		}
+	return res.json({
+		error: err.message
 	});
 });
 
