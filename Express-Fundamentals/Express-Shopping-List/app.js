@@ -50,6 +50,11 @@ app.use((err, req, res, next) => {
 	});
 });
 
-app.listen(3000, () => {
-	console.log('Server running on port 3000');
-});
+// we don't want the server running when Supertest is running,
+//  so we move this code to server.js, that's why it's commented out
+// app.listen(3000, () => {
+// 	console.log('Server running on port 3000');
+// });
+
+// then we add this line of code
+module.exports = app;
