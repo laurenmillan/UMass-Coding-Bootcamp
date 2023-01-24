@@ -4,6 +4,7 @@ const fs = require('fs');
 //  command-line arguments passed to the script, or kill the script
 // fs means filesystem, we can use this to read/write files to
 const process = require('process');
+const axios = require('axios');
 
 // path is urls.txt
 
@@ -20,3 +21,20 @@ readFilemname(process.argv[2]);
 
 // to run this in the shell, ensure you're in correct directory, then type
 //  node urls.js urls.txt
+
+async function getUrl(url) {
+	try {
+		let res = await axios.get(url);
+		console.log(res.data);
+	} catch (err) {
+		console.log(`Error with ${path}: ${err}`);
+		process.exit(1);
+	}
+}
+let path = process.argv[2];
+
+if (path.slice(0, 4) === 'http') {
+	getUrl(path);
+} else {
+	readFilemname(path);
+}
