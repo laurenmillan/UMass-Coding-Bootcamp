@@ -1,6 +1,9 @@
+DROP TABLE IF EXISTS invoices;
+
+CREATE DATABASE biztime;
+
 \c biztime
 
-DROP TABLE IF EXISTS invoices;
 DROP TABLE IF EXISTS companies;
 
 CREATE TABLE companies (
