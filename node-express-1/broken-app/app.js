@@ -8,17 +8,13 @@ const userRoutes = require('./userRoutes');
 app.use(express.json());
 
 // apply a prefix to every route in userRoutes
-app.use('/users', userRoutes);
+app.use('/', userRoutes);
 
 const middleware = require('./middleware');
 const morgan = require('morgan');
 
 // Morgan is an external middleware instead of writing a logger function
 app.use(morgan('dev'));
-
-// this route ignores favicon which is printed to terminal
-// a status of 204 means no content
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 
 //****** Middleware ******/
 

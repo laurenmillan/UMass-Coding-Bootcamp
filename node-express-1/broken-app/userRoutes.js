@@ -1,22 +1,22 @@
-//** User Route */
-
 const express = require('express');
 const ExpressError = require('./expressError');
 const axios = require('axios');
 const router = new express.Router();
 
-router.post('/', async function(req, res, next) {
-	const data = [];
+//** POST Route */
+router.post('/', (req, res, next) => {
 	try {
-		for (let d of req.body.developers) {
-			const res = await axios.get(`https://api.github.com/users/${d}`);
-			data.push(res);
-		}
-		const out = data.map((r) => ({ name: r.data.name, bio: r.data.bio }));
+		const results = req.body.developers.map(async (d) => {
+			return await axios.get(`https://api.github.com/users/${d}`);
+		});
+		const out = results.map((r) => ({ name: r.data.name, bio: r.data.bio }));
 		return res.send(JSON.stringify(out));
-	} catch (e) {
-		return next(e);
+	} catch (err) {
+		return next(err);
 	}
 });
 
 module.exports = router;
+
+// to run this app in shell - nodemon app.js, then instead of going to localhost:3000,
+//  go to https://api.github.com/users to see JSON
