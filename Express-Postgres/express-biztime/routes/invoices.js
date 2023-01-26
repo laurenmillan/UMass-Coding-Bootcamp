@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // use Insomnia to see data
 
 // GET request to return obj on given invoice
-router.get('/id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.query;
 		const results = await db.query(`SELECT * FROM invoices WHERE id=$1`, [ id ]);

@@ -1,4 +1,5 @@
 const express = require('express');
+const ExpressError = require('../expressError');
 const router = express.Router();
 const db = require('../db');
 
@@ -12,7 +13,7 @@ router.get('/', async (req, res, next) => {
 		// check out Section 36.1, video 3 for context on adding debugger to line 9
 		// debugger;
 		// results is an object, rows contains our data which is also an object
-		return res.json(results.rows);
+		return res.json({ companies: results.rows });
 	} catch (err) {
 		return next(err);
 	}
@@ -21,12 +22,15 @@ router.get('/', async (req, res, next) => {
 // use Insomnia to see data
 
 // GET request for returning obj of company
-router.get('/code', async (req, res, next) => {
+router.get('/:code', async (req, res, next) => {
 	try {
 		const { code } = req.query;
 		// setting code=$1 and adding [code], this is called Paramaterized Queries. It sanitizes the values
 		//  and prevents someone from attacking the db. This should be done with all queries!
 		const results = await db.query(`SELECT * FROM companies WHERE code=$1`, [ code ]);
+		if (results.rows.length === 0) {
+			throw new ExpressError(`Cannot locate company with code of ${code}`, 404);
+		}
 		return res.status(404).json(results.rows);
 	} catch (err) {
 		return next(err);
@@ -46,7 +50,7 @@ router.post('/', async (req, res, next) => {
 			[ code, name, description ]
 		);
 		// [0] will send back the first object
-		return res.status(201).json(results.rows[0]);
+		return res.status(201).json({ company: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -54,7 +58,7 @@ router.post('/', async (req, res, next) => {
 // run nodemon app.js
 // use Insomnia to add data using POST request
 
-// PATCH request to edit company
+// PATCH request to update company
 router.patch('/:code', async (req, res, next) => {
 	try {
 		const { code } = req.params;
@@ -64,7 +68,10 @@ router.patch('/:code', async (req, res, next) => {
 			description,
 			code
 		]);
-		return res.send(results.rows[0]);
+		if (results.rows.length === 0) {
+			throw new ExpressError(`Cannot update company with code of ${code}`, 404);
+		}
+		return res.send({ company: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}

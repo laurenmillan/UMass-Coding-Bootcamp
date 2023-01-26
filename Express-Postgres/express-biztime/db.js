@@ -5,7 +5,7 @@ const { Client } = require('pg');
 let DB_URI;
 
 // two databases, one for testing, and the other is the db we created
-
+// NODE_ENV is a variable and it's a way of specifying which mode the app us running in, ie: test
 if (process.env.NODE_ENV === 'test') {
 	DB_URI = 'postgresql:///biztime_test';
 } else {
