@@ -2,6 +2,8 @@ const express = require('express');
 const ExpressError = require('../expressError');
 const router = express.Router();
 const db = require('../db');
+// installed slugify by doing npm i slugify
+const slugify = require('slugify');
 
 // GET request
 router.get('/', async (req, res, next) => {
@@ -13,7 +15,7 @@ router.get('/', async (req, res, next) => {
 		// check out Section 36.1, video 3 for context on adding debugger to line 9
 		// debugger;
 		// results is an object, rows contains our data which is also an object
-		return res.json({ companies: results.rows });
+		return res.json({ companies: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -31,7 +33,7 @@ router.get('/:code', async (req, res, next) => {
 		if (results.rows.length === 0) {
 			throw new ExpressError(`Cannot locate company with code of ${code}`, 404);
 		}
-		return res.status(404).json(results.rows);
+		return res.status(404).json({ company: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -43,7 +45,8 @@ router.get('/:code', async (req, res, next) => {
 // POST request to add a company
 router.post('/', async (req, res, next) => {
 	try {
-		const { code, name, description } = req.body;
+		const { name, description } = req.body;
+		const code = slugify(name);
 		const results = await db.query(
 			// RETURNING * will return code, name, description
 			'INSERT INTO companies (code, name, description) VALUES ($1, $2, $3) RETURNING *',

@@ -1,12 +1,13 @@
 const express = require('express');
+const ExpressError = require('../expressError');
 const router = express.Router();
 const db = require('../db');
 
 // GET request
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try {
 		const results = await db.query(`SELECT * FROM invoices`);
-		return res.json(results.rows);
+		return res.json({ invoices: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -19,7 +20,10 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.query;
 		const results = await db.query(`SELECT * FROM invoices WHERE id=$1`, [ id ]);
-		return res.status(404).json(results.rows);
+		if (results.rows.length === 0) {
+			throw new ExpressError(`Cannot locate invoice with id of ${id}`, 404);
+		}
+		return res.status(404).json({ invoice: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -36,7 +40,7 @@ router.post('/', async (req, res, next) => {
 			comp_code,
 			amt
 		]);
-		return res.status(201).json(results.rows[0]);
+		return res.status(201).json({ invoice: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
@@ -45,18 +49,48 @@ router.post('/', async (req, res, next) => {
 // use Insomnia to add data using POST request
 
 // PATCH request to edit invoice
+// router.patch('/:id', async (req, res, next) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const { amt } = req.body;
+// 		const results = await db.query('UPDATE invoices SET amt=$1 WHERE id=$2 RETURNING *', [ amt, id ]);
+// 		if (results.rows.length === 0) {
+// 			throw new ExpressError(`Cannot update invoice with id of ${id}`, 404);
+// 		}
+// 		return res.send({ invoice: results.rows[0] });
+// 	} catch (err) {
+// 		return next(err);
+// 	}
+// });
+// run nodemon app.js
+// use Insomnia to edit data using PATCH request
+
+// PART II of exercise: change logic
+// PATCH request to edit invoice
 router.patch('/:id', async (req, res, next) => {
 	try {
+		let paid_date;
 		const { id } = req.params;
-		const { amt } = req.body;
-		const results = await db.query('UPDATE invoices SET amt=$1 WHERE id=$2 RETURNING *', [ amt, id ]);
-		return res.send(results.rows[0]);
+		const { amt, paid } = req.body;
+		const invoiceRes = await db.query(`SELECT * FROM invoices`);
+		if (invoiceRes.rows.length === 0) {
+			throw new ExpressError(`Cannot update invoice with id of ${id}`, 404);
+		}
+		if (paid === 'true') {
+			invoiceRes.paid_date ? (paid_date = invoiceRes.paid_date) : (paid_date = new Date());
+		} else {
+			paid_date = null;
+		}
+		const results = await db.query('UPDATE invoices SET amt=$1, paid=$2 WHERE id=$3 RETURNING *', [
+			amt,
+			paid,
+			id
+		]);
+		return res.send({ invoice: results.rows[0] });
 	} catch (err) {
 		return next(err);
 	}
 });
-// run nodemon app.js
-// use Insomnia to edit data using PATCH request
 
 // DELETE request to delete invoice
 router.delete('/:id', async (req, res, next) => {
