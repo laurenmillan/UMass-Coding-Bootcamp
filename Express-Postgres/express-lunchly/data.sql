@@ -1,4 +1,8 @@
-\c lunchly 
+DROP DATABASE IF EXISTS lunchly;
+
+CREATE DATABASE lunchly;
+
+\c lunchly;
 
 DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS customers;
