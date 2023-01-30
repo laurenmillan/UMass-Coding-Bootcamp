@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 		// check out Section 36.1, video 3 for context on adding debugger to line 9
 		// debugger;
 		// results is an object, rows contains our data which is also an object
-		return res.json({ companies: results.rows[0] });
+		return res.json({ companies: results.rows });
 	} catch (err) {
 		return next(err);
 	}

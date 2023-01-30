@@ -7,7 +7,7 @@ const db = require('../db');
 router.get('/', async (req, res, next) => {
 	try {
 		const results = await db.query(`SELECT * FROM invoices`);
-		return res.json({ invoices: results.rows[0] });
+		return res.json({ invoices: results.rows });
 	} catch (err) {
 		return next(err);
 	}
