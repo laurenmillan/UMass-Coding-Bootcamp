@@ -53,4 +53,13 @@ router.post('/', async (req, res, next) => {
 	}
 });
 
+router.delete('/:code', async (req, res, next) => {
+	try {
+		const results = db.query('DELETE FROM industries WHERE code=$1', [ req.params.code ]);
+		return res.send({ msg: 'Deleted!' });
+	} catch (err) {
+		return next(err);
+	}
+});
+
 module.exports = router;
