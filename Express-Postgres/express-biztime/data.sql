@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS invoices;
 
 DROP TABLE IF EXISTS industries;
 
-DROP TABLE IF EXISTS company_industry;
+DROP TABLE IF EXISTS comp_industries;
 
 
 CREATE TABLE companies (
@@ -32,6 +32,16 @@ CREATE TABLE invoices (
     CONSTRAINT invoices_amt_check CHECK ((amt > (0)::double precision))
 );
 
+CREATE TABLE industries (
+    code text PRIMARY KEY,
+    industry text NOT NULL
+);
+
+CREATE TABLE comp_industries (
+    comp_code text NOT NULL REFERENCES companies ON DELETE CASCADE,
+    ind_code text REFERENCES industries ON DELETE CASCADE
+);
+
 INSERT INTO companies
   VALUES ('apple', 'Apple Computer', 'Maker of OSX.'),
          ('ibm', 'IBM', 'Big blue.'),
@@ -43,30 +53,20 @@ INSERT INTO invoices (comp_Code, amt, paid, paid_date)
          ('apple', 300, true, '2018-01-01'),
          ('ibm', 400, false, null);
 
-CREATE TABLE industries (
-    code text PRIMARY KEY,
-    industry text NOT NULL
-);
-
-CREATE TABLE company_industry (
-    comp_code text NOT NULL REFERENCES companies ON DELETE CASCADE,
-    ind_code text NOT NULL REFERENCES industries ON DELETE CASCADE
-);
-
 INSERT INTO industries
   VALUES ('acct', 'Accounting'),
-         ('mktg', 'Marketing');
+         ('mktg', 'Marketing'),
+         ('hr', 'Human Resources');
 
-INSERT INTO company_industry
+INSERT INTO comp_industries
   VALUES ('apple', 'comp'),
-         ('ibm', 'comp'),
-         ('kenmore', 'mktg');
+         ('ibm', 'comp');
 
--- creating SQL relationship 
+-- creating SQL relationship: 
 
--- SELECT c.code, c.name, c.industry
--- FROM companies AS c
--- LEFT JOIN company_industry AS ci
--- ON c.code = ci.comp_code
--- LEFT JOIN industries AS i
--- ON ci.ind_code = i.code
+-- SELECT i.code, c.code, i.industry
+-- FROM industries AS i
+-- LEFT JOIN comp_industries AS ci
+-- ON i.code = ci.ind_code
+-- LEFT JOIN companies AS c
+-- ON ci.ind_code = c.code
