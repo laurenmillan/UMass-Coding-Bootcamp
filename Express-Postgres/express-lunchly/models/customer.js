@@ -4,7 +4,7 @@ const db = require('../db');
 const Reservation = require('./reservation');
 
 // here we've moved SQL data into the Customer class as static methods.
-// the static keyword allows us to call all() on the Customer class
+// the static method allows us to call other methods on the Customer class
 
 /** Customer of the restaurant. */
 
@@ -22,13 +22,18 @@ class Customer {
 	static async all() {
 		const results = await db.query(
 			`SELECT id, 
-         first_name AS "firstName",  
-         last_name AS "lastName", 
-         phone, 
-         notes
-       FROM customers
-       ORDER BY last_name, first_name`
+        first_name AS "firstName",  
+        last_name AS "lastName", 
+        phone, 
+        notes
+      FROM customers
+      ORDER BY last_name, first_name`
 		);
+		// for each row, we map it into a new Customer object and return an array of the Customer instance
+		// calling new Customer creates a new instance of the class Customer, ie Bob is an instance of the class Customer
+		// new allocates memory for the instance
+
+		// console.log(results.rows);
 		return results.rows.map((c) => new Customer(c));
 	}
 
@@ -38,10 +43,10 @@ class Customer {
 	static async get(id) {
 		const results = await db.query(
 			`SELECT id, 
-         first_name AS "firstName",  
-         last_name AS "lastName", 
-         phone, 
-         notes 
+        first_name AS "firstName",  
+        last_name AS "lastName", 
+        phone, 
+        notes 
         FROM customers WHERE id = $1`,
 			[ id ]
 		);
@@ -64,23 +69,28 @@ class Customer {
 	}
 
 	/** save this customer. */
+	// we're calling save on an instance of the class Customer
 
 	async save() {
 		if (this.id === undefined) {
 			const result = await db.query(
 				`INSERT INTO customers (first_name, last_name, phone, notes)
-             VALUES ($1, $2, $3, $4)
-             RETURNING id`,
+          VALUES ($1, $2, $3, $4)
+          RETURNING id`,
 				[ this.firstName, this.lastName, this.phone, this.notes ]
 			);
 			this.id = result.rows[0].id;
 		} else {
 			await db.query(
 				`UPDATE customers SET first_name=$1, last_name=$2, phone=$3, notes=$4
-             WHERE id=$5`,
+          WHERE id=$5`,
 				[ this.firstName, this.lastName, this.phone, this.notes, this.id ]
 			);
 		}
+	}
+	/** get a customer by full name */
+	get fullName() {
+		return this.firstName + ' ' + this.lastName;
 	}
 }
 
