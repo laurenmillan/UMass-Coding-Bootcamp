@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 const ExpressError = require('./expressError');
 
+// nunjucks is a library for Express to template HTML pages, it is added under dependencies in package.json
+
 const app = express();
-app.use(express.json());
 
 // Parse body for urlencoded (non-JSON) data
 app.use(bodyParser.urlencoded({ extended: false }));
