@@ -1,7 +1,9 @@
-// const express = require('express');
-// const router = new express.Router();
-// const ExpressError = require('../expressError');
-// const db = require('../db');
+const express = require('express');
+const Router = require('express').Router;
+const User = require('../models/user');
+const { ensureLoggedIn, ensureCorrectUser } = require('../middleware/auth');
+
+const router = new Router();
 
 /** GET / - get list of users.
  *
@@ -34,4 +36,4 @@
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
-// module.exports = router;
+module.exports = router;

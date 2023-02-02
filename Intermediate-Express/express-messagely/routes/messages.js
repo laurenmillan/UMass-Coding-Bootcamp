@@ -1,7 +1,10 @@
-// const express = require('express');
-// const router = new express.Router();
-// const ExpressError = require('../expressError');
-// const db = require('../db');
+const jwt = require('jsonwebtoken');
+const Router = require('express').Router;
+const router = new Router();
+
+const User = require('../models/user');
+const { SECRET_KEY } = require('../config');
+const ExpressError = require('../expressError');
 
 /** GET /:id - get detail of message.
  *
@@ -30,4 +33,5 @@
  * Make sure that the only the intended recipient can mark as read.
  *
  **/
-//module.exports = router;
+
+module.exports = router;
