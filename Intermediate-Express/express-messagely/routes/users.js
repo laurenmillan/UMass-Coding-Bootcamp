@@ -1,9 +1,7 @@
 // const express = require('express');
-// const router = express.Router();
+// const router = new express.Router();
 // const ExpressError = require('../expressError');
 // const db = require('../db');
-
-// module.exports = router;
 
 /** GET / - get list of users.
  *
@@ -36,3 +34,4 @@
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
+// module.exports = router;

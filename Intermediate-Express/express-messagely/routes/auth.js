@@ -1,9 +1,14 @@
-// const express = require('express');
-// const router = express.Router();
-// const ExpressError = require('../expressError');
-// const db = require('../db');
+const jwt = require('jsonwebtoken');
+const Router = require('express').Router;
+const router = new Router();
 
-// module.exports = router;
+const User = require('../models/user');
+const { SECRET_KEY } = require('../config');
+const ExpressError = require('../expressError');
+
+router.get('/', (req, res, next) => {
+	res.send('App Is Functional');
+});
 
 /** POST /login - login: {username, password} => {token}
  *
@@ -17,3 +22,4 @@
  *
  *  Make sure to update their last-login!
  */
+module.exports = router;
