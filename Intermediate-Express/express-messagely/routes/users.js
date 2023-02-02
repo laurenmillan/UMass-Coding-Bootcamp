@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = require('express').Router;
 const User = require('../models/user');
+const db = require('../db');
 const { ensureLoggedIn, ensureCorrectUser } = require('../middleware/auth');
 
 const router = new Router();
