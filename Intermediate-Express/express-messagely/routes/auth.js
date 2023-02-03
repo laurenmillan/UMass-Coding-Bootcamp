@@ -9,15 +9,15 @@ const bcrypt = require('bcrypt');
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config');
 const ExpressError = require('../expressError');
 
+router.get('/', (req, res, next) => {
+	res.send('APP IS WORKING');
+});
+
 /** POST /login - login: {username, password} => {token}
  *
  * Make sure to update their last-login!
  *
  **/
-
-router.get('/', (req, res, next) => {
-	res.send('APP IS WORKING');
-});
 
 router.post('/login', async (req, res, next) => {
 	try {
