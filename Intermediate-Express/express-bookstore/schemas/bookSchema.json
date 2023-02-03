@@ -51,6 +51,7 @@
 		"year": {
 			"type": "integer",
 			"default": 0,
+			"maximum": 2020,
 			"title": "The year Schema",
 			"examples": [ 2017 ]
 		}

@@ -1,11 +1,27 @@
 const express = require('express');
 const Book = require('../models/book');
+const jsonschema = require('jsonschema');
+const bookSchema = require('../schemas/bookSchema.json');
+const ExpressError = require('../expressError');
 
 const router = new express.Router();
 
 // router.get('/', (req, res, next) => {
 // 	res.send('APP IS WORKING');
 // });
+
+router.post('/', (req, res, next) => {
+	const result = jsonschema.validate(req.body, bookSchema);
+	if (!result.valid) {
+		// you can see the ValidatorResult object in the terminal with console.log(result),
+		//  and a stack property with useful information about the error
+		console.log(result);
+		const listOfErrors = result.errors.map((e) => e.stack);
+		const err = new ExpressError(listOfErrors, 400);
+		return next(err);
+	}
+	return res.json('Valid!');
+});
 
 /** GET / => {books: [book, ...]}  */
 
@@ -32,6 +48,13 @@ router.get('/:id', async function(req, res, next) {
 /** POST /   bookData => {book: newBook}  */
 
 router.post('/', async function(req, res, next) {
+	const result = jsonschema.validate(req.body, bookSchema);
+	if (!result.valid) {
+		console.log(result);
+		const listOfErrors = result.errors.map((e) => e.stack);
+		const err = new ExpressError(listOfErrors, 400);
+		return next(err);
+	}
 	try {
 		const book = await Book.create(req.body);
 		return res.status(201).json({ book });
@@ -43,6 +66,13 @@ router.post('/', async function(req, res, next) {
 /** PUT /[isbn]   bookData => {book: updatedBook}  */
 
 router.put('/:isbn', async function(req, res, next) {
+	const result = jsonschema.validate(req.body, bookSchema);
+	if (!result.valid) {
+		console.log(result);
+		const listOfErrors = result.errors.map((e) => e.stack);
+		const err = new ExpressError(listOfErrors, 400);
+		return next(err);
+	}
 	try {
 		const book = await Book.update(req.params.isbn, req.body);
 		return res.json({ book });
