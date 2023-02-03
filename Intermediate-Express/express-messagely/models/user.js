@@ -23,21 +23,20 @@ class User {
             RETURNING username, password, first_name, last_name, phone`,
 			[ username, hashedPassword, first_name, last_name, phone ]
 		);
-		return res.json(results.rows[0]);
+		return results.rows[0];
 	}
 
 	/** Authenticate: is this username/password valid? Returns boolean. */
 
 	static async authenticate(username, password) {
-		const results = await db.query(`SELECT username, password FROM users WHERE username = $1`, [ username ]);
-
-		const user = results.rows[0];
-		if (user) {
-			if ((await bcrypt.compare(password, user.password)) === true) {
-				return res.json({ message: 'You are logged in!' });
-			} else {
-				throw new ExpressError('Invalid username or password', 400);
-			}
+		const results = await db.query(
+			`SELECT username, password 
+			FROM users 
+			WHERE username=$1`,
+			[ username ]
+		);
+		if (results.rows[0]) {
+			return await bcrypt.compare(password, results.rows[0].password);
 		}
 	}
 
@@ -46,9 +45,9 @@ class User {
 	static async updateLoginTimestamp(username) {
 		const results = await db.query(
 			`UPDATE users 
-      SET last_login_at=current_timestamp 
-      WHERE username=$1
-      RETURNING username`,
+			SET last_login_at=current_timestamp 
+			WHERE username=$1
+			RETURNING username`,
 			[ username ]
 		);
 		if (!results.rows[0]) {
@@ -63,8 +62,8 @@ class User {
 	static async all() {
 		const results = await db.query(
 			`SELECT username, first_name, last_name, phone
-      FROM users
-      ORDER BY username`
+			FROM users
+			ORDER BY username`
 		);
 		return results.rows;
 	}
@@ -81,8 +80,8 @@ class User {
 	static async get(username) {
 		const results = await db.query(
 			`SELECT username, first_name, last_name, phone, join_at, last_login_at 
-      FROM users 
-      WHERE username=$1`,
+			FROM users 
+			WHERE username=$1`,
 			[ username ]
 		);
 		if (!results.rows[0]) {
@@ -102,10 +101,10 @@ class User {
 	static async messagesFrom(username) {
 		const result = await db.query(
 			`SELECT m.id,m.to_username, u.first_name, u.last_name, u.phone, m.body, m.sent_at, m.read_at
-      FROM messages AS m
-      JOIN users AS u 
-      ON m.to_username=u.username
-      WHERE from_username=$1`,
+			FROM messages AS m
+			JOIN users AS u 
+			ON m.to_username=u.username
+			WHERE from_username=$1`,
 			[ username ]
 		);
 
@@ -134,10 +133,10 @@ class User {
 	static async messagesTo(username) {
 		const result = await db.query(
 			`SELECT m.id, m.from_username, u.first_name, u.last_name, u.phone, m.body, m.sent_at, m.read_at
-        FROM messages AS m
-        JOIN users AS u 
-        ON m.from_username=u.username
-        WHERE to_username=$1`,
+			FROM messages AS m
+			JOIN users AS u 
+			ON m.from_username=u.username
+			WHERE to_username=$1`,
 			[ username ]
 		);
 
