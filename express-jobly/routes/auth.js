@@ -12,9 +12,9 @@ const userAuthSchema = require('../schemas/userAuth.json');
 const userRegisterSchema = require('../schemas/userRegister.json');
 const { BadRequestError } = require('../expressError');
 
-router.get('/', (req, res, next) => {
-	res.send('APP IS WORKING');
-});
+// router.get('/', (req, res, next) => {
+// 	res.send('APP IS WORKING');
+// });
 
 /** POST /auth/token:  { username, password } => { token }
  *
