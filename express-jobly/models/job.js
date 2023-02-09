@@ -11,18 +11,18 @@ class Job {
    *
    * data should be { title, salary, equity, company_handle }
    *
-   * Returns { id, title, salary, equity, company_handle }
+   * Returns { id, title, salary, equity, companyHandle }
    * */
 
-	static async create({ title, salary, equity, company_handle }) {
+	static async create(data) {
 		const result = await db.query(
 			`INSERT INTO jobs
             (title, salary, equity, company_handle)
             VALUES ($1, $2, $3, $4)
-            RETURNING id, title, salary, equity, company_handle AS 'companyHandle'`,
-			[ title, salary, equity, company_handle ]
+            RETURNING id, title, salary, equity, company_handle AS "companyHandle"`,
+			[ data.title, data.salary, data.equity, data.companyHandle ]
 		);
-		const job = result.rows[0];
+		let job = result.rows[0];
 
 		return job;
 	}
@@ -34,7 +34,7 @@ class Job {
    * - minSalary
    * - hasEquity
    *
-   * Returns [{ id, title, salary, equity, company_handle }, ...]
+   * Returns [{ id, title, salary, equity, companyHandle }, ...]
    * */
 
 	static async findAll({ title, minSalary, hasEquity } = {}) {
@@ -42,8 +42,7 @@ class Job {
                         title,
                         salary,
                         equity,
-                        company_handle AS "companyHandle",
-                        name AS "companyName",
+                        company_handle AS "companyHandle"
                     FROM jobs`;
 		let whereExpressions = [];
 		let queryValues = [];
@@ -90,7 +89,7 @@ class Job {
                     title,
                     salary,
                     equity,
-                    company_handle AS "companyHandle",
+                    company_handle AS "companyHandle"
             FROM jobs
             WHERE id = $1`,
 			[ id ]

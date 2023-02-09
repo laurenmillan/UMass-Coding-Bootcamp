@@ -3,7 +3,7 @@
 const db = require('../db.js');
 const { BadRequestError, NotFoundError } = require('../expressError');
 const Company = require('./company.js');
-const { commonBeforeAll, commonBeforeEach, commonAfterEach, commonAfterAll } = require('./_testCommon');
+const { commonBeforeAll, commonBeforeEach, commonAfterEach, commonAfterAll, testJobIds } = require('./_testCommon');
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
@@ -172,7 +172,12 @@ describe('get', function() {
 			name: 'C1',
 			description: 'Desc1',
 			numEmployees: 1,
-			logoUrl: 'http://c1.img'
+			logoUrl: 'http://c1.img',
+			jobs: [
+				{ id: testJobIds[1], title: 'Job1', salary: 1, equity: '0.1' },
+				{ id: testJobIds[2], title: 'Job2', salary: 2, equity: '0.2' },
+				{ id: testJobIds[3], title: 'Job3', salary: 3, equity: '0.3' }
+			]
 		});
 	});
 
