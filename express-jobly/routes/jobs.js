@@ -6,7 +6,7 @@ const jsonschema = require('jsonschema');
 const express = require('express');
 
 const { BadRequestError } = require('../expressError');
-const { ensureLoggedIn, ensureAdmin } = require('../middleware/auth');
+const { ensureAdmin } = require('../middleware/auth');
 const Job = require('../models/job');
 
 const jobNewSchema = require('../schemas/jobNew.json');
@@ -31,7 +31,6 @@ router.post('/', ensureAdmin, async function(req, res, next) {
 			const errs = validator.errors.map((e) => e.stack);
 			throw new BadRequestError(errs);
 		}
-
 		const job = await Job.create(req.body);
 		return res.status(201).json({ job });
 	} catch (err) {
@@ -50,7 +49,7 @@ router.post('/', ensureAdmin, async function(req, res, next) {
  */
 
 router.get('/', async function(req, res, next) {
-	let query = req.query;
+	const query = req.query;
 	// arrive as strings from querystring, but we want as ints
 	if (query.minSalary !== undefined) query.minSalary = +query.minSalary;
 	query.hasEquity = query.hasEquity === 'true';
@@ -60,10 +59,9 @@ router.get('/', async function(req, res, next) {
 		if (!validator.valid) {
 			const errs = validator.errors.map((e) => e.stack);
 			throw new BadRequestError(errs);
-		} else {
-			const jobs = await Job.findAll(query);
-			return res.json({ jobs });
 		}
+		const jobs = await Job.findAll(query);
+		return res.json({ jobs });
 	} catch (err) {
 		return next(err);
 	}
@@ -120,7 +118,7 @@ router.patch('/:id', ensureAdmin, async function(req, res, next) {
 router.delete('/:id', ensureAdmin, async function(req, res, next) {
 	try {
 		await Job.remove(req.params.id);
-		return res.json({ deleted: req.params.id });
+		return res.json({ deleted: +req.params.id });
 	} catch (err) {
 		return next(err);
 	}
