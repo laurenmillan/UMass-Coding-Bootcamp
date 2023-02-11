@@ -34,7 +34,7 @@ beforeEach(async function() {
 });
 
 describe('POST /auth/register', function() {
-	test('should allow a user to register in', async function() {
+	test('should allow a user to register', async function() {
 		const response = await request(app).post('/auth/register').send({
 			username: 'new_user',
 			password: 'new_password',
@@ -81,6 +81,15 @@ describe('POST /auth/login', function() {
 		expect(username).toBe('u1');
 		expect(admin).toBe(false);
 	});
+
+	// TESTS BUG #1 and #4
+	test('should deny access if incorrect username or password', async function() {
+		const response = await request(app).post('/auth/login').send({
+			username: 'wrong',
+			password: 'nope'
+		});
+		expect(response.statusCode).toBe(401);
+	});
 });
 
 describe('GET /users', function() {
@@ -93,6 +102,13 @@ describe('GET /users', function() {
 		const response = await request(app).get('/users').send({ _token: tokens.u1 });
 		expect(response.statusCode).toBe(200);
 		expect(response.body.users.length).toBe(3);
+
+		// TESTS BUG #3
+		expect(response.body.users[0]).toEqual({
+			username: 'u1',
+			first_name: 'fn1',
+			last_name: 'ln1'
+		});
 	});
 });
 
@@ -140,9 +156,26 @@ describe('PATCH /users/[username]', function() {
 		});
 	});
 
-	// Tests Bug #1
+	// Tests Bug #2
+	test('should patch data if user is logged in', async function() {
+		const response = await request(app).patch('/users/u1').send({
+			// u1 is user
+			_token: tokens.u1,
+			first_name: 'new-fn1'
+		});
+		expect(response.statusCode).toBe(200);
+		expect(response.body.user).toEqual({
+			username: 'u1',
+			first_name: 'new-fn1',
+			last_name: 'ln1',
+			email: 'email1',
+			phone: 'phone1',
+			admin: false,
+			password: expect.any(String)
+		});
+	});
 
-	test('should disallowing patching not-allowed-fields', async function() {
+	test('should disallow patching not-allowed-fields', async function() {
 		const response = await request(app).patch('/users/u1').send({ _token: tokens.u1, admin: true });
 		expect(response.statusCode).toBe(401);
 	});
