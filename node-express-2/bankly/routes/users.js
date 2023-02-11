@@ -34,7 +34,7 @@ router.get('/', authUser, requireLogin, async function(req, res, next) {
  * If user cannot be found, return a 404 err.
  *
  */
-
+// FIXES BUG #2
 router.get('/:username', authUser, requireLogin, async function(req, res, next) {
 	try {
 		let user = await User.get(req.params.username);

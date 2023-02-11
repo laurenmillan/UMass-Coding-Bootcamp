@@ -68,13 +68,13 @@ class User {
    * */
 
 	static async getAll(username, password) {
-		// Bug 2: the function should not select email and phone
+		// Fixes Bug #2: the function should not select email and phone
 		const result = await db.query(
 			`SELECT username,
                 first_name,
                 last_name
-            FROM users 
-            ORDER BY username`
+            FROM users
+			ORDER BY username`
 		);
 		return result.rows;
 	}
