@@ -6,3 +6,5 @@ Bug 3- In the /routes/users.js file, specifically the GET route, the function ge
 
 Bug 4- In the POST route in /routes/auth.js file, the function 
 post(/login) was missing the 'await' keyword.
+
+Bug 5- In the app.js file, module.exports was written twice in the code. I deleted one of the duplicates.

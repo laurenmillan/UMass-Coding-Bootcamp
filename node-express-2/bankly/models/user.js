@@ -74,8 +74,7 @@ class User {
                 first_name,
                 last_name
             FROM users 
-            ORDER BY username`,
-			[ username, password ]
+            ORDER BY username`
 		);
 		return result.rows;
 	}
