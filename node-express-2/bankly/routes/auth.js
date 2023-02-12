@@ -37,7 +37,7 @@ router.post('/register', async function(req, res, next) {
 router.post('/login', async function(req, res, next) {
 	try {
 		const { username, password } = req.body;
-		// Fixed bug: added await keyword
+		// Fixes bug #4: added await keyword
 		let user = await User.authenticate(username, password);
 		const token = createTokenForUser(username, user.admin);
 		return res.json({ token });

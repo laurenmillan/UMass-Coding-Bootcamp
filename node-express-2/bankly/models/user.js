@@ -68,7 +68,7 @@ class User {
    * */
 
 	static async getAll(username, password) {
-		// Fixes Bug #2: the function should not select email and phone
+		// Fixes Bug #3: the function should not select email and phone
 		const result = await db.query(
 			`SELECT username,
                 first_name,

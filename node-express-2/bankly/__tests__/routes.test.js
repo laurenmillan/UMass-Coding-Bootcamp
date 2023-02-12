@@ -129,6 +129,11 @@ describe('GET /users/[username]', function() {
 			phone: 'phone1'
 		});
 	});
+	// TESTS BUG #2
+	test('should return error for invalid token', async function() {
+		const response = await request(app).get('/users/u1').send({ _token: 'incorrect' });
+		expect(response.statusCode).toBe(401);
+	});
 });
 
 describe('PATCH /users/[username]', function() {
@@ -156,7 +161,7 @@ describe('PATCH /users/[username]', function() {
 		});
 	});
 
-	// Tests Bug #2
+	// TESTS BUG #6
 	test('should patch data if user is logged in', async function() {
 		const response = await request(app).patch('/users/u1').send({
 			// u1 is user

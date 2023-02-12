@@ -34,7 +34,7 @@ router.get('/', authUser, requireLogin, async function(req, res, next) {
  * If user cannot be found, return a 404 err.
  *
  */
-// FIXES BUG #2
+// FIXES BUG #1
 router.get('/:username', authUser, requireLogin, async function(req, res, next) {
 	try {
 		let user = await User.get(req.params.username);
@@ -61,11 +61,17 @@ router.get('/:username', authUser, requireLogin, async function(req, res, next) 
  * other fields (including non-existent ones), an error should be raised.
  *
  */
-
-router.patch('/:username', authUser, requireLogin, requireAdmin, async function(req, res, next) {
+// FIXES BUG #6: remove requireAdmin to allow user to edit user info
+router.patch('/:username', authUser, requireLogin, async function(req, res, next) {
+	let userInfo = [ 'first_name', 'last_name', 'phone', 'email', '_token' ];
 	try {
 		if (!req.curr_admin && req.curr_username !== req.params.username) {
 			throw new ExpressError('Only that user or admin can edit a user.', 401);
+		}
+		for (let each in req.body) {
+			if (!userInfo.includes(each)) {
+				throw new ExpressError('Unable to update', 401);
+			}
 		}
 
 		// get fields to change; remove token so we don't try to change it
