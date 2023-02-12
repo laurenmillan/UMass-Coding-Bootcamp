@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cats</title>
 </head>
 <body>
-    
+    <h1>Welcome!</h1>
+    <div id="root"></div>
+
+<script src="https://unpkg.com/react/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+<!-- be mindful of the script order, it matters! -->
+<!-- the order must match the order in the App function -->
+<script src="Cats.js" type="text/jsx"></script>
+<script src="SecondCat.js" type="text/jsx"></script>
+<script src="RandomNum.js" type="text/jsx"></script>
+<script src="App.js" type="text/jsx"></script>
 </body>
 </html>
