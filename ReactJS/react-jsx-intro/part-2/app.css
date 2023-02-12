@@ -1,0 +1,13 @@
+* {
+	padding: 5px;
+	background-color: rgb(48, 128, 101);
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.tweet {
+	color: black;
+}
+
+.message {
+	color: whitesmoke;
+}
