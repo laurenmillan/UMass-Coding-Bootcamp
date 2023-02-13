@@ -1,8 +1,8 @@
-const App = () => {
+const App = () => (
 	<div>
-		<EightBall name="hi" />
-	</div>;
-};
+		<EightBall />
+	</div>
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
