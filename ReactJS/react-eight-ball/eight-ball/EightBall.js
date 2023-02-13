@@ -1,5 +1,9 @@
 const EightBall = (props) => {
 	console.log(props);
 
-	return <div />;
+	return (
+		<div>
+			<li>{props.answers}</li>
+		</div>
+	);
 };
