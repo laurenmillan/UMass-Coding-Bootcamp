@@ -1,8 +1,18 @@
-.Eightball {
-	color: black;
+h3 {
+	color: white;
+	font-size: 20px;
 }
 
-h1 {
-	font-size: 40px;
-	color: black;
+.EightBall {
+	justify-content: center;
+	align-items: center;
+	color: white;
+	padding: 30px;
+	margin: 100px;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	display: flex;
+	text-align: center;
+	cursor: pointer;
 }

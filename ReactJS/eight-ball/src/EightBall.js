@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './EightBall.css';
 
 const EightBall = (props) => {
+	const [ color, setColor ] = useState('black');
+	const [ msg, setMsg ] = useState('Think of a question.');
+
+	const onClick = () => {
+		const { msg, color } = randQuestion(props.answers);
+		setMsg(msg);
+		setColor(color);
+	};
 	return (
-		<section>
-			<h1>EightBall</h1>
-			<div className="Eightball">{props.answers.map((p) => <EightBall msg={p.msg} color={p.color} />)}</div>
-		</section>
+		<div className="EightBall" onClick={onClick} style={{ backgroundColor: color }}>
+			<h3>{msg}</h3>
+		</div>
 	);
+};
+
+const randQuestion = (arr) => {
+	const random = Math.floor(Math.random() * arr.length);
+	return arr[random];
 };
 
 EightBall.defaultProps = {
