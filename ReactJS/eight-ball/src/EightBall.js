@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import './EightBall.css';
 
+const randQuestion = (arr) => {
+	const genRandom = Math.floor(Math.random() * arr.length);
+	return arr[genRandom];
+};
+
 const EightBall = (props) => {
 	const [ color, setColor ] = useState('black');
 	const [ msg, setMsg ] = useState('Think of a question.');
@@ -15,11 +20,6 @@ const EightBall = (props) => {
 			<h3>{msg}</h3>
 		</div>
 	);
-};
-
-const randQuestion = (arr) => {
-	const random = Math.floor(Math.random() * arr.length);
-	return arr[random];
 };
 
 EightBall.defaultProps = {
