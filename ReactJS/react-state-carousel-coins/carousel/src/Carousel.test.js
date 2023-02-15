@@ -9,12 +9,25 @@ test('it renders without crashing', () => {
 });
 
 // SNAPSHOT TEST
-// this creates a __snapshots__ folder
+// Jest creates a __snapshots__ folder
 test('it matches snapshot', () => {
 	const { asFragment } = render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
 	expect(asFragment()).toMatchSnapshot();
 });
 
+// test left arrow click
+it('works when you click on the left arrow', function() {
+	const { container } = render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
+	const rightArrow = container.querySelector('.bi-arrow-right-circle');
+	fireEvent.click(rightArrow);
+
+	const leftArrow = container.querySelector('.bi-arrow-left-circle');
+	fireEvent.click(leftArrow);
+
+	expect(container.querySelector('img[alt="testing image 1"]')).toBeInTheDocument();
+});
+
+// test right arrow click
 it('works when you click on the right arrow', function() {
 	const { container } = render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
 

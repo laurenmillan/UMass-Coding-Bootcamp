@@ -32,15 +32,15 @@ function Carousel({ photos, title }) {
 	}
 
 	// Decrements currCardIdx state by 1
-	// function goBackward() {
-	// 	setCurrCardIdx(currCardIdx - 1);
-	// }
+	function goBackward() {
+		setCurrCardIdx(currCardIdx - 1);
+	}
 
 	return (
 		<div className="Carousel">
 			<h1>{title}</h1>
 			<div className="Carousel-main">
-				<i className="bi bi-arrow-left-circle" onClick={goForward} />
+				<i className="bi bi-arrow-left-circle" onClick={goBackward} />
 				<Card caption={currCard.caption} src={currCard.src} currNum={currCardIdx + 1} totalNum={total} />
 				<i className="bi bi-arrow-right-circle" onClick={goForward} />
 			</div>
