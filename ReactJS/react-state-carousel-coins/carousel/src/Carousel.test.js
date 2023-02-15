@@ -8,6 +8,13 @@ test('it renders without crashing', () => {
 	render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
 });
 
+// SNAPSHOT TEST
+// this creates a __snapshots__ folder
+test('it matches snapshot', () => {
+	const { asFragment } = render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
+	expect(asFragment()).toMatchSnapshot();
+});
+
 it('works when you click on the right arrow', function() {
 	const { container } = render(<Carousel photos={TEST_IMAGES} title="images for testing" />);
 
