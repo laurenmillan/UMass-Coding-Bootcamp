@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Item from './Item';
 import NewTodoForm from './NewTodoForm';
+import { v4 as uuid } from 'uuid/v4';
 
 /** Todo App that allows user to see, add, edit, and remove todos.
  *
@@ -13,13 +14,13 @@ import NewTodoForm from './NewTodoForm';
  **/
 
 const TodoList = () => {
-	const INITIAL_STATE = [ { id: 1, name: 'Feed cat' }, { id: 2, name: 'Do laundry' } ];
+	const INITIAL_STATE = [ { id: uuid(), name: 'Feed cat' }, { id: uuid(), name: 'Do laundry' } ];
 	const [ items, setItems ] = useState(INITIAL_STATE);
 
 	// this handles form data that is added to State
-	const addItem = (name) => {
+	const addItem = (newItem) => {
 		// this creates a new array based off original items, and adds new item to the array
-		setItems((items) => [ ...items, { name } ]);
+		setItems((items) => [ ...items, { newItem, id: uuid() } ]);
 	};
 	return (
 		<div>
