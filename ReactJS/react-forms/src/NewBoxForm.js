@@ -21,12 +21,14 @@ const NewBoxForm = ({ addBox }) => {
 		color: ''
 	};
 
-	// useState manages the form data
+	// useState manages the form data. This is called a computed property name
 	const [ formData, setFormData ] = useState(initialState);
 
 	// handleChange handles the user inputs in the form, updating form data state with the inputs using setFormData,
 	//      merging the current form with the new form data using the spread operator
 	const handleChange = (e) => {
+		// console.log(e.target.name);
+		// console.log(e.target.value);
 		const { name, value } = e.target;
 		setFormData((data) => ({
 			...data,
@@ -49,12 +51,15 @@ const NewBoxForm = ({ addBox }) => {
 			<label htmlFor="width">Width:</label>
 			<input type="text" id="width" name="width" value={formData.width} onChange={handleChange} />
 			<br />
+
 			<label htmlFor="height">Height:</label>
 			<input type="text" id="height" name="height" value={formData.height} onChange={handleChange} />
 			<br />
+
 			<label htmlFor="color">Color:</label>
 			<input type="text" id="color" name="color" value={formData.color} onChange={handleChange} />
 			<br />
+
 			<button className="button" type="submit">
 				Add Box
 			</button>
