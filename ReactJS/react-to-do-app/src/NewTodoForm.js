@@ -12,32 +12,29 @@ import React, { useState } from 'react';
  *
  **/
 
-const NewTodoForm = ({ addItem }) => {
-	const INITIAL_STATE = {
-		name: ''
-	};
-	const [ formData, setFormData ] = useState(INITIAL_STATE);
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData((formData) => ({
-			...formData,
-			[name]: value
-		}));
-	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		addItem(formData.name);
-		// resets form back to initial state
-		setFormData(INITIAL_STATE);
-	};
+function NewTodoForm({ handleAdd }) {
+	const [ task, setTask ] = useState('');
+
+	function handleSubmit(event) {
+		event.preventDefault();
+		const newTodo = { id: Date.now(), task };
+		handleAdd(newTodo);
+		setTask('');
+	}
+
+	function handleChange(event) {
+		setTask(event.target.value);
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<label htmlFor="name">Todo</label>
-			<input id="name" type="text" name="name" value={formData.name} onChange={handleChange} />
-			<button>Add Todo</button>
+			<label>
+				Task:
+				<input type="text" value={task} onChange={handleChange} />
+			</label>
+			<button type="submit">Add</button>
 		</form>
 	);
-};
+}
 
 export default NewTodoForm;
