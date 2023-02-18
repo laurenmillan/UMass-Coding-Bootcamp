@@ -1,0 +1,14 @@
+.button {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	text-align: center;
+	cursor: pointer;
+}
+
+.form {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}

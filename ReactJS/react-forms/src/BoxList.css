@@ -1,3 +1,9 @@
-.Board {
-	margin: 0 auto;
+.BoxList {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	justify-content: center;
+	align-items: center;
+	padding: 50px;
+	margin: 100px;
+	display: flex;
+	text-align: center;
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import './Box.css';
 
-/** 
- *
+/** Displays colored box.
+ * 
+ * Props: width, height, color, removeBox
+ * 
  * - this component should display a div with a background color, 
  *      width and height based on the props passed to it.
  * - When each Box component is displayed, add a button with the text of of “X” next to each Box. 
@@ -12,6 +14,18 @@ import './Box.css';
  *
  **/
 
-// function Box()
+const Box = ({ width, height, color, removeBox }) => {
+	const boxStyle = {
+		backgroundColor: color,
+		width: `${width}px`,
+		height: `${height}px`
+	};
 
-// export default Box;
+	return (
+		<div style={boxStyle}>
+			<button onClick={removeBox}>X</button>
+		</div>
+	);
+};
+
+export default Box;
