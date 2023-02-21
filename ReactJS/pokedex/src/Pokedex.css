@@ -1,0 +1,16 @@
+@media only screen and (max-width: 600px) {
+	body {
+		width: 300px;
+		background-color: blue;
+	}
+}
+@media only screen and (max-width: 1980px) {
+	body {
+		width: 1000px;
+		margin: auto;
+	}
+}
+
+h1 {
+	font-size: 40px;
+}
