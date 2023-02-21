@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 
-/** Logic for Deck of Cards, PlayingCardList.js, Axios API calls.
+/** Logic for PokeDex.js, Axios API calls.
  * 
  * Since we use axios in a few components, let’s move this logic into a function called useAxios.
  * -useAxios should take in a URL, and similar to useState, it should return an array with two elements. 
@@ -11,14 +10,15 @@ import axios from 'axios';
  * 
  */
 
-function useAxios(url) {
+function useApi(baseURL) {
 	const [ data, setData ] = useState([]);
 
-	const addData = async () => {
-		const response = await axios.get(url);
-		setData((prevData) => [ ...prevData, { ...response.data, id: uuid() } ]);
+	const addData = async (urlFragment) => {
+		const response = await axios.get(urlFragment, { baseURL });
+		setData((data) => [ ...data, response.data ]);
 	};
+
 	return [ data, addData ];
 }
 
-export default useAxios;
+export default useApi;
