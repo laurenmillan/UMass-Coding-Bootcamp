@@ -23,9 +23,9 @@ const MadlibList = () => {
 		setMadlibs((madlibs) => [ ...madlibs, formData ]);
 	};
 
-	//resetMadlib form to original form state
+	//resetMadlib form data to original state
 	const resetMadlib = () => {
-		setMadlibs('');
+		setMadlibs([]);
 	};
 
 	// form to create new madlib using the NewMadlibForm component and addMadlib as its prop
@@ -42,7 +42,7 @@ const MadlibList = () => {
 					noun2={madlib.noun2}
 					adjective={madlib.adjective}
 					color={madlib.color}
-					resetMadlib={() => resetMadlib('')}
+					resetMadlib={() => resetMadlib()}
 				/>
 			))}
 		</div>

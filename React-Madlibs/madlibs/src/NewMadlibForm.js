@@ -43,7 +43,6 @@ const NewMadlibForm = ({ addMadlib }) => {
 		e.preventDefault();
 		addMadlib(formData);
 		setFormData(initialState);
-		// alert(`Created ${formData.noun}, ${formData.noun2}, ${formData.adjective}, ${formData.color}`);
 	};
 
 	// when the user clicks the button, the form is submitted and the handleSubmit function is called
@@ -51,18 +50,26 @@ const NewMadlibForm = ({ addMadlib }) => {
 	return (
 		<form className="form" onSubmit={handleSubmit}>
 			<label htmlFor="noun">Noun: </label>
-			<input type="text" id="noun" name="noun" value={formData.noun} onChange={handleChange} />
+			<input required type="text" id="noun" name="noun" value={formData.noun} onChange={handleChange} />
 			<br />
 
 			<label htmlFor="noun2">Noun2: </label>
-			<input type="text" id="noun2" name="noun2" value={formData.noun2} onChange={handleChange} />
+			<input required type="text" id="noun2" name="noun2" value={formData.noun2} onChange={handleChange} />
 			<br />
+
 			<label htmlFor="adjective">Adjective: </label>
-			<input type="text" id="adjective" name="adjective" value={formData.adjective} onChange={handleChange} />
+			<input
+				required
+				type="text"
+				id="adjective"
+				name="adjective"
+				value={formData.adjective}
+				onChange={handleChange}
+			/>
 			<br />
 
 			<label htmlFor="color">Color: </label>
-			<input type="text" id="color" name="color" value={formData.color} onChange={handleChange} />
+			<input required type="text" id="color" name="color" value={formData.color} onChange={handleChange} />
 			<br />
 
 			<br />

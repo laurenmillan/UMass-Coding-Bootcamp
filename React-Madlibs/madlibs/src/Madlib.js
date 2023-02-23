@@ -1,5 +1,6 @@
 import React from 'react';
 import './Madlib.css';
+import Button from '@mui/material/Button';
 
 /** Displays Madlib words.
  * 
@@ -14,8 +15,10 @@ const Madlib = ({ noun, noun2, adjective, color, resetMadlib }) => {
 
 	return (
 		<div style={madlibStyle}>
-			<p>{`The ${adjective} ${noun} jumped over the ${color} ${noun2}.`}</p>
-			<button onClick={resetMadlib}>Reset</button>
+			<h1>{`The ${adjective} ${noun} jumped over the ${color} ${noun2}.`}</h1>
+			<Button variant="contained" onClick={resetMadlib}>
+				Reset
+			</Button>
 		</div>
 	);
 };
