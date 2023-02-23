@@ -1,5 +1,6 @@
-.input-values {
-	position: absolute;
-	margin: 10px;
-	padding: 10px;
+.form {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	display: flexbox;
 }

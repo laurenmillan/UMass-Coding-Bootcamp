@@ -23,11 +23,17 @@ const MadlibList = () => {
 		setMadlibs((madlibs) => [ ...madlibs, formData ]);
 	};
 
+	//resetMadlib form to original form state
+	const resetMadlib = () => {
+		setMadlibs('');
+	};
+
 	// form to create new madlib using the NewMadlibForm component and addMadlib as its prop
 	// map iterates over the madlibs array and renders a Madlib component for each element in the array
 	//  and is giving noun, noun2, adjective, color as props, with a key using the array index
 	return (
-		<div className="MadlibList">
+		<div>
+			<h1>Madlibs!</h1>
 			<NewMadlibForm addMadlib={addMadlib} />
 			{madlibs.map((madlib, i) => (
 				<Madlib
@@ -36,6 +42,7 @@ const MadlibList = () => {
 					noun2={madlib.noun2}
 					adjective={madlib.adjective}
 					color={madlib.color}
+					resetMadlib={() => resetMadlib('')}
 				/>
 			))}
 		</div>

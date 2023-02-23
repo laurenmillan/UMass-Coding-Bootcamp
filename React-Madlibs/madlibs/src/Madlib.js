@@ -7,15 +7,17 @@ import './Madlib.css';
  *
  **/
 
-const Madlib = ({ noun, noun2, adjective, color }) => {
-	const MadlibStyle = {
-		noun: `${noun}`,
-		noun2: `${noun2}`,
-		adjective: `${adjective}`,
-		color: `${color}`
+const Madlib = ({ noun, noun2, adjective, color, resetMadlib }) => {
+	const madlibStyle = {
+		fontWeight: 'bold'
 	};
 
-	return <div style={MadlibStyle} />;
+	return (
+		<div style={madlibStyle}>
+			<p>{`The ${adjective} ${noun} jumped over the ${color} ${noun2}.`}</p>
+			<button onClick={resetMadlib}>Reset</button>
+		</div>
+	);
 };
 
 export default Madlib;
