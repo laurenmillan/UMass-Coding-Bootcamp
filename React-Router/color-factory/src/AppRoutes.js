@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useParams } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-import ColorFactory from './ColorFactory';
-import ColorPage from './ColorPage';
+import ColorList from './ColorList';
+import ColorDetail from './ColorDetail';
 import ColorForm from './ColorForm';
 
-/** Define our routes.
- * 
- * -useState initializes the `colors` state variable.
- * -useEffect updates the local storage when `colors` changes.
- * -useEffect defines `addColor` function that updates `colors` when a new color is added.
- * 
- */
-
 const AppRoutes = () => {
-	// useState is initialized to an empty object, because the `colors` state is an object with color name-value pairs
-	const [ colors, setColors ] = useState(JSON.parse(localStorage.getItem('colors')) || {});
+	const [ colors, setColors ] = useState([]);
+
+	useEffect(() => {
+		const storedColors = JSON.parse(localStorage.getItem('colors'));
+		if (storedColors) {
+			setColors(storedColors);
+		}
+	}, []);
 
 	useEffect(
 		() => {
@@ -24,21 +22,16 @@ const AppRoutes = () => {
 		[ colors ]
 	);
 
-	const addColor = (color, value) => {
-		setColors((colors) => {
-			const colorCopy = { ...colors };
-			colorCopy[color] = value;
-			return colorCopy;
-		});
+	const handleAddColor = (color) => {
+		setColors([ color, ...colors ]);
 	};
 
 	return (
 		<div className="Routes">
 			<Routes>
-				<Route exact path="/colors" element={<ColorFactory colors={colors} />} />
-				<Route exact path="/colors/:color" element={<ColorPage colors={colors} />} />
-				<Route exact path="/colors/new" element={<ColorForm addColor={addColor} />} />
-				{/* catch-all route: matches any path that does not match the previous two routes. Redirects the user back to /dogs using Navigate */}
+				<Route exact path="/colors" element={<ColorList colors={colors} />} />
+				<Route exact path="/colors/:color" element={<ColorDetail colors={colors} />} />
+				<Route exact path="/colors/new" element={<ColorForm colors={colors} addColor={handleAddColor} />} />
 				<Route path="*" element={<Navigate to="/colors" replace />} />
 			</Routes>
 		</div>
