@@ -1,0 +1,16 @@
+.title {
+	color: rgb(29, 29, 172);
+	font-size: 40px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.VendingMachine {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+.VendingMachine ul {
+	list-style: none;
+	font-size: 30px;
+}
