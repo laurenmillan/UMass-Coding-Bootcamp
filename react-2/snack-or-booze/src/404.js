@@ -16,6 +16,7 @@ const NotFound = () => {
 						<h3 className="font-weight-bold">Page does not exist!</h3>
 						<div className="Links">
 							<Link to="/">Home</Link>
+							<Link to="/contact">Contact</Link>
 							<Link to="/snacks">Snacks</Link>
 							<Link to="/drinks">Drinks</Link>
 						</div>

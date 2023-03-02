@@ -9,6 +9,7 @@ import Menu from './FoodMenu';
 import Snack from './FoodItem';
 import NotFound from './404';
 import Add from './AddItem';
+import Contact from './Contact';
 
 /** App logic.
  * 
@@ -70,6 +71,10 @@ function App() {
 					<Switch>
 						<Route exact path="/">
 							<Home snacks={snacks} drinks={drinks} />
+						</Route>
+
+						<Route exact path="/contact">
+							<Contact />
 						</Route>
 
 						<Route exact path="/snacks">

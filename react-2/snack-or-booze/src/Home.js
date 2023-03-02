@@ -3,8 +3,8 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 
 /** Displays homepage.
  * 
- *-Displays the number of snacks and drinks
- *-Displays navbar.
+ * -Displays the number of snacks and drinks
+ * -Displays navbar.
  *
  */
 

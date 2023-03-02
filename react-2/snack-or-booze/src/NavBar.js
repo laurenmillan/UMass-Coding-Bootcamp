@@ -20,6 +20,9 @@ function NavBar() {
 						<NavLink to="/">Home</NavLink>
 					</NavItem>
 					<NavItem>
+						<NavLink to="/contact">Contact</NavLink>
+					</NavItem>
+					<NavItem>
 						<NavLink to="/add">Add Item</NavLink>
 					</NavItem>
 					<NavItem>
