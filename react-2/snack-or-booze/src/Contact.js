@@ -27,12 +27,9 @@ const Contact = () => {
 	};
 
 	return (
-		<section className="Contact">
+		<section className="ContactForm">
 			<h2 className="h2">Contact Us</h2>
 			<form className="Form" onSubmit={handleSubmit}>
-				<div className="phone">
-					<a href="tel:5554280940">Call us at 555-123-4321</a>
-				</div>
 				<div>
 					<label className="name" htmlFor="name">
 						Name:
@@ -52,6 +49,13 @@ const Contact = () => {
 					<textarea id="message" name="message" value={message} onChange={handleChange} required />
 				</div>
 				<button type="submit">Send! </button>
+
+				<div className="phone">
+					<a href="tel:5554280940">Call us at 555-123-4321</a>
+				</div>
+				<div className="email">
+					<a href="mailto:snackorbooze@gmail.com">Email us at snackorbooze@gmail.com</a>
+				</div>
 			</form>
 		</section>
 	);
