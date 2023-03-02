@@ -1,53 +1,60 @@
 import React from 'react';
 import { useState } from 'react';
+import './ItemForm.css';
 
-function ItemForm({ setData }) {
-	const initialState = {
-		item: '',
+/** Renders an Item Form.
+ * 
+ * -Allows user to add a snack or drink item.
+ * 
+ * props: setData
+ * 
+ */
+
+function ItemForm({ setData = () => {} }) {
+	const [ formData, setFormData ] = useState({
+		item: 'snack',
 		name: ''
-	};
-
-	const [ formData, setFormData ] = useState(initialState);
-	const [ item, setItem ] = useState('Food');
+	});
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setFormData((fData) => ({
-			...fData,
-			[name]: value,
-			item: item
+		setFormData((data) => ({
+			...data,
+			[name]: value
 		}));
 	};
 
-	const test = () => {
-		const select = document.getElementById('item');
-		console.log(select.value);
-		setItem(select.value);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setData(formData);
 	};
 
-	function setDataForParent(e) {
-		e.preventDefault();
-		console.log(e);
-		setData(formData);
-	}
-
 	return (
-		<form onSubmit={setDataForParent}>
-			<label htmlFor="item">Select: </label>
-			<select onChange={test} id="item" name="item">
-				<option value="food">Food</option>
-				<option value="drink">Drink</option>
-			</select>
+		<div className="ItemForm">
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="item">Select: </label>
+				<select onChange={handleChange} id="item" name="item" defaultValue="snack">
+					<option value="snack">Snack</option>
+					<option value="drink">Drink</option>
+				</select>
 
-			<br />
+				<br />
 
-			<label htmlFor="name">Item Name: </label>
-			<input type="text" onChange={handleChange} id="name" name="name" value={formData.name} />
+				<label htmlFor="name">Item Name: </label>
+				<input
+					type="text"
+					placeholder="Snack or Drink"
+					onChange={handleChange}
+					id="name"
+					name="name"
+					value={formData.name}
+				/>
 
-			<br />
+				<br />
 
-			<button>Add Item</button>
-		</form>
+				<button>Add Item! </button>
+			</form>
+		</div>
 	);
 }
 
