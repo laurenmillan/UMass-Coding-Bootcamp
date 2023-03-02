@@ -3,6 +3,10 @@ import './NavBar.css';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'reactstrap';
 
+/** Displays navbar components.
+ * 
+ */
+
 function NavBar() {
 	return (
 		<div>

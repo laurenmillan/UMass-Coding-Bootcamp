@@ -9,6 +9,10 @@ import Menu from './FoodMenu';
 import Snack from './FoodItem';
 import NotFound from './404';
 
+/** App logic.
+ * 
+ */
+
 function App() {
 	const [ isLoading, setIsLoading ] = useState(true);
 	const [ snacks, setSnacks ] = useState([]);
@@ -64,10 +68,6 @@ function App() {
 
 						<Route path="/*">
 							<NotFound />
-						</Route>
-
-						<Route>
-							<p>Hmmm. I can't seem to find what you want.</p>
 						</Route>
 					</Switch>
 				</main>

@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import './FoodMenu.css';
 import { Card, CardBody, CardTitle, CardText, ListGroup, ListGroupItem } from 'reactstrap';
 
+/** Displays Snack or Drink menu with detailed information about each item.
+ * 
+ */
+
 function FoodMenu({ snacks, drinks }) {
 	let items;
 	let link;

@@ -1,6 +1,13 @@
 import React from 'react';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 
+/** Displays homepage.
+ * 
+ *-Displays the number of snacks and drinks
+ *-Displays navbar.
+ *
+ */
+
 function Home({ snacks, drinks }) {
 	return (
 		<section className="col-md-8">

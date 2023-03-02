@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 import './404.css';
 
+/**Displays 404 page.
+ * 
+ */
+
 const NotFound = () => {
 	return (
 		<section className="col-md-8 NotFound">
