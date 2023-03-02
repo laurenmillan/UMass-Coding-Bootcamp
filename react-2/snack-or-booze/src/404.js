@@ -9,14 +9,16 @@ import './404.css';
 
 const NotFound = () => {
 	return (
-		<section className="col-md-8 NotFound">
-			<Card>
+		<section>
+			<Card className="NotFound">
 				<CardBody className="text-center">
 					<CardTitle>
 						<h3 className="font-weight-bold">Page does not exist!</h3>
-						<Link to="/">Home</Link>
-						<Link to="/snacks">Snacks</Link>
-						<Link to="/drinks">Drinks</Link>
+						<div className="Links">
+							<Link to="/">Home</Link>
+							<Link to="/snacks">Snacks</Link>
+							<Link to="/drinks">Drinks</Link>
+						</div>
 					</CardTitle>
 				</CardBody>
 			</Card>

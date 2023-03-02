@@ -1,3 +1,21 @@
 .NotFound a {
 	padding: 15px;
 }
+
+h3 {
+	font-size: 2rem;
+}
+
+.Links a {
+	color: #0069d9;
+	display: block;
+	padding: 1rem;
+	text-align: center;
+	border-radius: 0.25rem;
+	text-decoration: none;
+}
+
+.Links a:hover {
+	color: white;
+	font-size: 1.5rem;
+}
