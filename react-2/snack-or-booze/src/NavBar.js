@@ -15,17 +15,16 @@ function NavBar() {
 					Snack or Booze
 				</NavLink>
 
-				<NavItem>
-					<NavLink to="/" className="ml-auto">
-						Home
-					</NavLink>
-				</NavItem>
-
 				<Nav className="ml-auto" navbar>
+					<NavItem>
+						<NavLink to="/">Home</NavLink>
+					</NavItem>
+					<NavItem>
+						<NavLink to="/add">Add Item</NavLink>
+					</NavItem>
 					<NavItem>
 						<NavLink to="/snacks">Snacks</NavLink>
 					</NavItem>
-
 					<NavItem>
 						<NavLink to="/drinks">Drinks</NavLink>
 					</NavItem>

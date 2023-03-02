@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import Menu from './FoodMenu';
 import Snack from './FoodItem';
 import NotFound from './404';
+import Add from './AddItem';
 
 /** App logic.
  * 
@@ -64,6 +65,10 @@ function App() {
 
 						<Route path="/drinks/:id">
 							<Snack items={drinks} cantFind="/drinks" />
+						</Route>
+
+						<Route path="/add">
+							<Add />
 						</Route>
 
 						<Route path="/*">
