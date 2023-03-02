@@ -9,9 +9,8 @@ const NotFound = () => {
 			<Card>
 				<CardBody className="text-center">
 					<CardTitle>
-						<h3 className="font-weight-bold">Page does not exist.</h3>
-						<p>Navigate to one of these pages: </p>
-						<Link to="/home">Home</Link>
+						<h3 className="font-weight-bold">Page does not exist!</h3>
+						<Link to="/">Home</Link>
 						<Link to="/snacks">Snacks</Link>
 						<Link to="/drinks">Drinks</Link>
 					</CardTitle>
