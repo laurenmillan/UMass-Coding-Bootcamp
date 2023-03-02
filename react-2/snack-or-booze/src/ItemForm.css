@@ -19,6 +19,7 @@ input {
 }
 
 button {
+	color: #007bff;
 	margin: 20px 0;
 	padding: 10px 20px;
 	font-size: 16px;

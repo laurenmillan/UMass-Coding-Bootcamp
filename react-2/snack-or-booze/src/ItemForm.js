@@ -60,7 +60,7 @@ function ItemForm({ setData = () => {} }) {
 
 				<br />
 
-				<button>Add Item! </button>
+				<button type="submit">Add Item! </button>
 			</form>
 		</div>
 	);
