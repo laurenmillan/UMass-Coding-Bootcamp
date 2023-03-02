@@ -10,7 +10,7 @@ const NotFound = () => {
 				<CardBody className="text-center">
 					<CardTitle>
 						<h3 className="font-weight-bold">Page does not exist.</h3>
-						<p>Check out these pages: </p>
+						<p>Navigate to one of these pages: </p>
 						<Link to="/home">Home</Link>
 						<Link to="/snacks">Snacks</Link>
 						<Link to="/drinks">Drinks</Link>
