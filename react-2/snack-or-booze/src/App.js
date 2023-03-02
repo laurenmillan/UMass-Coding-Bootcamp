@@ -12,6 +12,11 @@ import Add from './AddItem';
 
 /** App logic.
  * 
+ * -state: useState
+ * -useEffect: fetches data from API.
+ * -Route setup: we use Switch, Route.
+ * -Error handling for fetching data from the API.
+ * 
  */
 
 function App() {
@@ -35,6 +40,22 @@ function App() {
 			setIsLoading(false);
 		}
 		getDrinks();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				let snacks = await SnackOrBoozeApi.getSnacks();
+				setSnacks(snacks);
+				let drinks = await SnackOrBoozeApi.getDrinks();
+				setDrinks(drinks);
+				setIsLoading(false);
+			} catch (error) {
+				console.error(error);
+				alert('An error occurred while adding the item. Please try again.');
+			}
+		}
+		fetchData();
 	}, []);
 
 	if (isLoading) {

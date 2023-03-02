@@ -5,16 +5,14 @@ import './ItemForm.css';
 /** Renders an Item Form.
  * 
  * -Allows user to add a snack or drink item.
+ * -Error handling for the handleSubmit function.
  * 
  * props: setData
  * 
  */
 
 function ItemForm({ setData = () => {} }) {
-	const [ formData, setFormData ] = useState({
-		item: 'snack',
-		name: ''
-	});
+	const [ { item, name }, setFormData ] = useState({ item: 'snack', name: '' });
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -24,16 +22,25 @@ function ItemForm({ setData = () => {} }) {
 		}));
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		setData(formData);
+	const handleSubmit = async (e) => {
+		try {
+			e.preventDefault();
+			if (name === '') {
+				alert('You missed some required info. Please try again.');
+				return;
+			}
+			await setData({ item, name });
+		} catch (error) {
+			console.error(error);
+			alert('An error occurred while adding the item. Please try again.');
+		}
 	};
 
 	return (
 		<div className="ItemForm">
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="item">Select: </label>
-				<select onChange={handleChange} id="item" name="item" defaultValue="snack">
+				<select onChange={handleChange} id="item" name="item" defaultValue={item}>
 					<option value="snack">Snack</option>
 					<option value="drink">Drink</option>
 				</select>
@@ -47,7 +54,8 @@ function ItemForm({ setData = () => {} }) {
 					onChange={handleChange}
 					id="name"
 					name="name"
-					value={formData.name}
+					value={name}
+					required
 				/>
 
 				<br />
