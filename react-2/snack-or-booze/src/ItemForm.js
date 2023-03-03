@@ -6,6 +6,7 @@ import axios from 'axios';
  * 
  * -Allows user to add a snack or drink item, which is added to the db and the menu.
  * -Error handling for the handleSubmit function.
+ * -Form will not be submitted if required fields are not filled out.
  * 
  * props: setData
  * 

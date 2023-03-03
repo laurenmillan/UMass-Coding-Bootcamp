@@ -3,6 +3,8 @@ import './Contact.css';
 
 /** Renders a Contact form.
  * 
+ * -Form will not be submitted if required fields are not filled out.
+ * 
 */
 
 const Contact = () => {
