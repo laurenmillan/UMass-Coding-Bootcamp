@@ -1,0 +1,62 @@
+.ItemForm {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 400px;
+	margin-top: 1rem;
+	background-color: #1a1919;
+	padding: 1rem;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	align-items: center;
+	font-family: Arial, sans-serif;
+	margin: 20px;
+}
+
+.h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 3rem;
+}
+
+.SelectInput {
+	font-weight: bold;
+}
+
+.ItemName {
+	font-weight: bold;
+}
+
+select {
+	margin: 10px 0;
+	padding: 5px;
+	font-size: 16px;
+}
+
+input {
+	margin: 10px 0;
+	padding: 5px;
+	font-size: 16px;
+}
+
+button {
+	color: #007bff;
+	margin: 20px 0;
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: black;
+}
+
+button:active {
+	background-color: #327934;
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+}
