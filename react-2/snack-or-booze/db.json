@@ -51,6 +51,10 @@
     {
       "name": "Malt",
       "id": "IFGz3iC"
+    },
+    {
+      "name": "Cosmopolitan",
+      "id": "aOYhPir"
     }
   ],
   "snacks": [
@@ -102,6 +106,10 @@
     {
       "name": "Macaroni",
       "id": "Czm7hWz"
+    },
+    {
+      "name": "Jalapeno Nachos",
+      "id": "W4Og-Ol"
     }
   ]
 }

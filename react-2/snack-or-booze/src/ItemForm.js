@@ -15,8 +15,6 @@ const BASE_API_URL = 'http://localhost:5000';
 const addDrinkUrl = () => `${BASE_API_URL}/drinks`;
 const addSnackUrl = () => `${BASE_API_URL}/snacks`;
 
-const SuccessMessage = () => <p style={{ color: 'green' }}>Item successfully added!</p>;
-
 function ItemForm() {
 	const [ formData, setFormData ] = useState({ item: 'snack', name: '' });
 	const [ isSuccess, setIsSuccess ] = useState(false);
@@ -52,16 +50,21 @@ function ItemForm() {
 	return (
 		<div className="ItemForm">
 			<h2 className="h2">Add Item</h2>
-			{isSuccess && <SuccessMessage />}
+			{isSuccess && <p style={{ color: 'green' }}>Item successfully added!</p>}
 			<form onSubmit={handleSubmit}>
 				<label className="SelectInput" htmlFor="item">
 					Select:
 				</label>
-				<select onChange={handleChange} id="item" name="item" defaultValue={item} aria-label="Select item type">
+				<select
+					onChange={handleChange}
+					id="item"
+					name="item"
+					defaultValue={formData.item}
+					aria-label="Select item type"
+				>
 					<option value="snack">Snack</option>
 					<option value="drink">Drink</option>
 				</select>
-
 				<br />
 
 				<label className="ItemName" htmlFor="name">
@@ -77,7 +80,6 @@ function ItemForm() {
 					required
 					aria-label="Enter item name"
 				/>
-
 				<br />
 
 				<button type="submit" style={{ marginRight: '10px' }}>
