@@ -4,7 +4,8 @@ import axios from 'axios';
 
 /** Renders an Item Form.
  * 
- * -Allows user to add a snack or drink item, which is added to the db and the menu.
+ * -Allows user to add a snack or drink item.
+ * -It sends form data to a server using an HTTP POST request and updates the UI.
  * -Error handling for the handleSubmit function.
  * -Form will not be submitted if required fields are not filled out.
  * 
@@ -20,22 +21,23 @@ function ItemForm() {
 	const [ isSuccess, setIsSuccess ] = useState(false);
 	const { item, name } = formData;
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
+	const handleChange = (evt) => {
+		const { name, value } = evt.target;
 		setFormData((prevFormData) => ({
 			...prevFormData,
 			[name]: value
 		}));
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (evt) => {
 		try {
-			e.preventDefault();
+			evt.preventDefault();
 			if (name === '') {
 				alert('You missed some required info. Please try again.');
 				return;
 			}
 			const data = { name };
+			// if `item` is equal to `drink`, addDrinkUrl is called to get the URL, otherwise, the addSnackUrl is called
 			const url = item === 'drink' ? addDrinkUrl() : addSnackUrl();
 			await axios.post(url, data);
 			setIsSuccess(true);
