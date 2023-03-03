@@ -27,6 +27,26 @@
       "description": "Crisp!",
       "recipe": "Open can.",
       "serve": "Immediately."
+    },
+    {
+      "name": "Red Wine",
+      "id": "2mofUHs"
+    },
+    {
+      "name": "White Wine",
+      "id": "_NMZk7h"
+    },
+    {
+      "name": "Rootbeer",
+      "id": "V6N6bVt"
+    },
+    {
+      "name": "Dirty Martini",
+      "id": "cw0nvFI"
+    },
+    {
+      "name": "Chardonnay",
+      "id": "KxZaRaY"
     }
   ],
   "snacks": [
@@ -50,6 +70,30 @@
       "description": "Tart and delicious.",
       "recipe": "Mix arugula, toasted walnuts, and thinly-sliced Parmesan cheese. Dress with lemon and olive oil.",
       "serve": "Place on tiny, precious little plates."
+    },
+    {
+      "name": "Churro Bites",
+      "id": "JFskgYc"
+    },
+    {
+      "name": "Caprese Salad",
+      "id": "PyGwEdo"
+    },
+    {
+      "name": "Caesar Salad",
+      "id": "aINOEdP"
+    },
+    {
+      "name": "Arugula",
+      "id": "AUB2yC9"
+    },
+    {
+      "name": "Fries",
+      "id": "vlPK8j3"
+    },
+    {
+      "name": "Sweet Potato Fries",
+      "id": "WM2Wxtu"
     }
   ]
 }
