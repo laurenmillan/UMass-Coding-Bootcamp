@@ -93,7 +93,7 @@ function App() {
 							<Snack items={drinks} cantFind="/drinks" />
 						</Route>
 
-						<Route path="/add">
+						<Route exact path="/add">
 							<ItemForm />
 						</Route>
 

@@ -8,8 +8,6 @@ import axios from 'axios';
  * -Error handling for the handleSubmit function.
  * -Form will not be submitted if required fields are not filled out.
  * 
- * props: setData
- * 
  */
 
 const BASE_API_URL = 'http://localhost:5000';

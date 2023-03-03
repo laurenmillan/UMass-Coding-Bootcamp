@@ -5,6 +5,8 @@ import { Card, CardBody, CardTitle, CardText, ListGroup, ListGroupItem } from 'r
 
 /** Displays Snack or Drink menu with detailed information about each item.
  * 
+ * -props: snacks, drinks
+ * 
  */
 
 function FoodMenu({ snacks, drinks }) {
