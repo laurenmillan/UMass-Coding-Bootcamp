@@ -1,9 +1,30 @@
 .ItemForm {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	max-width: 400px;
+	margin-top: 1rem;
+	background-color: #1a1919;
+	padding: 1rem;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 	align-items: center;
 	font-family: Arial, sans-serif;
 	margin: 20px;
+}
+
+.h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 3rem;
+}
+
+.SelectInput {
+	font-weight: bold;
+}
+
+.ItemName {
+	font-weight: bold;
 }
 
 select {

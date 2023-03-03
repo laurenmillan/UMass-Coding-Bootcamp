@@ -38,8 +38,11 @@ function ItemForm({ setData = () => {} }) {
 
 	return (
 		<div className="ItemForm">
+			<h2 className="h2">Add Item</h2>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="item">Select: </label>
+				<label className="SelectInput" htmlFor="item">
+					Select:
+				</label>
 				<select onChange={handleChange} id="item" name="item" defaultValue={item}>
 					<option value="snack">Snack</option>
 					<option value="drink">Drink</option>
@@ -47,7 +50,9 @@ function ItemForm({ setData = () => {} }) {
 
 				<br />
 
-				<label htmlFor="name">Item Name: </label>
+				<label className="ItemName" htmlFor="name">
+					Item Name:
+				</label>
 				<input
 					type="text"
 					placeholder="Snack or Drink"
@@ -60,7 +65,7 @@ function ItemForm({ setData = () => {} }) {
 
 				<br />
 
-				<button type="submit">Add Item! </button>
+				<button type="submit">Submit </button>
 			</form>
 		</div>
 	);

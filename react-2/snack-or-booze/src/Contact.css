@@ -29,27 +29,29 @@
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.phone {
+.NameInput {
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+
+.EmailInput {
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+
+.MessageInput {
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+
+.PhoneNumber {
 	text-align: center;
 	margin-bottom: 1rem;
 }
 
-.email {
+.EmailAddress {
 	text-align: center;
 	margin-bottom: 1rem;
-}
-
-.name {
-	font-weight: bold;
-	margin-right: 0.5rem;
-}
-.email {
-	font-weight: bold;
-	margin-right: 0.5rem;
-}
-.message {
-	font-weight: bold;
-	margin-right: 0.5rem;
 }
 
 input[type='text'],
