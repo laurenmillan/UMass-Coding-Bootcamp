@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Contact.css';
+import { FaInstagram } from 'react-icons/fa';
 
 /** Renders a Contact form.
  * 
@@ -56,8 +57,13 @@ const Contact = () => {
 					<a href="tel:5554280940">Call us at 555-123-4321</a>
 				</div>
 				<div className="EmailAddress">
-					<a href="mailto:snackorbooze@gmail.com">Email us at snackorbooze@gmail.com</a>
+					<a href="mailto:snackorbooze@gmail.com">Email us at snackorbooze@fakegmailemail.com</a>
 				</div>
+				<a href="https://www.instagram.com/gordongram/?hl=en" target="_blank" rel="noopener noreferrer">
+					<div style={{ textAlign: 'center' }}>
+						<FaInstagram size={30} color="#007bff" />
+					</div>
+				</a>
 			</form>
 		</section>
 	);

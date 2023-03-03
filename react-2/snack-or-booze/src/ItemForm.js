@@ -80,8 +80,14 @@ function ItemForm() {
 
 				<br />
 
-				<button type="submit">Submit </button>
-				<button type="reset" onClick={() => setFormData({ item: 'snack', name: '' })}>
+				<button type="submit" style={{ marginRight: '10px' }}>
+					Submit
+				</button>
+				<button
+					type="reset"
+					onClick={() => setFormData({ item: 'snack', name: '' })}
+					style={{ marginLeft: '10px' }}
+				>
 					Reset
 				</button>
 			</form>
