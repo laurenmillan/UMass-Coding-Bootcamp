@@ -90,6 +90,14 @@ class JoblyApi {
 		return res;
 	}
 
+	/** Edit a single user's info. */
+
+	static async editUser(formData) {
+		const { username, email, firstName, lastName } = formData;
+		let res = await this.request(`users/${username}`, { email, firstName, lastName }, 'patch');
+		return res;
+	}
+
 	/** Apply to job. */
 
 	static async apply(username, jobid) {
