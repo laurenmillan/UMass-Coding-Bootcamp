@@ -10,7 +10,7 @@ import JobsList from './Components/JobsList';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Profile from './Components/Profile';
-// import NavBar from './Components/NavBar';
+import NavBar from './Components/NavBar';
 
 /** App logic.
  * 
@@ -22,6 +22,7 @@ import Profile from './Components/Profile';
 function App() {
 	return (
 		<div className="App">
+			<NavBar />
 			<Routes>
 				<Route exact path="/home" element={<Home />} />
 				<Route exact path="/companies" element={<CompanyList />} />
@@ -31,6 +32,7 @@ function App() {
 				<Route exact path="/signup" element={<Signup />} />
 				<Route exact path="/profile" element={<Profile />} />
 				<Route path="*" element={<Navigate to="/home" replace />} />
+				<Route path="/" element={<Navigate to="/home" replace />} />
 			</Routes>
 		</div>
 	);
