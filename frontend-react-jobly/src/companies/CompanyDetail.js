@@ -1,5 +1,4 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import JoblyApi from '../api/api';
 // import JobCardList from 'JobCardList';
@@ -8,22 +7,36 @@ import JoblyApi from '../api/api';
  * 
  * -Renders cards that display company details with an Apply button.
  * -Routed at /companies/:handle
- * -Props: 
  *
  */
 
 function CompanyDetail() {
-	return (
-		<section className="col-md-8">
-			<Card>
-				<CardBody className="text-center">
-					<CardTitle>
-						<h1 className="font-weight-bold">Company Detail</h1>
-					</CardTitle>
-				</CardBody>
-			</Card>
-		</section>
+	const { handle } = useParams();
+	const [ company, setCompany ] = useState(null);
+
+	useEffect(
+		function getCompanyAndJobsForUser() {
+			async function getCompany() {
+				setCompany(await JoblyApi.getCompany(handle));
+			}
+			getCompany();
+		},
+		[ handle ]
 	);
+
+return (
+    <div className="CompanyDetail col-md-8 offset-md-2">
+      {company ? (
+        <>
+          <h4>{company.name}</h4>
+          <p>{company.description}</p>
+          {/* <JobCardList jobs={company.jobs} /> */}
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 }
 
 export default CompanyDetail;

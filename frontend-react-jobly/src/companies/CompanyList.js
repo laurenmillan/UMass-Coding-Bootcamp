@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
 import JoblyApi from '../api/api';
 
 /** Renders a list of all companies.
