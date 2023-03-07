@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Routes, Navigate, Switch } from 'react-router-dom';
-import JoblyApi from './api';
+import JoblyApi from './api/api';
 
 import Home from './Components/Home';
 import CompanyList from './Components/CompanyList';
