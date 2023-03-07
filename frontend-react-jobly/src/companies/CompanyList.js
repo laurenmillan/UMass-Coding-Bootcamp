@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle } from 'reactstrap';
+import JoblyApi from '../api/api';
 
 /** Renders a list of all companies.
  * 
  * -Routed at /companies
- * -Props: 
  *
  */
 
 function CompanyList() {
+	const [ companies, setCompanies ] = useState([]);
+
+	useEffect(() => {
+		async function getAllCompanies() {
+			const companies = await JoblyApi.getCompanies();
+			setCompanies(companies);
+		}
+		getAllCompanies();
+	}, []);
+
 	return (
-		<section className="col-md-8">
-			<Card>
-				<CardBody className="text-center">
-					<CardTitle>
-						<h1 className="font-weight-bold">Company List</h1>
-					</CardTitle>
-				</CardBody>
-			</Card>
-		</section>
+		<div className="CompanyList col-md-8 offset-md-2">
+			<h1>Companies</h1>
+			<ul>{companies.map((company) => <li key={company.handle}>{company.name}</li>)}</ul>
+		</div>
 	);
 }
 
