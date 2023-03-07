@@ -1,10 +1,13 @@
 import React from 'react';
 import { Card, CardBody, CardTitle } from 'reactstrap';
+import { useParams } from 'react-router-dom';
+import JoblyApi from '../api/api';
+// import JobCardList from 'JobCardList';
 
-/** Renders a list of cards that display details about the selected company.
+/** Company detail page.
  * 
- * -Each card displays an Apply button.
- * -Page displays navbar that renders the Companies, Jobs, Profile, Log out routes.
+ * -Renders cards that display company details with an Apply button.
+ * -Routed at /companies/:handle
  * -Props: 
  *
  */

@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Routes, Switch, Navigate } from 'react-router-dom';
 
 import Home from '../Components/Home';
-import CompanyList from '../Components/CompanyList';
-import CompanyDetail from '../Components/CompanyDetail';
-import JobsList from '../Components/JobsList';
+import CompanyList from '../companies/CompanyList';
+import CompanyDetail from '../companies/CompanyDetail';
+import JobsList from '../jobs/JobsList';
 import Login from '../Components/Login';
 import Signup from '../Components/Signup';
 import Profile from '../Components/Profile';

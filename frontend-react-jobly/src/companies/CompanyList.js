@@ -3,7 +3,7 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 
 /** Renders a list of all companies.
  * 
- * -Page displays navbar that renders the Companies, Jobs, Profile, Log out routes.
+ * -Routed at /companies
  * -Props: 
  *
  */

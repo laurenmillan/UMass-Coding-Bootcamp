@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Routes, Navigate, Switch } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import JoblyApi from './api/api';
 
 import Home from './Components/Home';
-import CompanyList from './Components/CompanyList';
-import CompanyDetail from './Components/CompanyDetail';
-import JobsList from './Components/JobsList';
+import CompanyList from './companies/CompanyList';
+import CompanyDetail from './companies/CompanyDetail';
+import JobsList from './jobs/JobsList';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Profile from './Components/Profile';

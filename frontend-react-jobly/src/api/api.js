@@ -34,6 +34,20 @@ class JoblyApi {
 
 	// Individual API routes
 
+	/** Get the current user. */
+
+	static async getCurrentUser(username) {
+		let res = await this.request(`users/${username}`);
+		return res.user;
+	}
+
+	/** Get companies (filtered by name if not undefined). */
+
+	static async getCompanies(name) {
+		let res = await this.request('companies', { name });
+		return res.companies;
+	}
+
 	/** Get details on a company by handle. */
 
 	static async getCompany(handle) {
@@ -41,68 +55,38 @@ class JoblyApi {
 		return res.company;
 	}
 
-	/** Get all companies. */
+	/** Get list of jobs (filtered by title if not undefined). */
 
-	static async getCompanies() {
-		let res = await this.request(`companies`);
-		return res.companies;
-	}
-
-	/** Get all jobs. */
-
-	static async getJobs() {
-		let res = await this.request(`jobs`);
+	static async getJobs(title) {
+		let res = await this.request('jobs', { title });
 		return res.jobs;
 	}
 
-	/** Search for a single company. */
+	/** Apply to a job */
 
-	static async searchCompanies(term) {
-		let res = await this.request(`companies?nameLike=${term}`);
-		return res;
+	static async applyToJob(username, id) {
+		await this.request(`users/${username}/jobs/${id}`, {}, 'post');
 	}
 
-	/** Search for a single job. */
+	/** Get token for login from username, password. */
 
-	static async searchJob(term) {
-		let res = await this.request(`jobs?nameLike=${term}`);
-		return res;
+	static async login(data) {
+		let res = await this.request(`auth/token`, data, 'post');
+		return res.token;
 	}
 
-	/** Login. */
+	/** Signup for site. */
 
-	static async logIn(username, password) {
-		let res = await this.request('auth/token', { username, password }, 'post');
-		return res;
+	static async signup(data) {
+		let res = await this.request(`auth/register`, data, 'post');
+		return res.token;
 	}
 
-	/** Get a single user's info. */
+	/** Save user profile page. */
 
-	static async getUser(username) {
-		let res = await this.request(`users/${username}`, {}, 'get');
-		return res;
-	}
-
-	/** Sign Up. */
-
-	static async signUp(formData) {
-		let res = await this.request(`auth/register`, formData, 'post');
-		return res;
-	}
-
-	/** Edit a single user's info. */
-
-	static async editUser(formData) {
-		const { username, email, firstName, lastName } = formData;
-		let res = await this.request(`users/${username}`, { email, firstName, lastName }, 'patch');
-		return res;
-	}
-
-	/** Apply to job. */
-
-	static async apply(username, jobid) {
-		let res = await this.request(`users/${username}/jobs/${jobid}`, {}, 'post');
-		return res;
+	static async saveProfile(username, data) {
+		let res = await this.request(`users/${username}`, data, 'patch');
+		return res.user;
 	}
 }
 
