@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import JoblyApi from '../api/api';
 import CompanyCard from './CompanyCard';
 import SearchForm from './SearchForm';
+import Spinner from 'react-bootstrap/Spinner';
 
 /** Renders a list of all companies.
  * 
@@ -40,12 +41,14 @@ function CompanyList() {
 			<SearchForm searchFor={search} />
 			{companies.length ? (
 				<div className="CompanyList-list">
-					{companies.map((c) => (
-						<CompanyCard key={c.handle} handle={c.handle} name={c.name} description={c.description} />
+					{companies.map(({ handle, name, description }) => (
+						<CompanyCard key={handle} handle={handle} name={name} description={description} />
 					))}
 				</div>
 			) : (
-				<p className="lead">Sorry, no results were found!</p>
+				<Spinner animation="border" role="status">
+					<span className="visually-hidden">Loading...</span>
+				</Spinner>
 			)}
 		</div>
 	);
