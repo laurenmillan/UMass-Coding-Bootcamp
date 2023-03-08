@@ -13,20 +13,16 @@ import Profile from '../Components/Profile';
 
 const AppRoutes = () => {
 	return (
-		<div>
-			<Switch>
-				<Routes>
-					<Route exact path="/" element={<Home />} />
-					<Route exact path="/companies" element={<CompanyList />} />
-					<Route exact path="/companies/:handle" element={<CompanyDetail />} />
-					<Route exact path="/jobs" element={<JobsList />} />
-					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/signup" element={<Signup />} />
-					<Route exact path="/profile" element={<Profile />} />
-					<Route path="*" element={<Navigate to="/" replace />} />
-				</Routes>
-			</Switch>
-		</div>
+		<Routes>
+			<Route exact path="/" element={<Home />} />
+			<Route exact path="/companies" element={<CompanyList />} />
+			<Route exact path="/companies/:handle" element={<CompanyDetail />} />
+			<Route exact path="/jobs" element={<JobsList />} />
+			<Route exact path="/login" element={<Login />} />
+			<Route exact path="/signup" element={<Signup />} />
+			<Route exact path="/profile" element={<Profile />} />
+			<Route path="*" element={<Navigate to="/" replace />} />
+		</Routes>
 	);
 };
 
