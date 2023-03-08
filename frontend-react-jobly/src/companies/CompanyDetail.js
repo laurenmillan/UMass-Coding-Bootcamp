@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import JoblyApi from '../api/api';
-// import JobCardList from '../jobs/JobCardList';
+import JobCardList from '../jobs/JobCardList';
 
 /** Company detail page.
  * 
@@ -21,7 +21,11 @@ function CompanyDetail() {
 	useEffect(
 		function getCompanyAndJobs() {
 			async function getCompany() {
-				setCompany(await JoblyApi.getCompany(handle));
+				try {
+					setCompany(await JoblyApi.getCompany(handle));
+				} catch (err) {
+					console.error('CompanyDetail getCompany error:', err);
+				}
 			}
 			getCompany();
 		},
@@ -32,9 +36,9 @@ function CompanyDetail() {
 		<div className="CompanyDetail col-md-8 offset-md-2">
 			{company ? (
 				<div>
-					<h4>{company.name}</h4>
-					<p>{company.description}</p>
-					{/* <JobCardList jobs={company.jobs} /> */}
+					<h3 style={{ color: 'white', textShadow: '1px 1px black' }}>{company.name}</h3>
+					<p style={{ color: 'white', textShadow: '1px 1px black' }}>{company.description}</p>
+					<JobCardList jobs={company.jobs} />
 				</div>
 			) : (
 				<p>Loading...</p>

@@ -1,4 +1,6 @@
 .CompanyCard {
+	margin: 0;
+	padding: 0;
 	text-decoration: none;
 	max-height: 250px;
 	margin-bottom: 1rem;

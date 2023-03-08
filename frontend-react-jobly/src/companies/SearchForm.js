@@ -25,7 +25,7 @@ function SearchForm({ searchFor }) {
 	}
 
 	return (
-		<div className="SearchForm mb-4">
+		<div className="SearchForm my-3">
 			<form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
 				<input
 					className="form-control form-control-lg flex-grow-1"

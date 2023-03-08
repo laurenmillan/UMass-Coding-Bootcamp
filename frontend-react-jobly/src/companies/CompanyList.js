@@ -35,6 +35,12 @@ function CompanyList() {
 		console.debug('CompanyList useEffect getCompaniesOnMount');
 		search();
 	}, []);
+	if (!companies)
+		return (
+			<Spinner animation="border" role="status">
+				<span className="visually-hidden">Loading...</span>
+			</Spinner>
+		);
 
 	return (
 		<div className="CompanyList col-md-8 offset-md-2">
@@ -46,9 +52,7 @@ function CompanyList() {
 					))}
 				</div>
 			) : (
-				<Spinner animation="border" role="status">
-					<span className="visually-hidden">Loading...</span>
-				</Spinner>
+				<p className="lead">Sorry, no results were found!</p>
 			)}
 		</div>
 	);
