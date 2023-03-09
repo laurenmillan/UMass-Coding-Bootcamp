@@ -33,6 +33,11 @@ nav a.navbar-brand {
 	color: #f0f2f5;
 }
 
+nav a.navbar-brand:hover {
+	font-weight: bold;
+	color: #f0f2f5;
+}
+
 nav a.active.navbar-brand {
 	border-bottom: none;
 }
