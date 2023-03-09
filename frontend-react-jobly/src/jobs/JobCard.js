@@ -22,11 +22,22 @@ function JobCard({ id, title, salary, equity, companyName }) {
 	return (
 		<div className="JobCard card">
 			<div className="card-body">
-				<div className="job-details">
+				<div className="job-details mb-2">
 					<h5 className="card-title">{title}</h5>
 					<p>{companyName}</p>
-					<small>Salary: {salary !== null ? dollarAmt : `Undisclosed`}</small>
-					<small>{equity && <span>Equity: {`${Math.floor(equity * 100)}%`} </span>}</small>
+					<small>Salary: {salary !== null ? dollarAmt : 'Unavailable'}</small>
+					{equity && equity >= 0.01 ? (
+						<small>
+							<span>Equity: {`${(equity * 100).toFixed(0)}%`}</span>
+						</small>
+					) : (
+						<small>Equity: Less than 1%</small>
+					)}
+				</div>
+				<div>
+					<button className="btn btn-md btn-success" type="submit">
+						Apply
+					</button>
 				</div>
 			</div>
 		</div>
