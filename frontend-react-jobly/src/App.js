@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import JoblyApi from './api/api';
 

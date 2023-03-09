@@ -54,7 +54,9 @@ function CompanyList() {
 					))}
 				</div>
 			) : (
-				<p className="lead">Sorry, no results were found!</p>
+				<p className="lead" style={{ color: 'white', textShadow: '1px 1px black' }}>
+					Sorry, no results were found!
+				</p>
 			)}
 		</div>
 	);

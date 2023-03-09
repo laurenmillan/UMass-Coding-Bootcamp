@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Search from '../companies/SearchForm';
 import JoblyApi from '../api/api';
 import JobCardList from './JobCardList';
+import Spinner from 'react-bootstrap/Spinner';
 
 /** Renders a list of all jobs.
  *
@@ -33,10 +34,23 @@ function JobList() {
 		}
 	}
 
+	if (!jobs)
+		return (
+			<Spinner animation="border" role="status">
+				<span className="visually-hidden">Loading...</span>
+			</Spinner>
+		);
+
 	return (
 		<div className="JobList col-md-8 offset-md-2">
 			<Search searchFor={search} />
-			{jobs.length ? <JobCardList jobs={jobs} /> : <p className="lead">Sorry, no results were found!</p>}
+			{jobs.length ? (
+				<JobCardList jobs={jobs} />
+			) : (
+				<p className="lead" style={{ color: 'white', textShadow: '1px 1px black' }}>
+					Sorry, no results were found!
+				</p>
+			)}
 		</div>
 	);
 }
