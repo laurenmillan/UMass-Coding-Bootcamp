@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Switch, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from '../Components/Home';
 import CompanyList from '../companies/CompanyList';
@@ -8,6 +8,7 @@ import JobList from '../jobs/JobList';
 import Login from '../Components/Login';
 import Signup from '../Components/Signup';
 import Profile from '../Components/Profile';
+import NotFound from './404/404';
 
 /** Routing Logic. */
 
@@ -21,7 +22,7 @@ const AppRoutes = () => {
 			<Route exact path="/login" element={<Login />} />
 			<Route exact path="/signup" element={<Signup />} />
 			<Route exact path="/profile" element={<Profile />} />
-			<Route path="*" element={<Navigate to="/" replace />} />
+			<Route path="/*" element={<NotFound />} />
 		</Routes>
 	);
 };

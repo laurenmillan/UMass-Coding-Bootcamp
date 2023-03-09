@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import JoblyApi from '../api/api';
 import CompanyCard from './CompanyCard';
 import SearchForm from './SearchForm';
-import Spinner from 'react-bootstrap/Spinner';
+import NotFound from '../404/404';
 
 /** Renders a list of all companies.
  * 
@@ -35,12 +35,8 @@ function CompanyList() {
 		console.debug('CompanyList useEffect getCompaniesOnMount');
 		search();
 	}, []);
-	if (!companies)
-		return (
-			<Spinner animation="border" role="status">
-				<span className="visually-hidden">Loading...</span>
-			</Spinner>
-		);
+
+	if (!companies) return <NotFound />;
 
 	return (
 		<div className="CompanyList col-md-8 offset-md-2">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import JoblyApi from '../api/api';
 import JobCardList from '../jobs/JobCardList';
+import NotFound from '../404/404';
 
 /** Company detail page.
  * 
@@ -41,7 +42,7 @@ function CompanyDetail() {
 					<JobCardList jobs={company.jobs} />
 				</div>
 			) : (
-				<p>Loading...</p>
+				<NotFound />
 			)}
 		</div>
 	);
