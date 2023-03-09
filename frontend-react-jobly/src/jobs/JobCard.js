@@ -3,8 +3,9 @@ import './JobCard.css';
 
 /** Renders a card that displays information about a job.
  *
- * -JobCard is rendered by JobList to show a card for each job.
+ * -JobList renders Jobcard which displays a card for each job.
  * -props: id, title, salary, equity, companyName
+ * -Receives the apply function prop from the parent which is called on apply.
  * -Routed from JobCardList -> JobCard
  * 
  */

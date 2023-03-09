@@ -29,7 +29,7 @@ function JobList() {
 			let jobs = await JoblyApi.getJobs(title);
 			setJobs(jobs);
 		} catch (err) {
-			console.error('Search failed:', err);
+			console.error('JobList search error:', err);
 		}
 	}
 

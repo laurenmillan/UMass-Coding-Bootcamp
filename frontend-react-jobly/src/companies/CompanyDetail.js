@@ -7,7 +7,7 @@ import JobCardList from '../jobs/JobCardList';
  * 
  * -Renders cards that display job details for the specific company, with an Apply button.
  * -props: `handle` is used to fetch the specific company details from the API.
- * -props: `company` is set to null, then later updated with the specific company details from the API.
+ * -props: `company` is set to null, then is later updated with the specific company details from the API.
  * -Routed at /companies/:handle
  *
  */
