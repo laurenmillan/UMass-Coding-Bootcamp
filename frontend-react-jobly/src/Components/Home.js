@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
-// import { Button } from 'reactstrap';
-// import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import  './Home.css'
 
 /** Displays homepage.
  * 
@@ -12,51 +12,27 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
  *
  */
 
-// function Home({ user })
-function Home() {
-	return (
-		<section className="col-md-8">
-			<Card>
-				<CardBody className="text-center">
-					<CardTitle>
-						<h1 className="font-weight-bold">Jobly</h1>
-					</CardTitle>
-				</CardBody>
-			</Card>
-		</section>
-	);
-	// const navigate = useNavigate;
-	// return (
-	// 	<section className="col-md-8">
-	//         <Card>
-	// 			<CardBody className="text-center">
-	// 				<CardTitle>
-	//                     {user && <>
-	//                     <h1 className="font-weight-bold">Jobly</h1>
-	// 					<p>Welcome back, {user.firstName}!</p>
-	//                     </>}
 
-	// 				</CardTitle>
-	// 			</CardBody>
-	// 		</Card>
+const Home = ({user}) => {
+    const navigate = useNavigate();
+    return (
+        <div className="Home-container">
+            {user && <>
+            <h1 style={{ color: 'white', textShadow: '1px 1px black' }}>Jobly</h1>
+            <p style={{ color: 'white', textShadow: '1px 1px black' }}>Welcome back, {user.firstName}</p>
+            </>}
 
-	// 		<Card>
-	// 			<CardBody className="text-center">
-	// 				<CardTitle>
-	//                     {!user && <>
-	//                     <h1 className="font-weight-bold">Jobly</h1>
-	//                     <p>All the jobs in one, convenient place.</p>
-	//                     <div>
-	//                         <Button onClick={()=> navigate("/login", {replace: true})}>Login</Button>
-	//                         <Button onClick={()=> navigate("/signup", {replace: true})}>Sign Up</Button>
-	//                     </div>
-	//                     </>}
-
-	// 				</CardTitle>
-	// 			</CardBody>
-	// 		</Card>
-	// 	</section>
-	// );
+            {!user && <>
+            <h1 style={{ color: 'white', textShadow: '1px 1px black' }}>Jobly</h1>
+            <p style={{ color: 'white', textShadow: '1px 1px black' }}>Your new job starts here.</p>
+            <div className="Home-button-div">
+                <Button variant="primary" type="submit" onClick={() => navigate("/login", {replace: true})}>Login</Button>
+                <Button variant="primary" type="submit"onClick={() => navigate("/signup", {replace: true})}>Sign Up</Button>
+            </div>
+            </>}
+        </div>
+    )
 }
+
 
 export default Home;

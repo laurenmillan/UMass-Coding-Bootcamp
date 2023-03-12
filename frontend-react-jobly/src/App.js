@@ -47,6 +47,7 @@ function App() {
 	async function logout() {
 		setCurrentUser(null);
 		setToken(null);
+		localStorage.removeItem('token', token);
 	}
 
 	return (

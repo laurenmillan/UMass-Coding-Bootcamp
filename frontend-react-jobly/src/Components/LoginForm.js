@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
  * 
 */
 
-const SignupForm = ({ login }) => {
+const LoginForm = ({ login }) => {
 	console.debug('LoginForm');
 
 	const [ isSuccess, setIsSuccess ] = useState(false);
@@ -36,28 +36,32 @@ const SignupForm = ({ login }) => {
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
 		const form = evt.currentTarget;
+		setValidated(true);
+
 		if (form.checkValidity() === false) {
 			evt.stopPropagation();
-		} else {
-			try {
-				const res = await login(formData);
-				setIsSuccess(res.success);
-			} catch (error) {
-				console.error(error);
-				if (error.response && error.response.status === 409) {
-					alert('Incorrect username or password');
-				} else {
-					alert('An error occurred while logging in');
-				}
+			return;
+		}
+
+		try {
+			const loginRes = await login(formData);
+			setIsSuccess(loginRes.success);
+		} catch (error) {
+			console.error(error);
+			if (error.response && (error.response.status === 409 || error.response.status === 401)) {
+				alert('Incorrect username or password');
+			} else {
+				alert('An error occurred while logging in');
 			}
 		}
-		setValidated(true);
 	};
 
 	return (
 		<div className="SignupForm">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-				<h2 className="mb-3">Log In</h2>
+				<h2 className="mb-3" style={{ color: 'white', textShadow: '1px 1px black' }}>
+					Log In
+				</h2>
 			</div>
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<Form.Group controlId="formUsername">
@@ -69,6 +73,7 @@ const SignupForm = ({ login }) => {
 						onChange={handleChange}
 						autoComplete="username"
 						required
+						className="form-control-sm"
 					/>
 				</Form.Group>
 
@@ -81,6 +86,7 @@ const SignupForm = ({ login }) => {
 						onChange={handleChange}
 						autoComplete="current-password"
 						required
+						className="form-control-sm"
 					/>
 				</Form.Group>
 
@@ -92,4 +98,4 @@ const SignupForm = ({ login }) => {
 	);
 };
 
-export default SignupForm;
+export default LoginForm;
