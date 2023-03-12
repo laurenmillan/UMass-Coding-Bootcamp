@@ -18,9 +18,9 @@ function App() {
 	const [ currentUser, setCurrentUser ] = useState(null);
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
 
-	async function signup(signupData) {
+	async function signup(username, password, firstName, lastName, email) {
 		try {
-			const { token, user } = await JoblyApi.signup(signupData);
+			const { token, user } = await JoblyApi.signup(username, password, firstName, lastName, email);
 			setCurrentUser(user);
 			setToken(token);
 			localStorage.setItem('token', token);

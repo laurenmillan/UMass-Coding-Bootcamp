@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-/** Render Login Form.
+/** Renders a Login Form. 
  * 
- * -When the user successfully logs in, navigates to /companies page.
+ * -When the user successfully logs in, navigate to /companies page.
  * 
- */
+*/
 
-function LoginForm({ login }) {
+const SignupForm = ({ login }) => {
+	console.debug('LoginForm');
+
+	const [ isSuccess, setIsSuccess ] = useState(false);
+	const [ validated, setValidated ] = useState(false);
 	const navigate = useNavigate();
 	const [ formData, setFormData ] = useState({ username: '', password: '' });
+
+	useEffect(
+		() => {
+			if (isSuccess) {
+				navigate('/companies', { replace: true });
+			}
+		},
+		[ isSuccess, navigate ]
+	);
 
 	const handleChange = (evt) => {
 		const { name, value } = evt.target;
@@ -22,26 +35,36 @@ function LoginForm({ login }) {
 
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
-		try {
-			const res = await login(formData);
-			res.success ? navigate('/companies', { replace: true }) : alert('Invalid username or password');
-		} catch (error) {
-			console.error(error);
-			alert('An error occurred while logging in');
+		const form = evt.currentTarget;
+		if (form.checkValidity() === false) {
+			evt.stopPropagation();
+		} else {
+			try {
+				const res = await login(formData);
+				setIsSuccess(res.success);
+			} catch (error) {
+				console.error(error);
+				if (error.response && error.response.status === 409) {
+					alert('Incorrect username or password');
+				} else {
+					alert('An error occurred while logging in');
+				}
+			}
 		}
+		setValidated(true);
 	};
 
 	return (
-		<div className="LoginForm">
+		<div className="SignupForm">
 			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-				<h2 className="mb-3">Login</h2>
+				<h2 className="mb-3">Log In</h2>
 			</div>
-			<Form onSubmit={handleSubmit}>
+			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<Form.Group controlId="formUsername">
 					<Form.Label>Username</Form.Label>
 					<Form.Control
 						type="text"
-						placeholder="Enter username"
+						name="username"
 						value={formData.username}
 						onChange={handleChange}
 						autoComplete="username"
@@ -53,7 +76,7 @@ function LoginForm({ login }) {
 					<Form.Label>Password</Form.Label>
 					<Form.Control
 						type="password"
-						placeholder="Enter password"
+						name="password"
 						value={formData.password}
 						onChange={handleChange}
 						autoComplete="current-password"
@@ -67,6 +90,6 @@ function LoginForm({ login }) {
 			</Form>
 		</div>
 	);
-}
+};
 
-export default LoginForm;
+export default SignupForm;
