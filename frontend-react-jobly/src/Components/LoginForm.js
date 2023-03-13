@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
  * 
 */
 
-const LoginForm = ({ login }) => {
-	console.debug('LoginForm');
+const LoginForm = ({ login, user }) => {
+	console.debug('LoginForm', 'login=', user);
 
 	const [ isSuccess, setIsSuccess ] = useState(false);
 	const [ validated, setValidated ] = useState(false);

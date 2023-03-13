@@ -5,14 +5,14 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 
 /** Displays navbar components.
  * 
- * -
  * -props: user and logout, passed down from the App component.
  * -user represents current user
- * -logout is a function that logs the user when called.
+ * -logout is a function that logs out the user when called.
  * 
 */
 
 function NavBar({ user, logout }) {
+  console.log({user})
   return (
     <div>
       <Navbar expand="md">
@@ -45,6 +45,7 @@ function NavBar({ user, logout }) {
               <NavItem>
                 <NavLink to="/profile">Profile</NavLink>
               </NavItem>
+
 
               <NavItem>
                 <NavLink to="/" onClick={logout}>

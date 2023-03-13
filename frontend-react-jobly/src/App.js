@@ -14,8 +14,10 @@ import NotFound from './404/404';
 
 /** Jobly App logic.
  *  
- * -initialize `token` with the value of the token key stored in local storage. This maintains the user's
- *    session and avoids the need for the user to login when they revisit the website.
+ * -signup and logout functions use the JoblyApi to make requests to the backend API. If successful, they update 
+ *    the token and store it in the browser's local storage.
+ * -This maintains the user's session and avoids the need for the user to login when they revisit the website.
+ * 
 */
 
 function App() {
@@ -25,8 +27,7 @@ function App() {
 
 	async function signup(signupData) {
 		try {
-			const { token, user } = await JoblyApi.signup(signupData);
-			setCurrentUser(user);
+			const token = await JoblyApi.signup(signupData);
 			setToken(token);
 			localStorage.setItem('token', token);
 			return { success: true };
@@ -36,12 +37,9 @@ function App() {
 		}
 	}
 
-	/** Here we send a request to API to authenticate user, 
-   * and update the app's state with user's info and auth token. */
 	async function login(loginData) {
 		try {
-			const { token, user } = await JoblyApi.login(loginData);
-			setCurrentUser(user);
+			const token = await JoblyApi.login(loginData);
 			setToken(token);
 			localStorage.setItem('token', token);
 			return { success: true };
@@ -58,10 +56,29 @@ function App() {
 		localStorage.removeItem('token');
 	}
 
+	// useEffect fetches the current user's information when the component mounts.
+	// useEffect(
+	// 	() => {
+	// 		async function getCurrentUser() {
+	// 			try {
+	// 				const username = await JoblyApi.getCurrentUser(token);
+	// 				setCurrentUser(username);
+	// 			} catch (error) {
+	// 				console.error('Failed to get current user:', error);
+	// 			}
+	// 		}
+
+	// 		if (token) {
+	// 			getCurrentUser();
+	// 		}
+	// 	},
+	// 	[ token ]
+	// );
+
 	// determine if a user is logged in or not.
 	return (
 		<div className="App">
-			<NavBar user={setCurrentUser} logout={logout} />
+			<NavBar user={token} logout={logout} />
 			<Routes>
 				<Route exact path="/" element={<Home user={currentUser} />} />
 				<Route exact path="/companies" element={<CompanyList />} />

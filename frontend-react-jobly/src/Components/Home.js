@@ -6,19 +6,22 @@ import  './Home.css'
 /** Displays homepage.
  * 
  * -If a user is logged out, the page displays a Login and Sign Up button.
- * -If a user is logged in, the page renders a message welcoming the user.\
+ * -If a user is logged in, the page renders a message welcoming the user.
  * -Props: user
  *
  */
 
 
 const Home = ({user}) => {
+    console.debug("Homepage", "currentUser=", user);
+    
     const navigate = useNavigate();
     return (
         <div className="Home-container">
+            
             {user && <>
             <h1 style={{ color: 'white', textShadow: '1px 1px black' }}>Jobly</h1>
-            <p style={{ color: 'white', textShadow: '1px 1px black' }}>Welcome back, {user.firstName}</p>
+            {/* <p style={{ color: 'white', textShadow: '1px 1px black' }}>Welcome back, {user.firstName}</p> */}
             </>}
 
             {!user && <>
