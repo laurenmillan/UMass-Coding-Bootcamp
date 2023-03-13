@@ -11,6 +11,7 @@ import Signup from './Components/SignupForm';
 import Profile from './Components/Profile';
 import NavBar from './Components/NavBar';
 import NotFound from './404/404';
+// import jwt from 'jsonwebtoken';
 
 /** Jobly App logic.
  *  
@@ -56,25 +57,6 @@ function App() {
 		localStorage.removeItem('token');
 	}
 
-	// useEffect fetches the current user's information when the component mounts.
-	// useEffect(
-	// 	() => {
-	// 		async function getCurrentUser() {
-	// 			try {
-	// 				const username = await JoblyApi.getCurrentUser(token);
-	// 				setCurrentUser(username);
-	// 			} catch (error) {
-	// 				console.error('Failed to get current user:', error);
-	// 			}
-	// 		}
-
-	// 		if (token) {
-	// 			getCurrentUser();
-	// 		}
-	// 	},
-	// 	[ token ]
-	// );
-
 	// determine if a user is logged in or not.
 	return (
 		<div className="App">
@@ -86,7 +68,7 @@ function App() {
 				<Route exact path="/jobs" element={<JobList />} />
 				<Route exact path="/login" element={<Login login={login} />} />
 				<Route exact path="/signup" element={<Signup signup={signup} />} />
-				<Route exact path="/profile" element={<Profile user={currentUser} />} />
+				<Route exact path="/profile" element={<Profile user={currentUser} setCurrentUser={setCurrentUser} />} />
 				<Route path="/*" element={<NotFound />} />
 			</Routes>
 		</div>

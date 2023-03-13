@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from '../Components/Home';
-import CompanyList from '../companies/CompanyList';
-import CompanyDetail from '../companies/CompanyDetail';
-import JobList from '../jobs/JobList';
-import Login from '../Components/Login';
-import Signup from '../Components/Signup';
-import Profile from '../Components/Profile';
+import Home from './Components/Home';
+import CompanyList from './companies/CompanyList';
+import CompanyDetail from './companies/CompanyDetail';
+import JobList from './jobs/JobList';
+import Login from './Components/LoginForm';
+import Signup from './Components/SignupForm';
+import Profile from './Components/ProfileForm';
 import NotFound from './404/404';
 
 /** Routing Logic. */
