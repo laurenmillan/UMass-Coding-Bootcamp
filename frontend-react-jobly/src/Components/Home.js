@@ -6,8 +6,7 @@ import  './Home.css'
 /** Displays homepage.
  * 
  * -If a user is logged out, the page displays a Login and Sign Up button.
- * -If a user is logged in, the page renders a message welcoming the user.
- * -Displays navbar that renders a Login and Sign Up.
+ * -If a user is logged in, the page renders a message welcoming the user.\
  * -Props: user
  *
  */
