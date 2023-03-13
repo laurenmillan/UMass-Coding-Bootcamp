@@ -12,7 +12,7 @@ import JoblyApi from '../api/api';
  * 
  */
 
-function Profile({ user, updateUser }) {
+function Profile({ user, setCurrentUser }) {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ email, setEmail ] = useState('');
@@ -33,13 +33,23 @@ function Profile({ user, updateUser }) {
 	);
 
 	async function handleSubmit(evt) {
+		console.log('handleSubmit function called');
 		evt.preventDefault();
+
 		if (!user) {
 			return;
 		}
+
 		const userData = { first_name: firstName, last_name: lastName, email };
-		const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
-		updateUser(updatedUser);
+		console.log('userData:', userData);
+
+		try {
+			const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
+			console.log('handleSubmit fired with updatedUser:', updatedUser);
+			setCurrentUser(updatedUser);
+		} catch (error) {
+			console.error('Error occurred while saving user profile:', error);
+		}
 	}
 
 	return (
