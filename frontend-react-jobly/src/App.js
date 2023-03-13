@@ -12,15 +12,20 @@ import Profile from './Components/Profile';
 import NavBar from './Components/NavBar';
 import NotFound from './404/404';
 
-/** Jobly App logic.*/
+/** Jobly App logic.
+ *  
+ * -initialize `token` with the value of the token key stored in local storage. This maintains the user's
+ *    session and avoids the need for the user to login when they revisit the website.
+*/
 
 function App() {
 	const [ currentUser, setCurrentUser ] = useState(null);
+	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
 
-	async function signup(username, password, firstName, lastName, email) {
+	async function signup(signupData) {
 		try {
-			const { token, user } = await JoblyApi.signup(username, password, firstName, lastName, email);
+			const { token, user } = await JoblyApi.signup(signupData);
 			setCurrentUser(user);
 			setToken(token);
 			localStorage.setItem('token', token);
@@ -31,9 +36,11 @@ function App() {
 		}
 	}
 
-	async function login(username, password) {
+	/** Here we send a request to API to authenticate user, 
+   * and update the app's state with user's info and auth token. */
+	async function login(loginData) {
 		try {
-			const { token, user } = await JoblyApi.login(username, password);
+			const { token, user } = await JoblyApi.login(loginData);
 			setCurrentUser(user);
 			setToken(token);
 			localStorage.setItem('token', token);
@@ -44,12 +51,14 @@ function App() {
 		}
 	}
 
-	async function logout() {
+	/** Logout by clearing app's state, remove user's auth token from browser's local storage. */
+	function logout() {
 		setCurrentUser(null);
 		setToken(null);
-		localStorage.removeItem('token', token);
+		localStorage.removeItem('token');
 	}
 
+	// determine if a user is logged in or not.
 	return (
 		<div className="App">
 			<NavBar user={setCurrentUser} logout={logout} />

@@ -13,50 +13,51 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 */
 
 function NavBar({ user, logout }) {
-	return (
-		<div>
-			<Navbar expand="md">
-				<NavLink exact to="/" className="navbar-brand">
-					Jobly
-				</NavLink>
-				{/* if user is logged in, show Companies, Jobs, Profile and Logout on navbar */}
-				<Nav className="ml-auto" navbar>
-					<NavItem>
-						<NavLink to="/companies">Companies</NavLink>
-					</NavItem>
+  return (
+    <div>
+      <Navbar expand="md">
+        <NavLink exact to="/" className="navbar-brand">
+          Jobly
+        </NavLink>
+        <Nav className="ml-auto" navbar>
+          {/* if user is not logged in, render /login, /signup */}
+          {!user ? (
+            <>
+              <NavItem>
+                <NavLink to="/login">Log in</NavLink>
+              </NavItem>
 
-					<NavItem>
-						<NavLink to="/jobs">Jobs</NavLink>
-					</NavItem>
+              <NavItem>
+                <NavLink to="/signup">Sign Up</NavLink>
+              </NavItem>
+            </>
+          ) : (
+            // user is logged in, show all the links in navbar.
+            <>
+              <NavItem>
+                <NavLink to="/companies">Companies</NavLink>
+              </NavItem>
 
-					{user ? (
-						<>
-							<NavItem>
-								<NavLink to="/profile">Profile</NavLink>
-							</NavItem>
+              <NavItem>
+                <NavLink to="/jobs">Jobs</NavLink>
+              </NavItem>
 
-							<NavItem>
-								<NavLink to="/" onClick={logout}>
-									Log out
-								</NavLink>
-							</NavItem>
-						</>
-					) : (
-						// otherwise, show Login and Signup on navbar
-						<>
-							<NavItem>
-								<NavLink to="/login">Log in</NavLink>
-							</NavItem>
+              <NavItem>
+                <NavLink to="/profile">Profile</NavLink>
+              </NavItem>
 
-							<NavItem>
-								<NavLink to="/signup">Sign Up</NavLink>
-							</NavItem>
-						</>
-					)}
-				</Nav>
-			</Navbar>
-		</div>
-	);
+              <NavItem>
+                <NavLink to="/" onClick={logout}>
+                  Log out
+                </NavLink>
+              </NavItem>
+            </>
+          )}
+        </Nav>
+      </Navbar>
+    </div>
+  );
 }
+
 
 export default NavBar;
