@@ -26,6 +26,25 @@ function App() {
 	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
 
+	// useEffect(
+	// 	() => {
+	// 		async function fetchUser() {
+	// 			if (token) {
+	// 				try {
+	// 					const userData = await JoblyApi.getCurrentUser();
+	// 					setCurrentUser(userData);
+	// 				} catch (error) {
+	// 					console.error('Error occurred while fetching user data:', error);
+	// 				}
+	// 			} else {
+	// 				setCurrentUser(null);
+	// 			}
+	// 		}
+	// 		fetchUser();
+	// 	},
+	// 	[ token ]
+	// );
+
 	async function signup(signupData) {
 		try {
 			const token = await JoblyApi.signup(signupData);

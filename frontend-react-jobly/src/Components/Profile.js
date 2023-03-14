@@ -33,7 +33,6 @@ function Profile({ user, setCurrentUser }) {
 	);
 
 	async function handleSubmit(evt) {
-		console.log('handleSubmit function called');
 		evt.preventDefault();
 
 		if (!user) {
@@ -45,7 +44,6 @@ function Profile({ user, setCurrentUser }) {
 
 		try {
 			const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
-			console.log('handleSubmit fired with updatedUser:', updatedUser);
 			setCurrentUser(updatedUser);
 		} catch (error) {
 			console.error('Error occurred while saving user profile:', error);
