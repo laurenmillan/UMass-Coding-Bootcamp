@@ -22,9 +22,11 @@ function Profile({ user, setCurrentUser }) {
 	useEffect(
 		() => {
 			console.log('useEffect called');
+			console.log('Current user:', user);
+
 			async function fetchProfile() {
 				console.log('fetchProfile called');
-				if (user) {
+				if (user && user.username && user.token) {
 					const userData = await JoblyApi.getUser(user.username, user.token);
 					console.log('Fetched user data:', userData);
 					setFirstName(userData.first_name);
@@ -42,20 +44,20 @@ function Profile({ user, setCurrentUser }) {
 		evt.preventDefault();
 		setError(null);
 
-		if (!user) {
-			return;
-		}
-
 		const userData = { first_name: firstName, last_name: lastName, email };
 		console.log('User data to be updated:', userData);
 
 		try {
 			const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
 			console.log('Updated user data:', updatedUser);
+			console.log(user.username, userData, user.token);
+			console.log('Updated user data:', updatedUser);
+
 			setCurrentUser(updatedUser);
 			setSuccess('Profile updated successfully!');
 		} catch (error) {
 			setError('Error occurred while saving user profile: ' + error.message);
+			console.log(error.message);
 		}
 	}
 
