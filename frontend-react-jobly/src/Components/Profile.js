@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import JoblyApi from '../api/api';
 
 /** Renders a Profile page.
@@ -16,12 +16,17 @@ function Profile({ user, setCurrentUser }) {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ email, setEmail ] = useState('');
+	const [ error, setError ] = useState(null);
+	const [ success, setSuccess ] = useState(null);
 
 	useEffect(
 		() => {
+			console.log('useEffect called');
 			async function fetchProfile() {
+				console.log('fetchProfile called');
 				if (user) {
 					const userData = await JoblyApi.getUser(user.username, user.token);
+					console.log('Fetched user data:', userData);
 					setFirstName(userData.first_name);
 					setLastName(userData.last_name);
 					setEmail(userData.email);
@@ -33,21 +38,24 @@ function Profile({ user, setCurrentUser }) {
 	);
 
 	async function handleSubmit(evt) {
+		console.log('handleSubmit called');
 		evt.preventDefault();
-		console.log('handleSubmit function called');
+		setError(null);
 
 		if (!user) {
 			return;
 		}
 
 		const userData = { first_name: firstName, last_name: lastName, email };
-		console.log('userData:', userData);
+		console.log('User data to be updated:', userData);
 
 		try {
 			const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
+			console.log('Updated user data:', updatedUser);
 			setCurrentUser(updatedUser);
+			setSuccess('Profile updated successfully!');
 		} catch (error) {
-			console.error('Error occurred while saving user profile:', error);
+			setError('Error occurred while saving user profile: ' + error.message);
 		}
 	}
 
@@ -58,6 +66,8 @@ function Profile({ user, setCurrentUser }) {
 					<CardTitle>
 						<h1 className="font-weight-bold">Profile</h1>
 					</CardTitle>
+					{error && <Alert color="danger">{error}</Alert>}
+					{success && <Alert color="success">{success}</Alert>}
 					<Form onSubmit={handleSubmit}>
 						<FormGroup>
 							<Label for="firstName">First Name</Label>
