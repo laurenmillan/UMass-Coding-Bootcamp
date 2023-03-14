@@ -11,7 +11,7 @@ import Signup from './Components/SignupForm';
 import Profile from './Components/Profile';
 import NavBar from './Components/NavBar';
 import NotFound from './404/404';
-// import jwt from 'jsonwebtoken';
+import jwt_decode from 'jwt-decode';
 
 /** Jobly App logic.
  *  
@@ -26,24 +26,26 @@ function App() {
 	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
 
-	// useEffect(
-	// 	() => {
-	// 		async function fetchUser() {
-	// 			if (token) {
-	// 				try {
-	// 					const userData = await JoblyApi.getCurrentUser();
-	// 					setCurrentUser(userData);
-	// 				} catch (error) {
-	// 					console.error('Error occurred while fetching user data:', error);
-	// 				}
-	// 			} else {
-	// 				setCurrentUser(null);
-	// 			}
-	// 		}
-	// 		fetchUser();
-	// 	},
-	// 	[ token ]
-	// );
+	useEffect(
+		() => {
+			async function fetchUser() {
+				let data = jwt_decode(token);
+
+				if (token) {
+					try {
+						const userData = await JoblyApi.getCurrentUser(data.username);
+						setCurrentUser(userData);
+					} catch (error) {
+						console.error('Error occurred while fetching user data:', error);
+					}
+				} else {
+					setCurrentUser(null);
+				}
+			}
+			fetchUser();
+		},
+		[ token ]
+	);
 
 	async function signup(signupData) {
 		try {
