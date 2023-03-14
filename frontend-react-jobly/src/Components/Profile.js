@@ -34,6 +34,7 @@ function Profile({ user, setCurrentUser }) {
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
+		console.log('handleSubmit function called');
 
 		if (!user) {
 			return;
