@@ -12,7 +12,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 */
 
 function NavBar({ user, logout }) {
-  console.log({user})
+  console.debug({user})
   return (
     <div>
       <Navbar expand="md">
@@ -32,7 +32,7 @@ function NavBar({ user, logout }) {
               </NavItem>
             </>
           ) : (
-            // user is logged in, show all the links in navbar.
+            // user is logged in, show all links in navbar.
             <>
               <NavItem>
                 <NavLink to="/companies">Companies</NavLink>

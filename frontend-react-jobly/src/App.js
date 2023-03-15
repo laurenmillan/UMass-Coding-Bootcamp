@@ -26,6 +26,8 @@ function App() {
 	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
 
+	console.debug('App', 'currentUser=', currentUser, 'token=', token);
+
 	useEffect(
 		() => {
 			async function fetchUser() {
@@ -62,8 +64,9 @@ function App() {
 	async function login(loginData) {
 		try {
 			const token = await JoblyApi.login(loginData);
-			setToken(token);
+			JoblyApi.token = token;
 			localStorage.setItem('token', token);
+			setToken(token);
 			return { success: true };
 		} catch (error) {
 			console.error('Failed to login:', error);

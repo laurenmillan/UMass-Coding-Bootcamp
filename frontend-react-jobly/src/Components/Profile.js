@@ -13,6 +13,8 @@ import JoblyApi from '../api/api';
  */
 
 function Profile({ user, setCurrentUser }) {
+	console.debug({ user, setCurrentUser });
+
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ email, setEmail ] = useState('');
@@ -29,8 +31,8 @@ function Profile({ user, setCurrentUser }) {
 				if (user && user.username && user.token) {
 					const userData = await JoblyApi.getUser(user.username, user.token);
 					console.log('Fetched user data:', userData);
-					setFirstName(userData.first_name);
-					setLastName(userData.last_name);
+					setFirstName(userData.firstName);
+					setLastName(userData.lastName);
 					setEmail(userData.email);
 				}
 			}
