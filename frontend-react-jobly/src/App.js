@@ -35,7 +35,7 @@ function App() {
 
 				if (token) {
 					try {
-						const userData = await JoblyApi.getCurrentUser(data.username);
+						const userData = await JoblyApi.getCurrentUser(data.username, token);
 						setCurrentUser(userData);
 					} catch (error) {
 						console.error('Error occurred while fetching user data:', error);

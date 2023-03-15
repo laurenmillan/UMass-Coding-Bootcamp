@@ -12,22 +12,20 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 class JoblyApi {
 	// the token for interactive with the API will be stored here.
-	static token;
+	// static token;
 
-	static async request(endpoint, data = {}, method = 'get') {
-		console.debug('API Call:', endpoint, data, method);
-
-		//there are multiple ways to pass an authorization token, this is how you pass it in the header.
-		//this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
+	static async request(endpoint, data = {}, method = 'get', token = null) {
 		const url = `${BASE_URL}/${endpoint}`;
-		const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+		const headers = { 'Content-Type': 'application/json' };
+		if (token) headers['Authorization'] = `Bearer ${token}`;
 		const params = method === 'get' ? data : {};
 
 		try {
-			return (await axios({ url, method, data, params, headers })).data;
+			const res = await axios({ url, method, data, params, headers });
+			return res.data;
 		} catch (err) {
 			console.error('API Error:', err.response);
-			let message = err.response.data.error.message;
+			const message = err.response.data.error.message;
 			throw Array.isArray(message) ? message : [ message ];
 		}
 	}
@@ -36,8 +34,8 @@ class JoblyApi {
 
 	/** Get the current user. */
 
-	static async getCurrentUser(username) {
-		let res = await this.request(`users/${username}`);
+	static async getCurrentUser(username, token) {
+		const res = await this.request(`users/${username}`, {}, 'get', token);
 		return res.user;
 	}
 
@@ -85,8 +83,8 @@ class JoblyApi {
 
 	/** Save user profile page. */
 
-	static async saveProfile(username, data) {
-		let res = await this.request(`users/${username}`, data, 'patch');
+	static async saveProfile(username, data, token) {
+		const res = await this.request(`users/${username}`, data, 'patch', token);
 		console.log(res);
 		return res.user;
 	}
