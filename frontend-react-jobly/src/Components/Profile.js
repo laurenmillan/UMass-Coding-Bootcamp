@@ -8,7 +8,7 @@ import JoblyApi from '../api/api';
  * -Page displays navbar that renders the Companies, Jobs, Profile, Log Out routes.
  * -Props: 
  *    - user: the current user object, containing username and token.
- *    - updateUser: function to update the current user information in App state
+ *    - setCurrentUser: function to update the current user information in App state
  * 
  */
 
