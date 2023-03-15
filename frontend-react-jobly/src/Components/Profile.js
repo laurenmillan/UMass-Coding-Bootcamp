@@ -44,12 +44,12 @@ function Profile({ user, setCurrentUser }) {
 		evt.preventDefault();
 		setError(null);
 
-		const userData = { first_name: firstName, last_name: lastName, email };
+		const userData = { firstName, lastName, email };
 		console.log('User data to be updated:', userData);
 
 		try {
 			const updatedUser = await JoblyApi.saveProfile(user.username, userData, user.token);
-			console.log(user.username, userData, user.token);
+			console.debug(user.username);
 			console.log('Updated user data:', updatedUser);
 
 			setCurrentUser(updatedUser);
