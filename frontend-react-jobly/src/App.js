@@ -28,30 +28,27 @@ function App() {
 
 	console.debug('App', 'currentUser=', currentUser, 'token=', token);
 
-	useEffect(
-		() => {
-			async function fetchUser() {
-				let data = jwt_decode(token);
-
-				if (token) {
-					try {
-						const userData = await JoblyApi.getCurrentUser(data.username, token);
-						setCurrentUser(userData);
-					} catch (error) {
-						console.error('Error occurred while fetching user data:', error);
-					}
-				} else {
-					setCurrentUser(null);
+	useEffect(() => {
+		async function fetchUser() {
+			if (JoblyApi.token) {
+				try {
+					const data = jwt_decode(JoblyApi.token);
+					const userData = await JoblyApi.getCurrentUser(data.username);
+					setCurrentUser(userData);
+				} catch (error) {
+					console.error('Error occurred while fetching user data:', error);
 				}
+			} else {
+				setCurrentUser(null);
 			}
-			fetchUser();
-		},
-		[ token ]
-	);
+		}
+		fetchUser();
+	}, []);
 
 	async function signup(signupData) {
 		try {
 			const token = await JoblyApi.signup(signupData);
+			JoblyApi.token = token;
 			setToken(token);
 			localStorage.setItem('token', token);
 			return { success: true };

@@ -21,7 +21,8 @@ const Home = ({user}) => {
             
             {user && <>
             <h1 style={{ color: 'white', textShadow: '1px 1px black' }}>Jobly</h1>
-            {/* <p style={{ color: 'white', textShadow: '1px 1px black' }}>Welcome back, {user.firstName}</p> */}
+            <p style={{ color: 'white', textShadow: '1px 1px black' }}>All the jobs in one, convenient place.</p>
+            <p style={{ color: 'white', textShadow: '1px 1px black' }}>Welcome back, {user.firstName}!</p>
             </>}
 
             {!user && <>
