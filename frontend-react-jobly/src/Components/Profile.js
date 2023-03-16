@@ -13,12 +13,15 @@ import JoblyApi from '../api/api';
  */
 
 function Profile({ user, setCurrentUser }) {
-	const [ formData, setFormData ] = useState({
-		username: user.username,
-		firstName: user.firstName,
-		lastName: user.lastName,
-		email: user.email
-	});
+	console.debug('ProfileForm', 'currentUser=', user, 'formData=', user);
+
+	const [formData, setFormData] = useState({
+  username: user?.username || "",
+  firstName: user?.firstName || "",
+  lastName: user?.lastName || "",
+  email: user?.email || "",
+});
+
 
 	function handleChange(evt) {
 		const { name, value } = evt.target;
@@ -28,18 +31,25 @@ function Profile({ user, setCurrentUser }) {
 		}));
 	}
 
-	const handleSubmit = (evt) => {
+	const handleSubmit = async (evt) => {
+		console.debug('handleSubmit FormData');
+
 		evt.preventDefault();
-		const saveProfile = async () => {
-			await JoblyApi.saveProfile(formData);
-		};
-		saveProfile();
-		setCurrentUser((data) => ({
-			...data,
-			firstName: formData.firstName,
-			lastName: formData.lastName,
-			email: formData.email
-		}));
+		try {
+			await JoblyApi.saveProfile(user.username, {
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				email: formData.email
+			}, user); //pass token prop
+			setCurrentUser((data) => ({
+				...data,
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				email: formData.email
+			}));
+		} catch (error) {
+			console.error('Failed to save profile:', error);
+		}
 	};
 
 	return (

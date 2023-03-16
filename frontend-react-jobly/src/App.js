@@ -25,32 +25,38 @@ function App() {
 	const [ currentUser, setCurrentUser ] = useState(null);
 	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
+	const [ infoLoaded, setInfoLoaded ] = useState(false);
 
 	console.debug('App', 'currentUser=', currentUser, 'token=', token);
 
-	useEffect(() => {
-		async function fetchUser() {
-			if (JoblyApi.token) {
-				try {
-					const data = jwt_decode(JoblyApi.token);
-					const userData = await JoblyApi.getCurrentUser(data.username);
-					setCurrentUser(userData);
-				} catch (error) {
-					console.error('Error occurred while fetching user data:', error);
+	useEffect(
+		() => {
+			async function fetchUser() {
+				setInfoLoaded(false);
+				if (JoblyApi.token) {
+					try {
+						const data = jwt_decode(JoblyApi.token);
+						const userData = await JoblyApi.getCurrentUser(data.username);
+						setCurrentUser(userData);
+					} catch (error) {
+						console.error('Error occurred while fetching user data:', error);
+					}
+				} else {
+					setCurrentUser(null);
 				}
-			} else {
-				setCurrentUser(null);
+				setInfoLoaded(true);
 			}
-		}
-		fetchUser();
-	}, []);
+			fetchUser();
+		},
+		[ token ]
+	); // Add token as a dependency
 
 	async function signup(signupData) {
 		try {
 			const token = await JoblyApi.signup(signupData);
-			JoblyApi.token = token;
-			setToken(token);
 			localStorage.setItem('token', token);
+			setToken(token);
+			JoblyApi.token = token;
 			return { success: true };
 		} catch (error) {
 			console.error('Failed to signup:', error);
@@ -61,9 +67,9 @@ function App() {
 	async function login(loginData) {
 		try {
 			const token = await JoblyApi.login(loginData);
-			JoblyApi.token = token;
 			localStorage.setItem('token', token);
 			setToken(token);
+			JoblyApi.token = token;
 			return { success: true };
 		} catch (error) {
 			console.error('Failed to login:', error);
@@ -82,16 +88,24 @@ function App() {
 	return (
 		<div className="App">
 			<NavBar user={token} logout={logout} />
-			<Routes>
-				<Route exact path="/" element={<Home user={currentUser} />} />
-				<Route exact path="/companies" element={<CompanyList />} />
-				<Route exact path="/companies/:handle" element={<CompanyDetail />} />
-				<Route exact path="/jobs" element={<JobList />} />
-				<Route exact path="/login" element={<Login login={login} />} />
-				<Route exact path="/signup" element={<Signup signup={signup} />} />
-				<Route exact path="/profile" element={<Profile user={currentUser} setCurrentUser={setCurrentUser} />} />
-				<Route path="/*" element={<NotFound />} />
-			</Routes>
+			{infoLoaded ? (
+				<Routes>
+					<Route exact path="/" element={<Home user={currentUser} />} />
+					<Route exact path="/companies" element={<CompanyList />} />
+					<Route exact path="/companies/:handle" element={<CompanyDetail />} />
+					<Route exact path="/jobs" element={<JobList />} />
+					<Route exact path="/login" element={<Login login={login} />} />
+					<Route exact path="/signup" element={<Signup signup={signup} />} />
+					<Route
+						exact
+						path="/profile"
+						element={<Profile user={currentUser} setCurrentUser={setCurrentUser} />}
+					/>
+					<Route path="/*" element={<NotFound />} />
+				</Routes>
+			) : (
+				<p>Loading...</p>
+			)}
 		</div>
 	);
 }

@@ -12,7 +12,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 */
 
 function NavBar({ user, logout }) {
-  console.debug({user})
+  
   return (
     <div>
       <Navbar expand="md">

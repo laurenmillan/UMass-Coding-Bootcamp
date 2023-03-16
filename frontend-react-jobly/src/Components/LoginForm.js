@@ -47,7 +47,7 @@ const LoginForm = ({ login }) => {
 			const loginRes = await login(formData);
 			setIsSuccess(loginRes.success);
 		} catch (error) {
-			console.error(error);
+			console.error('Failed to login:', error);
 			if (error.response && (error.response.status === 409 || error.response.status === 401)) {
 				alert('Incorrect username or password');
 			} else {
