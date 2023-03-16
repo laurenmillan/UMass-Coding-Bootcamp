@@ -19,7 +19,7 @@ const LoginForm = ({ login }) => {
 	useEffect(
 		() => {
 			if (isSuccess) {
-				navigate('/companies', { replace: true });
+				navigate('/', { replace: true });
 			}
 		},
 		[ isSuccess, navigate ]
