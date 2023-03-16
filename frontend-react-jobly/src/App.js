@@ -25,6 +25,7 @@ function App() {
 	const [ currentUser, setCurrentUser ] = useState(null);
 	// here we retrieve the value of the token key from local storage.
 	const [ token, setToken ] = useState(localStorage.getItem('token'));
+	JoblyApi.token = token;
 	const [ infoLoaded, setInfoLoaded ] = useState(false);
 
 	console.debug('App', 'currentUser=', currentUser, 'token=', token);
