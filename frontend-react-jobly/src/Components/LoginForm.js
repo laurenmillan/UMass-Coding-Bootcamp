@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 /** Renders a Login Form. 
@@ -58,42 +58,48 @@ const LoginForm = ({ login }) => {
 
 	return (
 		<div className="SignupForm">
-			<div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-				<h2 className="mb-3" style={{ color: 'white', textShadow: '1px 1px black' }}>
-					Log In
-				</h2>
-			</div>
-			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<Form.Group controlId="formUsername">
-					<Form.Label>Username</Form.Label>
-					<Form.Control
-						type="text"
-						name="username"
-						value={formData.username}
-						onChange={handleChange}
-						autoComplete="username"
-						required
-						className="form-control-sm"
-					/>
-				</Form.Group>
+			<Container>
+				<Row className="justify-content-center">
+					<Col xs={12} sm={10} md={8} lg={6}>
+						<Card>
+							<Card.Body>
+								<h2 className="mb-3">Log In</h2>
+								<Form noValidate validated={validated} onSubmit={handleSubmit}>
+									<Form.Group className="mb-3">
+										<Form.Label htmlFor="username">Username</Form.Label>
+										<Form.Control
+											type="text"
+											name="username"
+											value={formData.username}
+											onChange={handleChange}
+											autoComplete="username"
+											required
+											className="form-control-sm"
+										/>
+									</Form.Group>
 
-				<Form.Group controlId="formPassword">
-					<Form.Label>Password</Form.Label>
-					<Form.Control
-						type="password"
-						name="password"
-						value={formData.password}
-						onChange={handleChange}
-						autoComplete="current-password"
-						required
-						className="form-control-sm"
-					/>
-				</Form.Group>
+									<Form.Group className="mb-3">
+										<Form.Label htmlFor="password">Password</Form.Label>
+										<Form.Control
+											type="password"
+											name="password"
+											value={formData.password}
+											onChange={handleChange}
+											autoComplete="current-password"
+											required
+											className="form-control-sm"
+										/>
+									</Form.Group>
 
-				<Button variant="primary" type="submit">
-					Login
-				</Button>
-			</Form>
+									<Button variant="primary" type="submit">
+										Login
+									</Button>
+								</Form>
+							</Card.Body>
+						</Card>
+					</Col>
+				</Row>
+			</Container>
 		</div>
 	);
 };
