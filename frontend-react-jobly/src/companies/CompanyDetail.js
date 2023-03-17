@@ -10,6 +10,7 @@ import NotFound from '../404/404';
  * -props: 
  * 		-`handle` is used to fetch the specific company details from the API.
  * 		-`company` is set to null, then is later updated with the specific company details from the API.
+ * 		-`applyToJob` allows user to apply to jobs.
  * -Routed at /companies/:handle
  *
  */
