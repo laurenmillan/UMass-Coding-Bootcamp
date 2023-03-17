@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './JobCard.css';
 import { FormatMoney } from 'format-money-js';
 
@@ -11,8 +11,18 @@ import { FormatMoney } from 'format-money-js';
  * 
  */
 
-function JobCard({ id, title, salary, equity, companyName }) {
+function JobCard({ id, title, salary, equity, companyName, applyToJob }) {
 	console.debug('JobCard');
+
+	const [ hasApplied, setHasApplied ] = useState(false);
+
+	async function handleApply() {
+		console.debug('Successfully Applied');
+		if (hasApplied) return;
+
+		await applyToJob(id);
+		setHasApplied(true);
+	}
 
 	const fm = new FormatMoney({
 		decimals: 2
@@ -35,8 +45,13 @@ function JobCard({ id, title, salary, equity, companyName }) {
 					)}
 				</div>
 				<div>
-					<button className="btn btn-md btn-success" type="submit">
-						Apply
+					<button
+						className={`btn btn-md ${hasApplied ? 'btn-secondary' : 'btn-success'}`}
+						type="submit"
+						onClick={handleApply}
+						disabled={hasApplied}
+					>
+						{hasApplied ? 'Applied' : 'Apply'}
 					</button>
 				</div>
 			</div>

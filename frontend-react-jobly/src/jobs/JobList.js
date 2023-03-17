@@ -8,13 +8,13 @@ import Spinner from 'react-bootstrap/Spinner';
  *
  * -state: useState to create a state variable `jobs`
  * -useEffect fetches the list of jobs from the API and updates `jobs`
- * -props: 
+ * -props: applyToJob
  * -Displays a SearchForm component that allows user to search for a job.
  * -SearchForm renders a search bar, which is passed the searchFor props to perform the search.
  * -Routed at /jobs
  */
 
-function JobList() {
+function JobList({ applyToJob }) {
 	console.debug('JobList');
 
 	const [ jobs, setJobs ] = useState([]);
@@ -45,7 +45,7 @@ function JobList() {
 		<div className="JobList col-md-8 offset-md-2">
 			<Search searchFor={search} />
 			{jobs.length ? (
-				<JobCardList jobs={jobs} />
+				<JobCardList jobs={jobs} applyToJob={applyToJob} />
 			) : (
 				<p className="lead" style={{ color: 'white', textShadow: '1px 1px black' }}>
 					Sorry, no results were found!

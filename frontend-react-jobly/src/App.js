@@ -87,6 +87,19 @@ function App() {
 		localStorage.removeItem('token');
 	}
 
+	async function applyToJob(jobId) {
+		if (currentUser) {
+			try {
+				await JoblyApi.applyToJob(currentUser.username, jobId);
+			} catch (error) {
+				console.error('Failed to apply for job:', error);
+				alert('You have already applied to this job.');
+			}
+		} else {
+			console.error('User must be logged in to apply for a job.');
+		}
+	}
+
 	// determine if a user is logged in or not.
 	return (
 		<div className="App">
@@ -96,7 +109,7 @@ function App() {
 					<Route exact path="/" element={<Home user={currentUser} />} />
 					<Route exact path="/companies" element={<CompanyList />} />
 					<Route exact path="/companies/:handle" element={<CompanyDetail />} />
-					<Route exact path="/jobs" element={<JobList />} />
+					<Route exact path="/jobs" element={<JobList applyToJob={applyToJob} />} />
 					<Route exact path="/login" element={<Login login={login} />} />
 					<Route exact path="/signup" element={<Signup signup={signup} />} />
 					<Route

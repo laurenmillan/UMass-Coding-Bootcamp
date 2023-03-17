@@ -8,7 +8,7 @@ import JobCard from './JobCard';
  * -Routed from CompanyList -> CompanyDetail -> JobCardList -> JobCard.
  */
 
-function JobCardList({ jobs }) {
+function JobCardList({ jobs, applyToJob }) {
 	console.debug('JobCardList');
 
 	return (
@@ -21,6 +21,7 @@ function JobCardList({ jobs }) {
 					salary={job.salary}
 					equity={job.equity}
 					companyName={job.companyName}
+					applyToJob={applyToJob}
 				/>
 			))}
 		</div>
