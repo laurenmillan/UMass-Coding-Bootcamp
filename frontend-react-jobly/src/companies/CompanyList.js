@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import JoblyApi from '../api/api';
 import CompanyCard from './CompanyCard';
 import SearchForm from './SearchForm';
-// import NotFound from '../404/404';
 import Spinner from 'react-bootstrap/Spinner';
 
 /** Renders a list of all companies.
