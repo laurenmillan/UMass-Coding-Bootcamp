@@ -18,6 +18,8 @@ import jwt_decode from 'jwt-decode';
  * -signup and logout functions use the JoblyApi to make requests to the backend API. If successful, they update 
  *    the token and store it in the browser's local storage.
  * -This maintains the user's session and avoids the need for the user to login when they revisit the website.
+ * -useEffect will run whenever the token value changes to ensure that the user information is fetched and
+ *    updated based on the changes to the token.
  * 
 */
 

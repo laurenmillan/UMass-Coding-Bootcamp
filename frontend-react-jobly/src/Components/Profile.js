@@ -1,18 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Alert,
-  Button,
-  Col,
-  Container,
-  Form,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  Row,
-  Card
-
-} from 'react-bootstrap';
-
+import {Alert, Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row, Card} from 'react-bootstrap';
 
 import JoblyApi from '../api/api';
 
@@ -57,7 +44,7 @@ function Profile({ user, setCurrentUser }) {
 				lastName: formData.lastName,
 				email: formData.email
 			}, user);
-       setSuccessMsg('Profile updated!');
+       setSuccessMsg('Profile updated.');
       setErrorMsg('');
 
 			setCurrentUser((data) => ({
