@@ -14,7 +14,7 @@ import NotFound from '../404/404';
  *
  */
 
-function CompanyDetail() {
+function CompanyDetail({ applyToJob }) {
 	console.debug('CompanyDetail');
 
 	const { handle } = useParams();
@@ -40,7 +40,7 @@ function CompanyDetail() {
 				<div>
 					<h3 style={{ color: 'white', textShadow: '1px 1px black' }}>{company.name}</h3>
 					<p style={{ color: 'white', textShadow: '1px 1px black' }}>{company.description}</p>
-					<JobCardList jobs={company.jobs} />
+					<JobCardList jobs={company.jobs} applyToJob={applyToJob} />
 				</div>
 			) : (
 				<NotFound />

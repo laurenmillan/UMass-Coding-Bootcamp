@@ -93,7 +93,7 @@ function App() {
 				await JoblyApi.applyToJob(currentUser.username, jobId);
 			} catch (error) {
 				console.error('Failed to apply for job:', error);
-				alert('You have already applied to this job.');
+				alert('You already applied to this job.');
 			}
 		} else {
 			console.error('User must be logged in to apply for a job.');
@@ -108,7 +108,7 @@ function App() {
 				<Routes>
 					<Route exact path="/" element={<Home user={currentUser} />} />
 					<Route exact path="/companies" element={<CompanyList />} />
-					<Route exact path="/companies/:handle" element={<CompanyDetail />} />
+					<Route exact path="/companies/:handle" element={<CompanyDetail applyToJob={applyToJob} />} />
 					<Route exact path="/jobs" element={<JobList applyToJob={applyToJob} />} />
 					<Route exact path="/login" element={<Login login={login} />} />
 					<Route exact path="/signup" element={<Signup signup={signup} />} />

@@ -11,6 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
  * -props: applyToJob
  * -Displays a SearchForm component that allows user to search for a job.
  * -SearchForm renders a search bar, which is passed the searchFor props to perform the search.
+ * -Allows user to apply to jobs.
  * -Routed at /jobs
  */
 
