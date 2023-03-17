@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import './404.css';
 
+/** Renders a 404 page. */
+
 const NotFound = () => {
 	return (
 		<section className="NotFound">
@@ -21,6 +23,9 @@ const NotFound = () => {
 							</Link>
 							<Link to="/jobs">
 								<Button color="primary">View Jobs</Button>
+							</Link>
+							<Link to="/profile">
+								<Button color="primary">View Profile</Button>
 							</Link>
 						</div>
 					</Col>

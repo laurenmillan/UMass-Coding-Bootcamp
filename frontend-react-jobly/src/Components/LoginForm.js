@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 /** Renders a Login Form. 
  * 
- * -When the user successfully logs in, navigate to /companies page.
+ * -When the user successfully logs in, page welcomes user back.
  * 
 */
 
