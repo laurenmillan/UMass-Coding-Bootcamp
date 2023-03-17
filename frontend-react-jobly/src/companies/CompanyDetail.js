@@ -7,8 +7,9 @@ import NotFound from '../404/404';
 /** Company detail page.
  * 
  * -Renders cards that display job details for the specific company, with an Apply button.
- * -props: `handle` is used to fetch the specific company details from the API.
- * -props: `company` is set to null, then is later updated with the specific company details from the API.
+ * -props: 
+ * 		-`handle` is used to fetch the specific company details from the API.
+ * 		-`company` is set to null, then is later updated with the specific company details from the API.
  * -Routed at /companies/:handle
  *
  */

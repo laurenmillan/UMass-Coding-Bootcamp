@@ -1,9 +1,9 @@
 import React from 'react';
 import './NavBar.css';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Nav, NavItem } from 'reactstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
-/** Displays navbar components.
+/** Displays dynamic navbar components.
  * 
  * -props: user and logout, passed down from the App component.
  * -user represents current user
@@ -12,53 +12,63 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 */
 
 function NavBar({ user, logout }) {
-  
   return (
     <div>
-      <Navbar expand="md">
-        <NavLink exact to="/" className="navbar-brand">
+      <Navbar bg="dark" expand="md" className="navbar-dark">
+        <Navbar.Brand as={NavLink} exact to="/">
           Jobly
-        </NavLink>
-        <Nav className="ml-auto" navbar>
-          {/* if user is not logged in, render /login, /signup */}
-          {!user ? (
-            <>
-              <NavItem>
-                <NavLink to="/login">Log in</NavLink>
-              </NavItem>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+          <Nav className="ml-auto" navbar>
+            {/* if user is not logged in, render /login, /signup */}
+            {!user ? (
+              <>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/login">
+                    Log in
+                  </Nav.Link>
+                </Nav.Item>
 
-              <NavItem>
-                <NavLink to="/signup">Sign Up</NavLink>
-              </NavItem>
-            </>
-          ) : (
-            // user is logged in, show all links in navbar.
-            <>
-              <NavItem>
-                <NavLink to="/companies">Companies</NavLink>
-              </NavItem>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/signup">
+                    Sign Up
+                  </Nav.Link>
+                </Nav.Item>
+              </>
+            ) : (
+              // user is logged in, show all links in navbar.
+              <>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/companies">
+                    Companies
+                  </Nav.Link>
+                </Nav.Item>
 
-              <NavItem>
-                <NavLink to="/jobs">Jobs</NavLink>
-              </NavItem>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/jobs">
+                    Jobs
+                  </Nav.Link>
+                </Nav.Item>
 
-              <NavItem>
-                <NavLink to="/profile">Profile</NavLink>
-              </NavItem>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/profile">
+                    Profile
+                  </Nav.Link>
+                </Nav.Item>
 
-
-              <NavItem>
-                <NavLink to="/" onClick={logout}>
-                  Log out
-                </NavLink>
-              </NavItem>
-            </>
-          )}
-        </Nav>
+                <Nav.Item>
+                  <Nav.Link as={NavLink} to="/" onClick={logout}>
+                    Log out
+                  </Nav.Link>
+                </Nav.Item>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </div>
   );
 }
-
 
 export default NavBar;
