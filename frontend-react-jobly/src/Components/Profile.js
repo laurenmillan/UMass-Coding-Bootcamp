@@ -120,7 +120,7 @@ return (
                     required
                   />
                 </FormGroup>
-                <Button type="submit" variant="primary" disabled={!hasChanged}>
+                <Button style={{marginTop: '1rem'}} type="submit" variant="primary" disabled={!hasChanged}>
                   Save
                 </Button>
               </Form>
