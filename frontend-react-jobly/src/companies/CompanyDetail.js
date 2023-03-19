@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import JoblyApi from '../api/api';
 import JobCardList from '../jobs/JobCardList';
@@ -39,8 +40,12 @@ function CompanyDetail({ applyToJob }) {
 		<div className="CompanyDetail col-md-8 offset-md-2">
 			{company ? (
 				<div>
-					<h3 style={{ color: 'white', textShadow: '1px 1px black' }}>{company.name}</h3>
-					<p style={{ color: 'white', textShadow: '1px 1px black' }}>{company.description}</p>
+					<Card style={{ marginBottom: '1rem' }}>
+						<Card.Body>
+							<h3>{company.name}</h3>
+							<p>{company.description}</p>
+						</Card.Body>
+					</Card>
 					<JobCardList jobs={company.jobs} applyToJob={applyToJob} />
 				</div>
 			) : (
