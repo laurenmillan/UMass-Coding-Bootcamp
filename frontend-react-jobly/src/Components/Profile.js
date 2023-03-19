@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Alert, Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row, Card} from 'react-bootstrap';
 
 import JoblyApi from '../api/api';
@@ -22,6 +22,13 @@ function Profile({ user, setCurrentUser }) {
   email: user?.email || "",
 });
 
+// disable the Save button when no changes have been made to form
+const [hasChanged, setHasChanged] = useState(false)
+
+useEffect(() => {
+  setHasChanged(false)
+}, [user])
+
   // Alert messages
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -32,6 +39,7 @@ function Profile({ user, setCurrentUser }) {
 			...data,
 			[name]: value
 		}));
+    setHasChanged(true)
 	}
 
 	const handleSubmit = async (evt) => {
@@ -44,7 +52,7 @@ function Profile({ user, setCurrentUser }) {
 				lastName: formData.lastName,
 				email: formData.email
 			}, user);
-       setSuccessMsg('Profile updated.');
+      setSuccessMsg('Profile updated.');
       setErrorMsg('');
 
 			setCurrentUser((data) => ({
@@ -112,8 +120,8 @@ return (
                     required
                   />
                 </FormGroup>
-                <Button type="submit" variant="primary">
-                  Save Changes
+                <Button type="submit" variant="primary" disabled={!hasChanged}>
+                  Save
                 </Button>
               </Form>
             </Card.Body>
