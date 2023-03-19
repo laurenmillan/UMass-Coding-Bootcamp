@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import JoblyApi from './api/api';
 
+import './App.css';
 import Home from './Components/Home';
 import CompanyList from './companies/CompanyList';
 import CompanyDetail from './companies/CompanyDetail';
@@ -10,6 +11,7 @@ import Login from './Components/LoginForm';
 import Signup from './Components/SignupForm';
 import Profile from './Components/Profile';
 import NavBar from './Components/NavBar';
+import Footer from './Components/Footer';
 import NotFound from './404/404';
 import jwt_decode from 'jwt-decode';
 
@@ -104,24 +106,33 @@ function App() {
 	return (
 		<div className="App">
 			<NavBar user={token} logout={logout} />
-			{infoLoaded ? (
-				<Routes>
-					<Route exact path="/" element={<Home user={currentUser} />} />
-					<Route exact path="/companies" element={<CompanyList />} />
-					<Route exact path="/companies/:handle" element={<CompanyDetail applyToJob={applyToJob} />} />
-					<Route exact path="/jobs" element={<JobList applyToJob={applyToJob} />} />
-					<Route exact path="/login" element={<Login login={login} />} />
-					<Route exact path="/signup" element={<Signup signup={signup} />} />
-					<Route
-						exact
-						path="/profile"
-						element={<Profile user={currentUser} setCurrentUser={setCurrentUser} />}
-					/>
-					<Route path="/*" element={<NotFound />} />
-				</Routes>
-			) : (
-				<p>Loading...</p>
-			)}
+			<div className="page-container">
+				<div className="page-content">
+					{infoLoaded ? (
+						<Routes>
+							<Route exact path="/" element={<Home user={currentUser} />} />
+							<Route exact path="/companies" element={<CompanyList />} />
+							<Route
+								exact
+								path="/companies/:handle"
+								element={<CompanyDetail applyToJob={applyToJob} />}
+							/>
+							<Route exact path="/jobs" element={<JobList applyToJob={applyToJob} />} />
+							<Route exact path="/login" element={<Login login={login} />} />
+							<Route exact path="/signup" element={<Signup signup={signup} />} />
+							<Route
+								exact
+								path="/profile"
+								element={<Profile user={currentUser} setCurrentUser={setCurrentUser} />}
+							/>
+							<Route path="/*" element={<NotFound />} />
+						</Routes>
+					) : (
+						<p>Loading...</p>
+					)}
+				</div>
+				<Footer />
+			</div>
 		</div>
 	);
 }
