@@ -6,7 +6,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 /** Displays dynamic navbar components.
  * 
  * -props: user and logout, passed down from the App component.
- * -user represents current user
+ * -user represents current user.
  * -logout is a function that logs out the user when called.
  * 
 */
@@ -15,7 +15,7 @@ function NavBar({ user, logout }) {
   return (
     <div>
       <Navbar bg="dark" expand="md" className="navbar-dark">
-        <Navbar.Brand as={NavLink} exact to="/">
+        <Navbar.Brand as={NavLink} to="/">
           Jobly
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -40,25 +40,25 @@ function NavBar({ user, logout }) {
               // user is logged in, show all links in navbar.
               <>
                 <Nav.Item>
-                  <Nav.Link as={NavLink} to="/companies">
+                  <Nav.Link as={NavLink} activeclassname="active" to="/companies">
                     Companies
                   </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link as={NavLink} to="/jobs">
+                  <Nav.Link as={NavLink} activeclassname="active" to="/jobs">
                     Jobs
                   </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link as={NavLink} to="/profile">
+                  <Nav.Link as={NavLink} activeclassname="active" to="/profile">
                     Profile
                   </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link as={NavLink} to="/" onClick={logout}>
+                  <Nav.Link as={NavLink} activeclassname="active" to="/" onClick={logout}>
                     Log out
                   </Nav.Link>
                 </Nav.Item>

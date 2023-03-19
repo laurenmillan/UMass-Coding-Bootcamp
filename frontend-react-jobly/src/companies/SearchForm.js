@@ -31,7 +31,7 @@ function SearchForm({ searchFor }) {
 					<input
 						className="form-control form-control-lg"
 						type="search"
-						placeholder="Search"
+						placeholder="Enter search term..."
 						aria-label="Search"
 						onChange={handleChange}
 						value={searchQuery}

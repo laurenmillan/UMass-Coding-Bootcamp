@@ -6,7 +6,8 @@
 	color: white !important;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active {
 	font-weight: bold;
 }
 
