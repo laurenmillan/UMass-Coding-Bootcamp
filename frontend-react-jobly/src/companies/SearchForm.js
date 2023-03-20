@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 /** Renders search functionality.
  * 
  * -SearchForm calls the searchFor prop from the CompanyList component to perform the search query.
+ * -SearchForm allows a live search upon typing a query.
  * 
  */
 
@@ -22,6 +23,7 @@ function SearchForm({ searchFor }) {
 
 	function handleChange(evt) {
 		setSearchQuery(evt.target.value);
+		searchFor(evt.target.value); // Call searchFor prop with live search query
 	}
 
 	return (

@@ -20,10 +20,16 @@ function CompanyList() {
 
 	const [ companies, setCompanies ] = useState([]);
 
-	/** Triggered by search form submit; reloads companies. */
+	/** Triggered by search form submit; reloads companies. 
+	 * resets back to original state if user deletes query.*/
 	async function search(name) {
 		try {
-			let companies = await JoblyApi.getCompanies(name);
+			let companies = [];
+			if (name) {
+				companies = await JoblyApi.getCompanies(name);
+			} else {
+				companies = await JoblyApi.getCompanies();
+			}
 			setCompanies(companies);
 		} catch (err) {
 			console.error('Search failed:', err);

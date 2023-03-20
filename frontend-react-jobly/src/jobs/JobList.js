@@ -25,10 +25,16 @@ function JobList({ applyToJob }) {
 		search();
 	}, []);
 
-	/** Triggered by search form submit; reloads jobs. */
+	/** Triggered by search form submit; reloads companies. 
+	 * resets back to original state if user deletes query.*/
 	async function search(title) {
 		try {
-			let jobs = await JoblyApi.getJobs(title);
+			let jobs = [];
+			if (title) {
+				jobs = await JoblyApi.getJobs(title);
+			} else {
+				jobs = await JoblyApi.getJobs();
+			}
 			setJobs(jobs);
 		} catch (err) {
 			console.error('JobList search error:', err);
